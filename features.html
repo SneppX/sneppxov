@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Features — SneppX-Alg</title>
+  <meta name="description" content="100+ real features and functions of the SneppX-Alg engine." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/nav.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/features.css" />
+  <link rel="stylesheet" href="css/cards.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/">SneppX-Alg</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/components.html">Components</a>
+        <a href="/features.html" class="active">Features</a>
+        <a href="/engine.html">Engine</a>
+        <a href="/security.html">Security</a>
+        <a href="/docs.html">Docs</a>
+        <a href="/community.html">Community</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">Theme</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>100+ Features</h1>
+        <p class="hero-sub">Every real feature and function in the SneppX-Alg engine — each linked to source.</p>
+      </div>
+    </section>
+
+    <section class="container" style="padding:2rem 0;">
+      <div class="filter-chips" id="featFilters"></div>
+      <input type="search" id="featSearch" placeholder="Search features..." style="width:100%;padding:0.75rem;border:1px solid var(--border);border-radius:8px;margin:1rem 0;background:var(--card-bg);color:var(--fg);" />
+      <div class="feature-grid" id="featGrid"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>MIT License · SneppX · <a href="https://github.com/SneppX/sneppx-alg">Source</a></p>
+    </div>
+  </footer>
+
+  <script src="js/theme.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/copy.js"></script>
+  <script src="js/reveal.js"></script>
+  <script src="js/countup.js"></script>
+  <script src="js/render.js"></script>
+  <script src="app.js"></script>
+  <script>
+    // Reuse render logic for features page with different data file and element IDs
+    (function () {
+      var grid = document.getElementById('featGrid');
+      var filters = document.getElementById('featFilters');
+      var search = document.getElementById('featSearch');
+      if (!grid) return;
+      var data = [];
+      var activeCategory = 'All';
+      function categories() {
+        var set = { 'All': true };
+        data.forEach(function (d) { set[d.category] = true; });
+        return Object.keys(set);
+      }
+      function renderChips() {
+        if (!filters) return;
+        filters.innerHTML = '';
+        categories().forEach(function (cat) {
+          var btn = document.createElement('button');
+          btn.className = 'chip' + (cat === activeCategory ? ' active' : '');
+          btn.textContent = cat;
+          btn.addEventListener('click', function () {
+            activeCategory = cat;
+            renderChips();
+            renderGrid();
+          });
+          filters.appendChild(btn);
+        });
+      }
+      function renderGrid() {
+        var q = (search ? search.value : '').toLowerCase().trim();
+        grid.innerHTML = '';
+        data.forEach(function (d) {
+          if (activeCategory !== 'All' && d.category !== activeCategory) return;
+          if (q && (d.title + ' ' + d.description + ' ' + d.category).toLowerCase().indexOf(q) === -1) return;
+          var card = document.createElement('div');
+          card.className = 'feature-card reveal';
+          card.innerHTML = '<h3>' + escapeHtml(d.title) + '</h3>' +
+            '<p>' + escapeHtml(d.description) + '</p>' +
+            '<p style="font-size:0.8rem;margin-top:0.5rem;"><span style="color:var(--accent);">' + escapeHtml(d.category) + '</span>' +
+            (d.source ? ' · <a href="https://github.com/SneppX/sneppx-alg/blob/main/' + encodeURIComponent(d.source) + '" target="_blank" rel="noopener">source</a>' : '') +
+            (d.test ? ' · <a href="https://github.com/SneppX/sneppx-alg/blob/main/' + encodeURIComponent(d.test) + '" target="_blank" rel="noopener">test</a>' : '') +
+            '</p>';
+          grid.appendChild(card);
+        });
+      }
+      function escapeHtml(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+      fetch('data/features.json')
+        .then(function (r) { return r.json(); })
+        .then(function (json) { data = json; renderChips(); renderGrid(); })
+        .catch(function (e) { grid.textContent = 'Failed to load features: ' + e; });
+      if (search) { search.addEventListener('input', renderGrid); }
+    })();
+  </script>
+</body>
+</html>
