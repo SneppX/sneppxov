@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Security — SneppX-Alg</title>
+  <meta name="description" content="PQC, Ed25519, ACVP KAT, signed updates, secrets redaction." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/nav.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/features.css" />
+  <link rel="stylesheet" href="css/cards.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/">SneppX-Alg</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/components.html">Components</a>
+        <a href="/features.html">Features</a>
+        <a href="/engine.html">Engine</a>
+        <a href="/security.html" class="active">Security</a>
+        <a href="/docs.html">Docs</a>
+        <a href="/community.html">Community</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">Theme</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>Security</h1>
+        <p class="hero-sub">PQC (Kyber/Dilithium/SPHINCS+), Ed25519, ACVP KAT, signed updates, secrets redaction.</p>
+      </div>
+    </section>
+
+    <section class="container" style="padding:2rem 0;">
+      <h2>Post-Quantum Crypto</h2>
+      <div class="feature-grid">
+        <div class="feature-card reveal"><h3>Kyber (FIPS 203)</h3><p>Key encapsulation mechanism.</p></div>
+        <div class="feature-card reveal"><h3>Dilithium (FIPS 204)</h3><p>Post-quantum signatures.</p></div>
+        <div class="feature-card reveal"><h3>SPHINCS+ (FIPS 205)</h3><p>Stateless hash-based signatures.</p></div>
+        <div class="feature-card reveal"><h3>Ed25519</h3><p>RFC 8032 sign/verify/keypair.</p></div>
+      </div>
+
+      <h2 style="margin-top:3rem;">ACVP KAT Results</h2>
+      <div class="feature-grid">
+        <div class="feature-card reveal"><h3>SHA3-224/256/384/512</h3><p>100% KAT agreement (byte-aligned vectors).</p></div>
+        <div class="feature-card reveal"><h3>ML-DSA</h3><p>Honest interop: zero false accepts, roundtrip + tamper reject.</p></div>
+        <div class="feature-card reveal"><h3>SLH-DSA</h3><p>Honest interop: zero false accepts, roundtrip + tamper reject.</p></div>
+      </div>
+
+      <h2 style="margin-top:3rem;">Artifact Integrity</h2>
+      <div class="feature-grid">
+        <div class="feature-card reveal"><h3>Signed Updates</h3><p>Ed25519 signed update verification + quarantine.</p></div>
+        <div class="feature-card reveal"><h3>Secrets Redaction</h3><p>secrets_redact module.</p></div>
+        <div class="feature-card reveal"><h3>Security Layers S0-S9</h3><p>10 layers: PQC, hardening, obfuscation, monitoring, network, sanitizer, vault, updates, formal verification, pentesting.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>MIT License · SneppX · <a href="https://github.com/SneppX/sneppx-alg">Source</a></p>
+    </div>
+  </footer>
+
+  <script src="js/theme.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/copy.js"></script>
+  <script src="js/reveal.js"></script>
+  <script src="js/countup.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
