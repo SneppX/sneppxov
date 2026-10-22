@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sneppx.github.io/sneppxov/sitemap.xml
