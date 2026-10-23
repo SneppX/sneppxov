@@ -1,0 +1,17 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "SneppX-Alg",
+  "url": "https://sneppx.github.io/sneppxov/",
+  "description": "SneppX-Alg universal AI algorithm engine showcase - 100+ real features, 100+ real components",
+  "publisher": {
+    "@type": "Organization",
+    "name": "SneppX",
+    "url": "https://github.com/SneppX"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://sneppx.github.io/sneppxov/components.html?q={search_term}",
+    "query-input": "required name=search_term"
+  }
+}
