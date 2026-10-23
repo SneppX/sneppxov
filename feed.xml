@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SneppX-Alg Website Updates</title>
+    <link>https://sneppx.github.io/sneppxov/</link>
+    <description>Latest updates and features from the SneppX-Alg website</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 23 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Website Launched</title>
+      <link>https://sneppx.github.io/sneppxov/</link>
+      <description>The SneppX-Alg showcase website is now live with 100+ features.</description>
+      <pubDate>Wed, 23 Oct 2026 00:00:00 GMT</pubDate>
+      <guid>https://sneppx.github.io/sneppxov/</guid>
+    </item>
+  </channel>
+</rss>
