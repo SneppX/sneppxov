@@ -1,0 +1,21 @@
+/* Feature card hover effects */
+.feature-card.feature-hover {
+  cursor: pointer;
+}
+
+.feature-card.feature-hover:hover {
+  border-color: var(--accent);
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.feature-card.feature-hover h3 {
+  transition: color 0.2s;
+}
+
+.feature-card.feature-hover:hover h3 {
+  color: #4f46e5;
+}
+
+[data-theme="dark"] .feature-card.feature-hover:hover h3 {
+  color: #818cf8;
+}
