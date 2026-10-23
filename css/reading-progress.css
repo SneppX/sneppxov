@@ -1,0 +1,11 @@
+/* Reading progress bar */
+#readingProgress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: var(--accent);
+  width: 0%;
+  z-index: 999;
+  transition: width 0.1s ease;
+}
