@@ -1,0 +1,28 @@
+/* Breadcrumb navigation */
+.breadcrumb-nav {
+  padding: 0.75rem 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.breadcrumb-nav ol {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.breadcrumb-nav li a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.breadcrumb-nav li a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-nav li span {
+  color: var(--muted);
+}
