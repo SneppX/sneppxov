@@ -1,0 +1,61 @@
+/* Feature comparison table */
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.comparison-table th {
+  background: rgba(99, 102, 241, 0.08);
+  font-weight: 600;
+  color: var(--fg);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.comparison-table td:first-child {
+  font-weight: 600;
+  color: var(--accent);
+  position: sticky;
+  left: 0;
+  background: var(--card-bg);
+  z-index: 1;
+}
+
+.comparison-table tr:last-child td {
+  border-bottom: none;
+}
+
+.comparison-table tr:hover td {
+  background: rgba(99, 102, 241, 0.04);
+}
+
+.feature-badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.feature-badge.yes {
+  background: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
+}
+
+.feature-badge.no {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
