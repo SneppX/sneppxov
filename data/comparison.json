@@ -1,0 +1,184 @@
+[
+  {
+    "feature": "Dark/Light Theme",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Keyboard Shortcuts",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Font Size Adjuster",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Print Mode",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Search with Filtering",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Accessibility (A11y)",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Toast Notifications",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Reading Progress Bar",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Back to Top Button",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Syntax Highlighting",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Modal Dialogs",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Accordion Component",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Tabs Component",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Dropdown Menu",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Breadcrumb Navigation",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "System Theme Detection",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Focus Trap",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Skip to Content Link",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Responsive Design",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "PWA Ready",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Sitemap + Robots",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Open Graph Meta Tags",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Favicon",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Stat Counters",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Component Browser",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  },
+  {
+    "feature": "Feature Explorer",
+    "sneppxov": "Yes",
+    "sneppx-alg": "No",
+    "sneppx-shield": "No",
+    "sneppx-serve": "No"
+  }
+]
