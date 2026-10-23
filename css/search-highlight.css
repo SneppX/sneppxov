@@ -1,0 +1,7 @@
+/* Search result highlighting */
+.search-result-item .title.mark,
+.search-result-item .desc.mark {
+  background: rgba(255, 235, 59, 0.3);
+  border-radius: 2px;
+  padding: 0 0.125rem;
+}
