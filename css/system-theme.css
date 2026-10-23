@@ -1,0 +1,29 @@
+/* Dark/light system theme auto-detect */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f172a;
+    --fg: #e2e8f0;
+    --accent: #818cf8;
+    --muted: #94a3b8;
+    --card-bg: #1e293b;
+    --border: #334155;
+  }
+}
+
+/* System theme indicator */
+.system-theme-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.system-theme-indicator.light {
+  background: #fbbf24;
+}
+
+.system-theme-indicator.dark {
+  background: #1e293b;
+  border: 1px solid #475569;
+}
