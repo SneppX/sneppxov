@@ -43,8 +43,8 @@
       card.innerHTML = '<h3>' + escapeHtml(d.title) + '</h3>' +
         '<p>' + escapeHtml(d.description) + '</p>' +
         '<p style="font-size:0.8rem;margin-top:0.5rem;"><span style="color:var(--accent);">' + escapeHtml(d.category) + '</span>' +
-        (d.source ? ' · <a href="https://github.com/SneppX/sneppx-alg/blob/main/' + encodeURIComponent(d.source) + '" target="_blank" rel="noopener">source</a>' : '') +
-        (d.test ? ' · <a href="https://github.com/SneppX/sneppx-alg/blob/main/' + encodeURIComponent(d.test) + '" target="_blank" rel="noopener">test</a>' : '') +
+        (d.source ? ' · <a href="https://github.com/SneppX/sneppx-alg/blob/main/' + encodeURI(d.source) + '" target="_blank" rel="noopener">source</a>' : '') +
+        (d.test ? ' · <a href="https://github.com/SneppX/sneppx-alg/blob/main/' + encodeURI(d.test) + '" target="_blank" rel="noopener">test</a>' : '') +
         '</p>';
       grid.appendChild(card);
     });
