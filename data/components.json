@@ -627,7 +627,7 @@
     "category": "Pipeline",
     "title": "HSS (state-space SSM)",
     "description": "State-space model component.",
-    "source": "kernel/hss/",
+    "source": "algorithms/hss/core/",
     "test": "tests/python/test_tensor.py"
   },
   {
@@ -635,7 +635,7 @@
     "category": "Pipeline",
     "title": "SER (MoE routing)",
     "description": "Mixture-of-experts routing.",
-    "source": "kernel/ser/",
+    "source": "algorithms/ser/core/",
     "test": "tests/python/test_nn.py"
   },
   {
@@ -643,7 +643,7 @@
     "category": "Pipeline",
     "title": "ARC (adversarial guard)",
     "description": "Adversarial robustness component.",
-    "source": "kernel/arc/",
+    "source": "algorithms/arc/core/",
     "test": "tests/python/test_security_integrity.py"
   },
   {
@@ -651,7 +651,7 @@
     "category": "Pipeline",
     "title": "NPE (16-register neural VM, 32 opcodes)",
     "description": "Neural processing engine.",
-    "source": "kernel/npe/",
+    "source": "algorithms/npe/core/",
     "test": "tests/python/test_model_zoo.py"
   },
   {
@@ -659,7 +659,7 @@
     "category": "Pipeline",
     "title": "FM (federated/fractal memory)",
     "description": "Federated memory component.",
-    "source": "kernel/fm/",
+    "source": "algorithms/fm/core/",
     "test": "tests/python/test_checkpoint.py"
   },
   {
@@ -691,7 +691,7 @@
     "category": "Security Layers",
     "title": "S3 — Monitoring",
     "description": "Runtime monitoring.",
-    "source": "security/monitoring/",
+    "source": "security/monitor/",
     "test": "tests/python/test_security_integrity.py"
   },
   {
@@ -707,7 +707,7 @@
     "category": "Security Layers",
     "title": "S5 — AI sanitizer",
     "description": "AI input/output sanitizer.",
-    "source": "security/sanitizer/",
+    "source": "security/ai/",
     "test": "tests/python/test_security_integrity.py"
   },
   {
@@ -715,7 +715,7 @@
     "category": "Security Layers",
     "title": "S6 — Key vault",
     "description": "Key management vault.",
-    "source": "security/vault/",
+    "source": "security/ui/",
     "test": "tests/python/test_security_integrity.py"
   },
   {
