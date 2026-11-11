@@ -1,0 +1,31 @@
+name: Validate website catalogs
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  catalog:
+    name: Check catalog links against SneppX-Alg
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+      - name: Check out core repository
+        uses: actions/checkout@v4
+        with:
+          repository: SneppX/sneppx-alg
+          ref: main
+          path: sneppx-alg
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate catalogs
+        run: python scripts/validate_catalog.py --core sneppx-alg
