@@ -10,15 +10,17 @@
   <link rel="stylesheet" href="css/hero.css" />
   <link rel="stylesheet" href="css/features.css" />
   <link rel="stylesheet" href="css/cards.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#6366f1" />
 </head>
 <body>
   <header class="site-header">
     <div class="container">
       <a class="brand" href="index.html">SneppX-Alg</a>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
+      <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-controls="siteNav" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <nav class="site-nav">
+      <nav class="site-nav" id="siteNav">
         <a href="index.html">Home</a>
         <a href="components.html">Components</a>
         <a href="features.html" class="active">Features</a>
@@ -115,5 +117,6 @@
       if (search) { search.addEventListener('input', renderGrid); }
     })();
   </script>
+  <script src="js/sw-register.js"></script>
 </body>
 </html>
