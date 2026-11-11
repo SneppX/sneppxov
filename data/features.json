@@ -696,7 +696,7 @@
     "test": "tests/python/test_norm.py"
   },
   {
-    "id": "feat-conv1d",
+    "id": "feat-nn-conv1d",
     "category": "Conv/Pool",
     "title": "Conv1d",
     "description": "1D convolution (f32+f64).",
@@ -704,7 +704,7 @@
     "test": "tests/python/test_conv2d_autograd.py"
   },
   {
-    "id": "feat-conv2d",
+    "id": "feat-nn-conv2d",
     "category": "Conv/Pool",
     "title": "Conv2d",
     "description": "2D convolution (f32+f64, autograd).",
