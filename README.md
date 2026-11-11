@@ -1,14 +1,14 @@
 # sneppxov
 
-Legendary static website showcasing the **SneppX-Alg** universal AI algorithm engine.
+Static reference website for the **SneppX-Alg** open-source AI framework.
 
-- **100+ real components** from `sneppx-alg` (C engine, Python bindings, tests, KAT vectors, CLI tools)
-- **100+ real features & functions** — every one traceable to a source file, test, or commit
+- **93 documented components** and **134 documented features** in the site catalogs
+- Catalog entries link to source files and tests in `SneppX/sneppx-alg` where a dedicated test exists
 - Static HTML/CSS/JS — no build step, GitHub Pages compatible
 
 ## Live site
 
-Once GitHub Pages is enabled, the site is served from the `main` branch.
+GitHub Pages project site: https://sneppx.github.io/sneppxov/
 
 ## Local preview
 
