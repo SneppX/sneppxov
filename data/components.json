@@ -1,95 +1,745 @@
 [
-  { "id": "kernel-tensor-tensor-c", "category": "C Engine", "title": "kernel/tensor/tensor.c", "description": "CPU tensor engine: conv1d/2d (torch layout, f32+f64), matmul, dot, sum/mean/var/std, unary/binary ops, reductions.", "source": "kernel/tensor/tensor.c", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "kernel-autodiff-ops-c", "category": "C Engine", "title": "kernel/autodiff/ops.c", "description": "Autograd op wrappers: add/sub/mul/div/matmul with backward ctx, set_parents, tape recording.", "source": "kernel/autodiff/ops.c", "test": "tests/python/test_c_tape.py" },
-  { "id": "kernel-autodiff-tape-c", "category": "C Engine", "title": "kernel/autodiff/tape.c", "description": "Tape record/destroy, duplicate-record guard, variable ownership.", "source": "kernel/autodiff/tape.c", "test": "tests/python/test_c_tape.py" },
-  { "id": "kernel-autodiff-variable-c", "category": "C Engine", "title": "kernel/autodiff/variable.c", "description": "Variable create/destroy, data/grad storage, requires_grad.", "source": "kernel/autodiff/variable.c", "test": "tests/python/test_c_tape.py" },
-  { "id": "kernel-train-trainer-c", "category": "C Engine", "title": "kernel/train/trainer.c", "description": "Per-step training loop, per-step tape destroy, relies on tape ownership.", "source": "kernel/train/trainer.c", "test": "tests/python/test_trainable.py" },
-  { "id": "kernel-distributed-nccl-c", "category": "C Engine", "title": "net/distributed/nccl.c", "description": "NCCL binding with CPU fallback path for single-process correctness.", "source": "net/distributed/nccl.c", "test": "tests/python/test_distributed.py" },
-  { "id": "kernel-distributed-ddp-c", "category": "C Engine", "title": "kernel/distributed/ddp.c", "description": "DistributedDataParallel with NCCL collectives wired.", "source": "kernel/distributed/ddp.c", "test": "tests/python/test_distributed.py" },
-  { "id": "kernel-distributed-zero-c", "category": "C Engine", "title": "kernel/distributed/zero.c", "description": "ZeRO-3 stage-3 all-gather via NCCL.", "source": "kernel/distributed/zero.c", "test": "tests/python/test_distributed.py" },
-  { "id": "kernel-distributed-pipeline-c", "category": "C Engine", "title": "kernel/distributed/pipeline.c", "description": "Pipeline parallelism collective wiring.", "source": "kernel/distributed/pipeline.c", "test": "tests/python/test_distributed.py" },
-  { "id": "kernel-distributed-tp-c", "category": "C Engine", "title": "kernel/distributed/tensor_parallel.c", "description": "Tensor parallelism collectives.", "source": "kernel/distributed/tensor_parallel.c", "test": "tests/python/test_distributed.py" },
-  { "id": "kernel-distributed-ep-c", "category": "C Engine", "title": "kernel/distributed/expert_parallel.c", "description": "Expert parallelism collectives.", "source": "kernel/distributed/expert_parallel.c", "test": "tests/python/test_distributed.py" },
-  { "id": "kernel-distributed-gc-c", "category": "C Engine", "title": "kernel/distributed/gradient_comm.c", "description": "Gradient communication collectives.", "source": "kernel/distributed/gradient_comm.c", "test": "tests/python/test_distributed.py" },
-  { "id": "security-ed25519-c", "category": "C Engine", "title": "security/crypto/c/ed25519.c", "description": "Ed25519 sign/verify/keypair/publickey_from_seed.", "source": "security/crypto/c/ed25519.c", "test": "tests/python/test_security_integrity.py" },
-  { "id": "security-signed-update-c", "category": "C Engine", "title": "security/updates/signed_update.c", "description": "Signed update verification (was forgeable xor-0xAA, now real Ed25519).", "source": "security/updates/signed_update.c", "test": "tests/python/test_security_integrity.py" },
-  { "id": "security-s7-ext-c", "category": "C Engine", "title": "security/s7_extensions.c", "description": "Security layer S7 extensions (rand() replaced with CSPRNG).", "source": "security/updates/s7_extensions.c", "test": "tests/python/test_security_integrity.py" },
-  { "id": "security-allocator-c", "category": "C Engine", "title": "security/secure_allocator.c", "description": "Secure allocator (CSPRNG, not rand()).", "source": "security/memory/secure_allocator.c", "test": "tests/python/test_security_integrity.py" },
-  { "id": "security-ltl-c", "category": "C Engine", "title": "security/ltl_model_checker.c", "description": "LTL model checker (real implementation, was no-op).", "source": "security/verification/ltl_model_checker.c", "test": "tests/python/test_security_integrity.py" },
-  { "id": "include-ed25519-h", "category": "C Engine", "title": "include/neural_core/security/ed25519_signature_verification.h", "description": "Ed25519 API header (SNEPPX_ed25519_*).", "source": "include/neural_core/security/ed25519_signature_verification.h", "test": "tests/python/test_security_integrity.py" },
-  { "id": "include-nccl-h", "category": "C Engine", "title": "include/neural_core/distributed/nccl.h", "description": "NCCL API: pg create/destroy, all_reduce/all_gather/broadcast/send/recv.", "source": "net/distributed/nccl.h", "test": "tests/python/test_distributed.py" },
-  { "id": "include-signed-update-h", "category": "C Engine", "title": "include/neural_core/security/signed_update.h", "description": "SNEPPXSignedUpdate / SNEPPXUpdateVerifier structs.", "source": "include/neural_core/security/signed_update.h", "test": "tests/python/test_security_integrity.py" },
-  { "id": "py-tensor", "category": "Python Bindings", "title": "bindings/.../tensor.py", "description": "Tensor class with autograd, requires_grad, backward, autograd ops.", "source": "bindings/python/SneppX_ALG/interface_bindings/tensor.py", "test": "tests/python/test_tensor.py" },
-  { "id": "py-nn", "category": "Python Bindings", "title": "bindings/.../nn.py", "description": "NN layers: Linear, Conv1d/2d/3d, RMSNorm, LayerNorm, BatchNorm, InstanceNorm, Module/ModuleList/ModuleDict.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "py-optim", "category": "Python Bindings", "title": "bindings/.../optim.py", "description": "Optimizers: SGD, Adam, AdamW, Adamax, RMSprop, Adagrad, Adadelta, NAdam, Rprop, ASGD, LBFGS, SparseAdam + param_groups.", "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py", "test": "tests/python/test_optim.py" },
-  { "id": "py-autograd", "category": "Python Bindings", "title": "bindings/.../autograd.py", "description": "Tape-based AD: no_grad, set_grad_enabled, enable_grad, Function base class, Context.", "source": "bindings/python/SneppX_ALG/interface_bindings/autograd.py", "test": "tests/python/test_autograd_ops.py" },
-  { "id": "py-autograd-ops", "category": "Python Bindings", "title": "bindings/.../autograd_ops.py", "description": "Differentiable Functions: Add, Sub, Mul, Div, MatMul, Transpose, Sum, Mean, Relu, Sigmoid, Tanh, Sqrt, Exp, Log, Pow, Reshape, GetItem, Square, Reciprocal, Sign, Clamp, Remainder, Prod, LogSumExp, Trace, Diagonal, MinDim, MaxDim, Neg.", "source": "bindings/python/SneppX_ALG/interface_bindings/autograd_ops.py", "test": "tests/python/test_autograd_ops.py" },
-  { "id": "py-nn-functional", "category": "Python Bindings", "title": "bindings/.../nn_functional.py", "description": "F.* functional namespace (~70 ops): activations, linear/conv/pool norm, interpolation, pixel/channel shuffle, one_hot, pad_sequence.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn_functional.py", "test": "tests/python/test_functional_ns.py" },
-  { "id": "py-sparse", "category": "Python Bindings", "title": "bindings/.../sparse.py", "description": "SparseTensor COO/CSR/CSC/BSR, sparse_mm, sparse_addmm, sparse_sum, sparse_softmax, to_sparse_*/to_dense.", "source": "bindings/python/SneppX_ALG/interface_bindings/sparse.py", "test": "tests/python/test_sparse.py" },
-  { "id": "py-grad-checkpoint", "category": "Python Bindings", "title": "bindings/.../grad_checkpoint.py", "description": "checkpoint, checkpoint_sequential, CheckpointFunction, GradientCheckpointer.", "source": "bindings/python/SneppX_ALG/interface_bindings/grad_checkpoint.py", "test": "tests/python/test_grad_checkpoint.py" },
-  { "id": "py-init", "category": "Python Bindings", "title": "bindings/.../init.py", "description": "zeros_, ones_, constant_, eye, uniform, normal, xavier_uniform/normal, kaiming_uniform/normal, orthogonal, calculate_gain.", "source": "bindings/python/SneppX_ALG/interface_bindings/init.py", "test": "tests/python/test_init.py" },
-  { "id": "py-advanced-ops", "category": "Python Bindings", "title": "bindings/.../advanced_ops.py", "description": "conv1d/2d/3d, max/avg pool2d, adaptive pool, linear, instance/batch/layer/rms norm.", "source": "bindings/python/SneppX_ALG/interface_bindings/advanced_ops.py", "test": "tests/python/test_advanced_ops.py" },
-  { "id": "py-c-tensor-bridge", "category": "Python Bindings", "title": "bindings/.../c_tensor_bridge.py", "description": "from_numpy/to_numpy/round_trip, dtype maps, parity helpers (f32+f64).", "source": "bindings/python/SneppX_ALG/interface_bindings/c_tensor_bridge.py", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "py-acvp-kat", "category": "Python Bindings", "title": "bindings/.../acvp_kat.py", "description": "ACVP NIST vector harness (SHA3, ML-DSA, SLH-DSA).", "source": "bindings/python/SneppX_ALG/interface_bindings/acvp_kat.py", "test": "tests/python/test_acvp_sha3.py" },
-  { "id": "py-secrets-redact", "category": "Python Bindings", "title": "bindings/.../secrets_redact.py", "description": "Secrets redaction utilities.", "source": "bindings/python/SneppX_ALG/interface_bindings/secrets_redact.py", "test": "tests/python/test_security_integrity.py" },
-  { "id": "py-artifact-integrity", "category": "Python Bindings", "title": "bindings/.../artifact_integrity.py", "description": "Artifact integrity (Ed25519 sign/verify/quarantine).", "source": "bindings/python/SneppX_ALG/interface_bindings/artifact_integrity.py", "test": "tests/python/test_security_integrity.py" },
-  { "id": "py-model", "category": "Python Bindings", "title": "bindings/.../model.py", "description": "Model wrappers (ARCLayer, NPE, etc.) over C backend.", "source": "bindings/python/SneppX_ALG/interface_bindings/model.py", "test": "tests/python/test_model_zoo.py" },
-  { "id": "py-train", "category": "Python Bindings", "title": "bindings/.../train.py", "description": "Training loop wrappers.", "source": "bindings/python/SneppX_ALG/interface_bindings/train.py", "test": "tests/python/test_checkpoint.py" },
-  { "id": "cli-train", "category": "CLI Tools", "title": "sneppx-train", "description": "Training CLI: --model, --dataset, --epochs, --lr, --batch-size.", "source": "pyproject.toml [project.scripts]", "test": "tests/python/test_trainable.py" },
-  { "id": "cli-serve", "category": "CLI Tools", "title": "sneppx-serve", "description": "FastAPI serving CLI.", "source": "pyproject.toml [project.scripts]", "test": "tests/python/test_inference_server.py" },
-  { "id": "cli-experiment", "category": "CLI Tools", "title": "sneppx-experiment", "description": "Experiment tracking CLI.", "source": "pyproject.toml [project.scripts]", "test": "tests/python/test_profiler.py" },
-  { "id": "cli-eval", "category": "CLI Tools", "title": "sneppx-eval", "description": "Evaluation CLI.", "source": "pyproject.toml [project.scripts]", "test": "tests/python/test_model_zoo.py" },
-  { "id": "cli-quantize", "category": "CLI Tools", "title": "sneppx-quantize", "description": "Quantization CLI (INT8/INT4/FP8/AWQ/GPTQ).", "source": "pyproject.toml [project.scripts]", "test": "tests/python/test_quantization.py" },
-  { "id": "cli-rlhf", "category": "CLI Tools", "title": "sneppx-rlhf", "description": "RLHF training CLI.", "source": "pyproject.toml [project.scripts]", "test": "tests/python/test_rl.py" },
-  { "id": "test-tensor", "category": "Tests", "title": "tests/python/test_tensor.py", "description": "Tensor core tests (28 pass).", "source": "tests/python/test_tensor.py", "test": "tests/python/test_tensor.py" },
-  { "id": "test-nn", "category": "Tests", "title": "tests/python/test_nn.py", "description": "NN module tests.", "source": "tests/python/test_nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "test-optim", "category": "Tests", "title": "tests/python/test_optim.py", "description": "Optimizer tests.", "source": "tests/python/test_optim.py", "test": "tests/python/test_optim.py" },
-  { "id": "test-losses", "category": "Tests", "title": "tests/python/test_losses.py", "description": "Loss function tests.", "source": "tests/python/test_losses.py", "test": "tests/python/test_losses.py" },
-  { "id": "test-autograd-correctness", "category": "Tests", "title": "tests/python/test_autograd_correctness.py", "description": "FD gradient correctness guard (20 ops).", "source": "tests/python/test_autograd_correctness.py", "test": "tests/python/test_autograd_correctness.py" },
-  { "id": "test-higher-order-ad", "category": "Tests", "title": "tests/python/test_higher_order_ad*.py", "description": "Exact 2nd-order Hessian suites (5 files).", "source": "tests/python/test_higher_order_ad.py", "test": "tests/python/test_higher_order_ad.py" },
-  { "id": "test-c-tensor-bridge", "category": "Tests", "title": "tests/python/test_c_tensor_bridge.py", "description": "C-engine bridge parity (19 pass).", "source": "tests/python/test_c_tensor_bridge.py", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "test-c-tape", "category": "Tests", "title": "tests/python/test_c_tape.py", "description": "C-engine tape AD (13 pass).", "source": "tests/python/test_c_tape.py", "test": "tests/python/test_c_tape.py" },
-  { "id": "test-acvp-sha3", "category": "Tests", "title": "tests/python/test_acvp_sha3.py", "description": "ACVP SHA3 KAT (4 pass).", "source": "tests/python/test_acvp_sha3.py", "test": "tests/python/test_acvp_sha3.py" },
-  { "id": "test-acvp-mldsa", "category": "Tests", "title": "tests/python/test_acvp_mldsa.py", "description": "ACVP ML-DSA interop (5 pass).", "source": "tests/python/test_acvp_mldsa.py", "test": "tests/python/test_acvp_mldsa.py" },
-  { "id": "test-acvp-slhdsa", "category": "Tests", "title": "tests/python/test_acvp_slhdsa.py", "description": "ACVP SLH-DSA interop (5 pass).", "source": "tests/python/test_acvp_slhdsa.py", "test": "tests/python/test_acvp_slhdsa.py" },
-  { "id": "test-security-integrity", "category": "Tests", "title": "tests/python/test_security_integrity.py", "description": "Ed25519 + secrets redaction (3 pass).", "source": "tests/python/test_security_integrity.py", "test": "tests/python/test_security_integrity.py" },
-  { "id": "test-state-dict", "category": "Tests", "title": "tests/python/test_state_dict.py", "description": "Serialization hardening (10 pass).", "source": "tests/python/test_state_dict.py", "test": "tests/python/test_state_dict.py" },
-  { "id": "test-sparse", "category": "Tests", "title": "tests/python/test_sparse.py", "description": "Sparse tensors (15 pass).", "source": "tests/python/test_sparse.py", "test": "tests/python/test_sparse.py" },
-  { "id": "test-gap-fill", "category": "Tests", "title": "tests/python/test_gap_fill.py", "description": "NN gap-fill (58 pass).", "source": "tests/python/test_gap_fill.py", "test": "tests/python/test_gap_fill.py" },
-  { "id": "test-norm", "category": "Tests", "title": "tests/python/test_norm.py", "description": "Differentiable norms (10 pass).", "source": "tests/python/test_norm.py", "test": "tests/python/test_norm.py" },
-  { "id": "test-functional-ns", "category": "Tests", "title": "tests/python/test_functional_ns.py", "description": "F.* namespace (18 pass).", "source": "tests/python/test_functional_ns.py", "test": "tests/python/test_functional_ns.py" },
-  { "id": "test-ctc", "category": "Tests", "title": "tests/python/test_ctc.py", "description": "CTC loss (FD valid).", "source": "tests/python/test_ctc.py", "test": "tests/python/test_ctc.py" },
-  { "id": "test-init", "category": "Tests", "title": "tests/python/test_init.py", "description": "nn.init utils (10 pass).", "source": "tests/python/test_init.py", "test": "tests/python/test_init.py" },
-  { "id": "test-grad-checkpoint", "category": "Tests", "title": "tests/python/test_grad_checkpoint.py", "description": "Gradient checkpointing (3 pass).", "source": "tests/python/test_grad_checkpoint.py", "test": "tests/python/test_grad_checkpoint.py" },
-  { "id": "test-advanced-ops", "category": "Tests", "title": "tests/python/test_advanced_ops.py", "description": "Advanced ops (conv/pool/norm).", "source": "tests/python/test_advanced_ops.py", "test": "tests/python/test_advanced_ops.py" },
-  { "id": "test-jvp-vjp", "category": "Tests", "title": "tests/python/test_jvp_vjp.py", "description": "JVP/VJP forward-mode helpers.", "source": "tests/python/test_jvp_vjp.py", "test": "tests/python/test_jvp_vjp.py" },
-  { "id": "test-phase2-ops", "category": "Tests", "title": "tests/python/test_phase2_ops.py", "description": "Phase-2 ops (Square, Reciprocal, Sign, etc.).", "source": "tests/python/test_phase2_ops.py", "test": "tests/python/test_phase2_ops.py" },
-  { "id": "test-scalar-ops", "category": "Tests", "title": "tests/python/test_scalar_ops.py", "description": "Scalar-first ops backprop (5 pass).", "source": "tests/python/test_scalar_ops.py", "test": "tests/python/test_scalar_ops.py" },
-  { "id": "test-loss-diff", "category": "Tests", "title": "tests/python/test_loss_diff.py", "description": "Loss differentiability.", "source": "tests/python/test_loss_diff.py", "test": "tests/python/test_loss_diff.py" },
-  { "id": "test-functional-diff", "category": "Tests", "title": "tests/python/test_functional_diff.py", "description": "Functional differentiability.", "source": "tests/python/test_functional_diff.py", "test": "tests/python/test_functional_diff.py" },
-  { "id": "test-activation-autograd", "category": "Tests", "title": "tests/python/test_activation_autograd.py", "description": "Activation autograd.", "source": "tests/python/test_activation_autograd.py", "test": "tests/python/test_activation_autograd.py" },
-  { "id": "test-conv2d-autograd", "category": "Tests", "title": "tests/python/test_conv2d_autograd.py", "description": "Conv2d autograd.", "source": "tests/python/test_conv2d_autograd.py", "test": "tests/python/test_conv2d_autograd.py" },
-  { "id": "test-embedding-layernorm-autograd", "category": "Tests", "title": "tests/python/test_embedding_layernorm_autograd.py", "description": "Embedding/LayerNorm autograd.", "source": "tests/python/test_embedding_layernorm_autograd.py", "test": "tests/python/test_embedding_layernorm_autograd.py" },
-  { "id": "test-trainable", "category": "Tests", "title": "tests/python/test_trainable.py", "description": "Trainable modules.", "source": "tests/python/test_trainable.py", "test": "tests/python/test_trainable.py" },
-  { "id": "acvp-sha3-vectors", "category": "ACVP/PQC", "title": "tests/data/acvp/*.json", "description": "Vendored NIST ACVP vectors (SHA3-224/256/384/512, ML-DSA, SLH-DSA).", "source": "tests/data/acvp", "test": "tests/python/test_acvp_sha3.py" },
-  { "id": "docs-pqc-kat", "category": "ACVP/PQC", "title": "docs/pqc_kat.md", "description": "PQC KAT write-up (SHA3 100% KAT agreement).", "source": "docs/pqc_kat.md", "test": "tests/python/test_acvp_sha3.py" },
-  { "id": "ed25519-rfc8032", "category": "ACVP/PQC", "title": "RFC 8032 Ed25519", "description": "Ed25519 sign/verify/keygen/publickey_from_seed (RFC 8032 test vectors green).", "source": "security/crypto/c/ed25519.c", "test": "tests/python/test_security_integrity.py" },
-  { "id": "kyber", "category": "ACVP/PQC", "title": "Kyber (FIPS 203)", "description": "Post-quantum key encapsulation.", "source": "security/crypto/c/kyber.c", "test": "tests/python/test_security_integrity.py" },
-  { "id": "dilithium", "category": "ACVP/PQC", "title": "Dilithium (FIPS 204)", "description": "Post-quantum signatures.", "source": "security/crypto/c/dilithium.c", "test": "tests/python/test_security_integrity.py" },
-  { "id": "sphincs", "category": "ACVP/PQC", "title": "SPHINCS+ (FIPS 205)", "description": "Post-quantum stateless signatures.", "source": "security/crypto/c/sphincs.c", "test": "tests/python/test_security_integrity.py" },
-  { "id": "pipeline-hss", "category": "Pipeline", "title": "HSS (state-space SSM)", "description": "State-space model component.", "source": "kernel/hss/", "test": "tests/python/test_tensor.py" },
-  { "id": "pipeline-ser", "category": "Pipeline", "title": "SER (MoE routing)", "description": "Mixture-of-experts routing.", "source": "kernel/ser/", "test": "tests/python/test_nn.py" },
-  { "id": "pipeline-arc", "category": "Pipeline", "title": "ARC (adversarial guard)", "description": "Adversarial robustness component.", "source": "kernel/arc/", "test": "tests/python/test_security_integrity.py" },
-  { "id": "pipeline-npe", "category": "Pipeline", "title": "NPE (16-register neural VM, 32 opcodes)", "description": "Neural processing engine.", "source": "kernel/npe/", "test": "tests/python/test_model_zoo.py" },
-  { "id": "pipeline-fm", "category": "Pipeline", "title": "FM (federated/fractal memory)", "description": "Federated memory component.", "source": "kernel/fm/", "test": "tests/python/test_checkpoint.py" },
-  { "id": "security-s0", "category": "Security Layers", "title": "S0 — Post-quantum crypto", "description": "Kyber/Dilithium/SPHINCS+ FIPS 203/204/205.", "source": "security/crypto/", "test": "tests/python/test_security_integrity.py" },
-  { "id": "security-s1", "category": "Security Layers", "title": "S1 — Memory hardening", "description": "Secure allocator, CSPRNG.", "source": "security/memory/secure_allocator.c", "test": "tests/python/test_security_integrity.py" },
-  { "id": "security-s2", "category": "Security Layers", "title": "S2 — Obfuscation", "description": "Code obfuscation layer.", "source": "security/obfuscation/", "test": "tests/python/test_security_integrity.py" },
-  { "id": "security-s3", "category": "Security Layers", "title": "S3 — Monitoring", "description": "Runtime monitoring.", "source": "security/monitoring/", "test": "tests/python/test_security_integrity.py" },
-  { "id": "security-s4", "category": "Security Layers", "title": "S4 — Network security", "description": "Network security layer.", "source": "security/network/", "test": "tests/python/test_security_integrity.py" },
-  { "id": "security-s5", "category": "Security Layers", "title": "S5 — AI sanitizer", "description": "AI input/output sanitizer.", "source": "security/sanitizer/", "test": "tests/python/test_security_integrity.py" },
-  { "id": "security-s6", "category": "Security Layers", "title": "S6 — Key vault", "description": "Key management vault.", "source": "security/vault/", "test": "tests/python/test_security_integrity.py" },
-  { "id": "security-s7", "category": "Security Layers", "title": "S7 — Secure updates", "description": "Signed update verification.", "source": "security/updates/signed_update.c", "test": "tests/python/test_security_integrity.py" },
-  { "id": "security-s8", "category": "Security Layers", "title": "S8 — Formal verification", "description": "LTL model checker.", "source": "security/verification/ltl_model_checker.c", "test": "tests/python/test_security_integrity.py" },
-  { "id": "security-s9", "category": "Security Layers", "title": "S9 — Pentesting", "description": "Pentesting layer.", "source": "security/pentest/", "test": "tests/python/test_security_integrity.py" }
+  {
+    "id": "kernel-tensor-tensor-c",
+    "category": "C Engine",
+    "title": "kernel/tensor/tensor.c",
+    "description": "CPU tensor engine: conv1d/2d (torch layout, f32+f64), matmul, dot, sum/mean/var/std, unary/binary ops, reductions.",
+    "source": "kernel/tensor/tensor.c",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "kernel-autodiff-ops-c",
+    "category": "C Engine",
+    "title": "kernel/autodiff/ops.c",
+    "description": "Autograd op wrappers: add/sub/mul/div/matmul with backward ctx, set_parents, tape recording.",
+    "source": "kernel/autodiff/ops.c",
+    "test": "tests/python/test_c_tape.py"
+  },
+  {
+    "id": "kernel-autodiff-tape-c",
+    "category": "C Engine",
+    "title": "kernel/autodiff/tape.c",
+    "description": "Tape record/destroy, duplicate-record guard, variable ownership.",
+    "source": "kernel/autodiff/tape.c",
+    "test": "tests/python/test_c_tape.py"
+  },
+  {
+    "id": "kernel-autodiff-variable-c",
+    "category": "C Engine",
+    "title": "kernel/autodiff/variable.c",
+    "description": "Variable create/destroy, data/grad storage, requires_grad.",
+    "source": "kernel/autodiff/variable.c",
+    "test": "tests/python/test_c_tape.py"
+  },
+  {
+    "id": "kernel-train-trainer-c",
+    "category": "C Engine",
+    "title": "kernel/train/trainer.c",
+    "description": "Per-step training loop, per-step tape destroy, relies on tape ownership.",
+    "source": "kernel/train/trainer.c",
+    "test": "tests/python/test_trainable.py"
+  },
+  {
+    "id": "kernel-distributed-nccl-c",
+    "category": "C Engine",
+    "title": "net/distributed/nccl.c",
+    "description": "NCCL binding with CPU fallback path for single-process correctness.",
+    "source": "net/distributed/nccl.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "kernel-distributed-ddp-c",
+    "category": "C Engine",
+    "title": "kernel/distributed/ddp.c",
+    "description": "DistributedDataParallel with NCCL collectives wired.",
+    "source": "kernel/distributed/ddp.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "kernel-distributed-zero-c",
+    "category": "C Engine",
+    "title": "kernel/distributed/zero.c",
+    "description": "ZeRO-3 stage-3 all-gather via NCCL.",
+    "source": "kernel/distributed/zero.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "kernel-distributed-pipeline-c",
+    "category": "C Engine",
+    "title": "kernel/distributed/pipeline.c",
+    "description": "Pipeline parallelism collective wiring.",
+    "source": "kernel/distributed/pipeline.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "kernel-distributed-tp-c",
+    "category": "C Engine",
+    "title": "kernel/distributed/tensor_parallel.c",
+    "description": "Tensor parallelism collectives.",
+    "source": "kernel/distributed/tensor_parallel.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "kernel-distributed-ep-c",
+    "category": "C Engine",
+    "title": "kernel/distributed/expert_parallel.c",
+    "description": "Expert parallelism collectives.",
+    "source": "kernel/distributed/expert_parallel.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "kernel-distributed-gc-c",
+    "category": "C Engine",
+    "title": "kernel/distributed/gradient_comm.c",
+    "description": "Gradient communication collectives.",
+    "source": "kernel/distributed/gradient_comm.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "security-ed25519-c",
+    "category": "C Engine",
+    "title": "security/crypto/c/ed25519.c",
+    "description": "Ed25519 sign/verify/keypair/publickey_from_seed.",
+    "source": "security/crypto/c/ed25519.c",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "security-signed-update-c",
+    "category": "C Engine",
+    "title": "security/updates/signed_update.c",
+    "description": "Signed update verification (was forgeable xor-0xAA, now real Ed25519).",
+    "source": "security/updates/signed_update.c",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "security-s7-ext-c",
+    "category": "C Engine",
+    "title": "security/s7_extensions.c",
+    "description": "Security layer S7 extensions (rand() replaced with CSPRNG).",
+    "source": "security/updates/s7_extensions.c",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "security-allocator-c",
+    "category": "C Engine",
+    "title": "security/secure_allocator.c",
+    "description": "Secure allocator (CSPRNG, not rand()).",
+    "source": "security/memory/secure_allocator.c",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "security-ltl-c",
+    "category": "C Engine",
+    "title": "security/ltl_model_checker.c",
+    "description": "LTL model checker (real implementation, was no-op).",
+    "source": "security/verification/ltl_model_checker.c",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "include-ed25519-h",
+    "category": "C Engine",
+    "title": "include/neural_core/security/ed25519_signature_verification.h",
+    "description": "Ed25519 API header (SNEPPX_ed25519_*).",
+    "source": "include/neural_core/security/ed25519_signature_verification.h",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "include-nccl-h",
+    "category": "C Engine",
+    "title": "include/neural_core/distributed/nccl.h",
+    "description": "NCCL API: pg create/destroy, all_reduce/all_gather/broadcast/send/recv.",
+    "source": "net/distributed/nccl.h",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "include-signed-update-h",
+    "category": "C Engine",
+    "title": "include/neural_core/security/signed_update.h",
+    "description": "SNEPPXSignedUpdate / SNEPPXUpdateVerifier structs.",
+    "source": "include/neural_core/security/signed_update.h",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "py-tensor",
+    "category": "Python Bindings",
+    "title": "bindings/.../tensor.py",
+    "description": "Tensor class with autograd, requires_grad, backward, autograd ops.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/tensor.py",
+    "test": "tests/python/test_tensor.py"
+  },
+  {
+    "id": "py-nn",
+    "category": "Python Bindings",
+    "title": "bindings/.../nn.py",
+    "description": "NN layers: Linear, Conv1d/2d/3d, RMSNorm, LayerNorm, BatchNorm, InstanceNorm, Module/ModuleList/ModuleDict.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "py-optim",
+    "category": "Python Bindings",
+    "title": "bindings/.../optim.py",
+    "description": "Optimizers: SGD, Adam, AdamW, Adamax, RMSprop, Adagrad, Adadelta, NAdam, Rprop, ASGD, LBFGS, SparseAdam + param_groups.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py",
+    "test": "tests/python/test_optim.py"
+  },
+  {
+    "id": "py-autograd",
+    "category": "Python Bindings",
+    "title": "bindings/.../autograd.py",
+    "description": "Tape-based AD: no_grad, set_grad_enabled, enable_grad, Function base class, Context.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/autograd.py",
+    "test": "tests/python/test_autograd_ops.py"
+  },
+  {
+    "id": "py-autograd-ops",
+    "category": "Python Bindings",
+    "title": "bindings/.../autograd_ops.py",
+    "description": "Differentiable Functions: Add, Sub, Mul, Div, MatMul, Transpose, Sum, Mean, Relu, Sigmoid, Tanh, Sqrt, Exp, Log, Pow, Reshape, GetItem, Square, Reciprocal, Sign, Clamp, Remainder, Prod, LogSumExp, Trace, Diagonal, MinDim, MaxDim, Neg.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/autograd_ops.py",
+    "test": "tests/python/test_autograd_ops.py"
+  },
+  {
+    "id": "py-nn-functional",
+    "category": "Python Bindings",
+    "title": "bindings/.../nn_functional.py",
+    "description": "F.* functional namespace (~70 ops): activations, linear/conv/pool norm, interpolation, pixel/channel shuffle, one_hot, pad_sequence.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn_functional.py",
+    "test": "tests/python/test_functional_ns.py"
+  },
+  {
+    "id": "py-sparse",
+    "category": "Python Bindings",
+    "title": "bindings/.../sparse.py",
+    "description": "SparseTensor COO/CSR/CSC/BSR, sparse_mm, sparse_addmm, sparse_sum, sparse_softmax, to_sparse_*/to_dense.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/sparse.py",
+    "test": "tests/python/test_sparse.py"
+  },
+  {
+    "id": "py-grad-checkpoint",
+    "category": "Python Bindings",
+    "title": "bindings/.../grad_checkpoint.py",
+    "description": "checkpoint, checkpoint_sequential, CheckpointFunction, GradientCheckpointer.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/grad_checkpoint.py",
+    "test": "tests/python/test_grad_checkpoint.py"
+  },
+  {
+    "id": "py-init",
+    "category": "Python Bindings",
+    "title": "bindings/.../init.py",
+    "description": "zeros_, ones_, constant_, eye, uniform, normal, xavier_uniform/normal, kaiming_uniform/normal, orthogonal, calculate_gain.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/init.py",
+    "test": "tests/python/test_init.py"
+  },
+  {
+    "id": "py-advanced-ops",
+    "category": "Python Bindings",
+    "title": "bindings/.../advanced_ops.py",
+    "description": "conv1d/2d/3d, max/avg pool2d, adaptive pool, linear, instance/batch/layer/rms norm.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/advanced_ops.py",
+    "test": "tests/python/test_advanced_ops.py"
+  },
+  {
+    "id": "py-c-tensor-bridge",
+    "category": "Python Bindings",
+    "title": "bindings/.../c_tensor_bridge.py",
+    "description": "from_numpy/to_numpy/round_trip, dtype maps, parity helpers (f32+f64).",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/c_tensor_bridge.py",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "py-acvp-kat",
+    "category": "Python Bindings",
+    "title": "bindings/.../acvp_kat.py",
+    "description": "ACVP NIST vector harness (SHA3, ML-DSA, SLH-DSA).",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/acvp_kat.py",
+    "test": "tests/python/test_acvp_sha3.py"
+  },
+  {
+    "id": "py-secrets-redact",
+    "category": "Python Bindings",
+    "title": "bindings/.../secrets_redact.py",
+    "description": "Secrets redaction utilities.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/secrets_redact.py",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "py-artifact-integrity",
+    "category": "Python Bindings",
+    "title": "bindings/.../artifact_integrity.py",
+    "description": "Artifact integrity (Ed25519 sign/verify/quarantine).",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/artifact_integrity.py",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "py-model",
+    "category": "Python Bindings",
+    "title": "bindings/.../model.py",
+    "description": "Model wrappers (ARCLayer, NPE, etc.) over C backend.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/model.py",
+    "test": "tests/python/test_model_zoo.py"
+  },
+  {
+    "id": "py-train",
+    "category": "Python Bindings",
+    "title": "bindings/.../train.py",
+    "description": "Training loop wrappers.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/train.py",
+    "test": "tests/python/test_checkpoint.py"
+  },
+  {
+    "id": "cli-train",
+    "category": "CLI Tools",
+    "title": "sneppx-train",
+    "description": "Training CLI: --model, --dataset, --epochs, --lr, --batch-size.",
+    "source": "pyproject.toml",
+    "test": "tests/python/test_trainable.py"
+  },
+  {
+    "id": "cli-serve",
+    "category": "CLI Tools",
+    "title": "sneppx-serve",
+    "description": "FastAPI serving CLI.",
+    "source": "pyproject.toml",
+    "test": "tests/python/test_inference_server.py"
+  },
+  {
+    "id": "cli-experiment",
+    "category": "CLI Tools",
+    "title": "sneppx-experiment",
+    "description": "Experiment tracking CLI.",
+    "source": "pyproject.toml",
+    "test": "tests/python/test_profiler.py"
+  },
+  {
+    "id": "cli-eval",
+    "category": "CLI Tools",
+    "title": "sneppx-eval",
+    "description": "Evaluation CLI.",
+    "source": "pyproject.toml",
+    "test": "tests/python/test_model_zoo.py"
+  },
+  {
+    "id": "cli-quantize",
+    "category": "CLI Tools",
+    "title": "sneppx-quantize",
+    "description": "Quantization CLI (INT8/INT4/FP8/AWQ/GPTQ).",
+    "source": "pyproject.toml",
+    "test": "tests/python/test_quantization.py"
+  },
+  {
+    "id": "cli-rlhf",
+    "category": "CLI Tools",
+    "title": "sneppx-rlhf",
+    "description": "RLHF training CLI.",
+    "source": "pyproject.toml"
+  },
+  {
+    "id": "test-tensor",
+    "category": "Tests",
+    "title": "tests/python/test_tensor.py",
+    "description": "Tensor core tests (28 pass).",
+    "source": "tests/python/test_tensor.py",
+    "test": "tests/python/test_tensor.py"
+  },
+  {
+    "id": "test-nn",
+    "category": "Tests",
+    "title": "tests/python/test_nn.py",
+    "description": "NN module tests.",
+    "source": "tests/python/test_nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "test-optim",
+    "category": "Tests",
+    "title": "tests/python/test_optim.py",
+    "description": "Optimizer tests.",
+    "source": "tests/python/test_optim.py",
+    "test": "tests/python/test_optim.py"
+  },
+  {
+    "id": "test-losses",
+    "category": "Tests",
+    "title": "tests/python/test_losses.py",
+    "description": "Loss function tests.",
+    "source": "tests/python/test_losses.py",
+    "test": "tests/python/test_losses.py"
+  },
+  {
+    "id": "test-autograd-correctness",
+    "category": "Tests",
+    "title": "tests/python/test_autograd_correctness.py",
+    "description": "FD gradient correctness guard (20 ops).",
+    "source": "tests/python/test_autograd_correctness.py",
+    "test": "tests/python/test_autograd_correctness.py"
+  },
+  {
+    "id": "test-higher-order-ad",
+    "category": "Tests",
+    "title": "tests/python/test_higher_order_ad*.py",
+    "description": "Exact 2nd-order Hessian suites (5 files).",
+    "source": "tests/python/test_higher_order_ad.py",
+    "test": "tests/python/test_higher_order_ad.py"
+  },
+  {
+    "id": "test-c-tensor-bridge",
+    "category": "Tests",
+    "title": "tests/python/test_c_tensor_bridge.py",
+    "description": "C-engine bridge parity (19 pass).",
+    "source": "tests/python/test_c_tensor_bridge.py",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "test-c-tape",
+    "category": "Tests",
+    "title": "tests/python/test_c_tape.py",
+    "description": "C-engine tape AD (13 pass).",
+    "source": "tests/python/test_c_tape.py",
+    "test": "tests/python/test_c_tape.py"
+  },
+  {
+    "id": "test-acvp-sha3",
+    "category": "Tests",
+    "title": "tests/python/test_acvp_sha3.py",
+    "description": "ACVP SHA3 KAT (4 pass).",
+    "source": "tests/python/test_acvp_sha3.py",
+    "test": "tests/python/test_acvp_sha3.py"
+  },
+  {
+    "id": "test-acvp-mldsa",
+    "category": "Tests",
+    "title": "tests/python/test_acvp_mldsa.py",
+    "description": "ACVP ML-DSA interop (5 pass).",
+    "source": "tests/python/test_acvp_mldsa.py",
+    "test": "tests/python/test_acvp_mldsa.py"
+  },
+  {
+    "id": "test-acvp-slhdsa",
+    "category": "Tests",
+    "title": "tests/python/test_acvp_slhdsa.py",
+    "description": "ACVP SLH-DSA interop (5 pass).",
+    "source": "tests/python/test_acvp_slhdsa.py",
+    "test": "tests/python/test_acvp_slhdsa.py"
+  },
+  {
+    "id": "test-security-integrity",
+    "category": "Tests",
+    "title": "tests/python/test_security_integrity.py",
+    "description": "Ed25519 + secrets redaction (3 pass).",
+    "source": "tests/python/test_security_integrity.py",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "test-state-dict",
+    "category": "Tests",
+    "title": "tests/python/test_state_dict.py",
+    "description": "Serialization hardening (10 pass).",
+    "source": "tests/python/test_state_dict.py",
+    "test": "tests/python/test_state_dict.py"
+  },
+  {
+    "id": "test-sparse",
+    "category": "Tests",
+    "title": "tests/python/test_sparse.py",
+    "description": "Sparse tensors (15 pass).",
+    "source": "tests/python/test_sparse.py",
+    "test": "tests/python/test_sparse.py"
+  },
+  {
+    "id": "test-gap-fill",
+    "category": "Tests",
+    "title": "tests/python/test_gap_fill.py",
+    "description": "NN gap-fill (58 pass).",
+    "source": "tests/python/test_gap_fill.py",
+    "test": "tests/python/test_gap_fill.py"
+  },
+  {
+    "id": "test-norm",
+    "category": "Tests",
+    "title": "tests/python/test_norm.py",
+    "description": "Differentiable norms (10 pass).",
+    "source": "tests/python/test_norm.py",
+    "test": "tests/python/test_norm.py"
+  },
+  {
+    "id": "test-functional-ns",
+    "category": "Tests",
+    "title": "tests/python/test_functional_ns.py",
+    "description": "F.* namespace (18 pass).",
+    "source": "tests/python/test_functional_ns.py",
+    "test": "tests/python/test_functional_ns.py"
+  },
+  {
+    "id": "test-ctc",
+    "category": "Tests",
+    "title": "tests/python/test_ctc.py",
+    "description": "CTC loss (FD valid).",
+    "source": "tests/python/test_ctc.py",
+    "test": "tests/python/test_ctc.py"
+  },
+  {
+    "id": "test-init",
+    "category": "Tests",
+    "title": "tests/python/test_init.py",
+    "description": "nn.init utils (10 pass).",
+    "source": "tests/python/test_init.py",
+    "test": "tests/python/test_init.py"
+  },
+  {
+    "id": "test-grad-checkpoint",
+    "category": "Tests",
+    "title": "tests/python/test_grad_checkpoint.py",
+    "description": "Gradient checkpointing (3 pass).",
+    "source": "tests/python/test_grad_checkpoint.py",
+    "test": "tests/python/test_grad_checkpoint.py"
+  },
+  {
+    "id": "test-advanced-ops",
+    "category": "Tests",
+    "title": "tests/python/test_advanced_ops.py",
+    "description": "Advanced ops (conv/pool/norm).",
+    "source": "tests/python/test_advanced_ops.py",
+    "test": "tests/python/test_advanced_ops.py"
+  },
+  {
+    "id": "test-jvp-vjp",
+    "category": "Tests",
+    "title": "tests/python/test_jvp_vjp.py",
+    "description": "JVP/VJP forward-mode helpers.",
+    "source": "tests/python/test_jvp_vjp.py",
+    "test": "tests/python/test_jvp_vjp.py"
+  },
+  {
+    "id": "test-phase2-ops",
+    "category": "Tests",
+    "title": "tests/python/test_phase2_ops.py",
+    "description": "Phase-2 ops (Square, Reciprocal, Sign, etc.).",
+    "source": "tests/python/test_phase2_ops.py",
+    "test": "tests/python/test_phase2_ops.py"
+  },
+  {
+    "id": "test-scalar-ops",
+    "category": "Tests",
+    "title": "tests/python/test_scalar_ops.py",
+    "description": "Scalar-first ops backprop (5 pass).",
+    "source": "tests/python/test_scalar_ops.py",
+    "test": "tests/python/test_scalar_ops.py"
+  },
+  {
+    "id": "test-loss-diff",
+    "category": "Tests",
+    "title": "tests/python/test_loss_diff.py",
+    "description": "Loss differentiability.",
+    "source": "tests/python/test_loss_diff.py",
+    "test": "tests/python/test_loss_diff.py"
+  },
+  {
+    "id": "test-functional-diff",
+    "category": "Tests",
+    "title": "tests/python/test_functional_diff.py",
+    "description": "Functional differentiability.",
+    "source": "tests/python/test_functional_diff.py",
+    "test": "tests/python/test_functional_diff.py"
+  },
+  {
+    "id": "test-activation-autograd",
+    "category": "Tests",
+    "title": "tests/python/test_activation_autograd.py",
+    "description": "Activation autograd.",
+    "source": "tests/python/test_activation_autograd.py",
+    "test": "tests/python/test_activation_autograd.py"
+  },
+  {
+    "id": "test-conv2d-autograd",
+    "category": "Tests",
+    "title": "tests/python/test_conv2d_autograd.py",
+    "description": "Conv2d autograd.",
+    "source": "tests/python/test_conv2d_autograd.py",
+    "test": "tests/python/test_conv2d_autograd.py"
+  },
+  {
+    "id": "test-embedding-layernorm-autograd",
+    "category": "Tests",
+    "title": "tests/python/test_embedding_layernorm_autograd.py",
+    "description": "Embedding/LayerNorm autograd.",
+    "source": "tests/python/test_embedding_layernorm_autograd.py",
+    "test": "tests/python/test_embedding_layernorm_autograd.py"
+  },
+  {
+    "id": "test-trainable",
+    "category": "Tests",
+    "title": "tests/python/test_trainable.py",
+    "description": "Trainable modules.",
+    "source": "tests/python/test_trainable.py",
+    "test": "tests/python/test_trainable.py"
+  },
+  {
+    "id": "acvp-sha3-vectors",
+    "category": "ACVP/PQC",
+    "title": "tests/data/acvp/*.json",
+    "description": "Vendored NIST ACVP vectors (SHA3-224/256/384/512, ML-DSA, SLH-DSA).",
+    "source": "tests/data/acvp",
+    "test": "tests/python/test_acvp_sha3.py"
+  },
+  {
+    "id": "docs-pqc-kat",
+    "category": "ACVP/PQC",
+    "title": "docs/pqc_kat.md",
+    "description": "PQC KAT write-up (SHA3 100% KAT agreement).",
+    "source": "docs/pqc_kat.md",
+    "test": "tests/python/test_acvp_sha3.py"
+  },
+  {
+    "id": "ed25519-rfc8032",
+    "category": "ACVP/PQC",
+    "title": "RFC 8032 Ed25519",
+    "description": "Ed25519 sign/verify/keygen/publickey_from_seed (RFC 8032 test vectors green).",
+    "source": "security/crypto/c/ed25519.c",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "kyber",
+    "category": "ACVP/PQC",
+    "title": "Kyber (FIPS 203)",
+    "description": "Post-quantum key encapsulation.",
+    "source": "security/crypto/c/kyber.c",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "dilithium",
+    "category": "ACVP/PQC",
+    "title": "Dilithium (FIPS 204)",
+    "description": "Post-quantum signatures.",
+    "source": "security/crypto/c/dilithium.c",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "sphincs",
+    "category": "ACVP/PQC",
+    "title": "SPHINCS+ (FIPS 205)",
+    "description": "Post-quantum stateless signatures.",
+    "source": "security/crypto/c/sphincsplus.c",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "pipeline-hss",
+    "category": "Pipeline",
+    "title": "HSS (state-space SSM)",
+    "description": "State-space model component.",
+    "source": "kernel/hss/",
+    "test": "tests/python/test_tensor.py"
+  },
+  {
+    "id": "pipeline-ser",
+    "category": "Pipeline",
+    "title": "SER (MoE routing)",
+    "description": "Mixture-of-experts routing.",
+    "source": "kernel/ser/",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "pipeline-arc",
+    "category": "Pipeline",
+    "title": "ARC (adversarial guard)",
+    "description": "Adversarial robustness component.",
+    "source": "kernel/arc/",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "pipeline-npe",
+    "category": "Pipeline",
+    "title": "NPE (16-register neural VM, 32 opcodes)",
+    "description": "Neural processing engine.",
+    "source": "kernel/npe/",
+    "test": "tests/python/test_model_zoo.py"
+  },
+  {
+    "id": "pipeline-fm",
+    "category": "Pipeline",
+    "title": "FM (federated/fractal memory)",
+    "description": "Federated memory component.",
+    "source": "kernel/fm/",
+    "test": "tests/python/test_checkpoint.py"
+  },
+  {
+    "id": "security-s0",
+    "category": "Security Layers",
+    "title": "S0 — Post-quantum crypto",
+    "description": "Kyber/Dilithium/SPHINCS+ FIPS 203/204/205.",
+    "source": "security/crypto/",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "security-s1",
+    "category": "Security Layers",
+    "title": "S1 — Memory hardening",
+    "description": "Secure allocator, CSPRNG.",
+    "source": "security/memory/secure_allocator.c",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "security-s2",
+    "category": "Security Layers",
+    "title": "S2 — Obfuscation",
+    "description": "Code obfuscation layer.",
+    "source": "security/obfuscation/",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "security-s3",
+    "category": "Security Layers",
+    "title": "S3 — Monitoring",
+    "description": "Runtime monitoring.",
+    "source": "security/monitoring/",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "security-s4",
+    "category": "Security Layers",
+    "title": "S4 — Network security",
+    "description": "Network security layer.",
+    "source": "security/network/",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "security-s5",
+    "category": "Security Layers",
+    "title": "S5 — AI sanitizer",
+    "description": "AI input/output sanitizer.",
+    "source": "security/sanitizer/",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "security-s6",
+    "category": "Security Layers",
+    "title": "S6 — Key vault",
+    "description": "Key management vault.",
+    "source": "security/vault/",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "security-s7",
+    "category": "Security Layers",
+    "title": "S7 — Secure updates",
+    "description": "Signed update verification.",
+    "source": "security/updates/signed_update.c",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "security-s8",
+    "category": "Security Layers",
+    "title": "S8 — Formal verification",
+    "description": "LTL model checker.",
+    "source": "security/verification/ltl_model_checker.c",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "security-s9",
+    "category": "Security Layers",
+    "title": "S9 — Pentesting",
+    "description": "Pentesting layer.",
+    "source": "security/pentest/",
+    "test": "tests/python/test_security_integrity.py"
+  }
 ]
