@@ -1,136 +1,1074 @@
 [
-  { "id": "feat-tensor-create", "category": "Tensor Engine", "title": "Tensor create / set_data / data() view", "description": "Create tensors, set data, get numpy view over C memory (byte strides).", "source": "kernel/tensor/tensor.c", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-from-numpy", "category": "Tensor Engine", "title": "from_numpy / to_numpy round-trip", "description": "Lossless numpy ↔ C tensor conversion with shape/dtype preserved.", "source": "bindings/python/SneppX_ALG/interface_bindings/c_tensor_bridge.py", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-dtype-map", "category": "Tensor Engine", "title": "Dtype map f16/f32/f64/int8-64/uint8/bool/complex", "description": "Full dtype coverage between numpy and C engine.", "source": "bindings/python/SneppX_ALG/interface_bindings/c_tensor_bridge.py", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-add-sub-mul-div", "category": "Tensor Engine", "title": "add / sub / mul / div / pow_", "description": "Elementwise binary ops, f32+f64 dtype-following.", "source": "kernel/tensor/tensor.c", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-matmul", "category": "Tensor Engine", "title": "matmul (f32+f64, batched 3-D)", "description": "Batched matrix multiplication with dtype preservation.", "source": "kernel/tensor/tensor.c", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-dot", "category": "Tensor Engine", "title": "dot product", "description": "Scalar dot product, f32+f64 (reads f64 correctly).", "source": "kernel/tensor/tensor.c", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-conv1d", "category": "Tensor Engine", "title": "conv1d (torch layout, f32+f64)", "description": "1D convolution, C_out/C_in/K layout, dtype-following.", "source": "kernel/tensor/tensor.c", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-conv2d", "category": "Tensor Engine", "title": "conv2d (torch layout, f32+f64)", "description": "2D convolution, C_out/C_in/KH/KW layout, dtype-following.", "source": "kernel/tensor/tensor.c", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-sum-mean", "category": "Tensor Engine", "title": "sum / mean (keepdims, dim)", "description": "Reductions with dtype preservation (f32+f64).", "source": "kernel/tensor/tensor.c", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-var-std", "category": "Tensor Engine", "title": "var / std (keepdims, dim)", "description": "Variance/std with dtype preservation.", "source": "kernel/tensor/tensor.c", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-unary-ops", "category": "Tensor Engine", "title": "relu/sigmoid/tanh/exp/log/sqrt/sin/cos", "description": "Unary elementwise ops, dtype-following.", "source": "kernel/tensor/tensor.c", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-neg-abs-sign", "category": "Tensor Engine", "title": "neg / abs / sign / floor / ceil / round / trunc", "description": "Unary math ops, dtype-following.", "source": "kernel/tensor/tensor.c", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-clamp", "category": "Tensor Engine", "title": "clamp / clamp_min / clamp_max", "description": "Clamping ops.", "source": "kernel/tensor/tensor.c", "test": "tests/python/test_phase2_ops.py" },
-  { "id": "feat-minimum-maximum", "category": "Tensor Engine", "title": "minimum / maximum", "description": "Elementwise min/max, dtype-following.", "source": "kernel/tensor/tensor.c", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-pow", "category": "Tensor Engine", "title": "pow (elementwise)", "description": "Elementwise power, dtype-following.", "source": "kernel/tensor/tensor.c", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-transpose", "category": "Tensor Engine", "title": "transpose / permute", "description": "Axis swapping.", "source": "kernel/tensor/tensor.c", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-reshape", "category": "Tensor Engine", "title": "reshape (splat)", "description": "Tensor.reshape(*shape) uses splat.", "source": "bindings/python/SneppX_ALG/interface_bindings/tensor.py", "test": "tests/python/test_tensor.py" },
-  { "id": "feat-cat-stack", "category": "Tensor Engine", "title": "cat / stack", "description": "Concatenation and stacking.", "source": "bindings/python/SneppX_ALG/interface_bindings/tensor.py", "test": "tests/python/test_tensor.py" },
-  { "id": "feat-trace-diagonal", "category": "Tensor Engine", "title": "trace / diagonal", "description": "Matrix trace and diagonal extraction.", "source": "bindings/python/SneppX_ALG/interface_bindings/tensor.py", "test": "tests/python/test_phase2_ops.py" },
-  { "id": "feat-prod-logsumexp", "category": "Tensor Engine", "title": "prod / logsumexp", "description": "Product reduction and log-sum-exp.", "source": "bindings/python/SneppX_ALG/interface_bindings/tensor.py", "test": "tests/python/test_phase2_ops.py" },
-  { "id": "feat-remainder", "category": "Tensor Engine", "title": "remainder / mod", "description": "Modulo operations.", "source": "bindings/python/SneppX_ALG/interface_bindings/tensor.py", "test": "tests/python/test_phase2_ops.py" },
-  { "id": "feat-square-reciprocal", "category": "Tensor Engine", "title": "square / reciprocal / sign", "description": "Elementwise square, reciprocal, sign.", "source": "bindings/python/SneppX_ALG/interface_bindings/tensor.py", "test": "tests/python/test_phase2_ops.py" },
-  { "id": "feat-minmaxdim", "category": "Tensor Engine", "title": "amin / amax / argmin / argmax", "description": "Min/max reductions with indices.", "source": "bindings/python/SneppX_ALG/interface_bindings/tensor.py", "test": "tests/python/test_phase2_ops.py" },
-  { "id": "feat-function-apply", "category": "Autograd", "title": "Function.apply graph building", "description": "Builds autograd graph when any Tensor arg requires_grad.", "source": "bindings/python/SneppX_ALG/interface_bindings/autograd_ops.py", "test": "tests/python/test_autograd_ops.py" },
-  { "id": "feat-backward", "category": "Autograd", "title": "backward / grad() / create_graph", "description": "Reverse-mode AD with higher-order support.", "source": "bindings/python/SneppX_ALG/interface_bindings/autograd.py", "test": "tests/python/test_higher_order_ad.py" },
-  { "id": "feat-jvp-vjp", "category": "Autograd", "title": "JVP / VJP forward-mode helpers", "description": "Forward-mode AD via reverse-of-reverse.", "source": "bindings/python/SneppX_ALG/interface_bindings/autograd.py", "test": "tests/python/test_jvp_vjp.py" },
-  { "id": "feat-grad-checkpoint", "category": "Autograd", "title": "Gradient checkpointing", "description": "checkpoint, checkpoint_sequential, CheckpointFunction.", "source": "bindings/python/SneppX_ALG/interface_bindings/grad_checkpoint.py", "test": "tests/python/test_grad_checkpoint.py" },
-  { "id": "feat-no-grad", "category": "Autograd", "title": "no_grad / set_grad_enabled / enable_grad", "description": "Context managers for grad tracking control.", "source": "bindings/python/SneppX_ALG/interface_bindings/autograd.py", "test": "tests/python/test_grad_checkpoint.py" },
-  { "id": "feat-scalar-first", "category": "Autograd", "title": "Scalar-first ops backprop (0.5*x, 1.0-x)", "description": "Fixed: ops return grads per positional arg, aligned via _tensor_positions.", "source": "bindings/python/SneppX_ALG/interface_bindings/autograd_ops.py", "test": "tests/python/test_scalar_ops.py" },
-  { "id": "feat-higher-order", "category": "Autograd", "title": "Higher-order AD (exact Hessians)", "description": "2nd-order derivatives for 30+ ops, exact 2*J^T*J.", "source": "bindings/python/SneppX_ALG/interface_bindings/autograd_ops.py", "test": "tests/python/test_higher_order_ad.py" },
-  { "id": "feat-tape-record", "category": "Autograd", "title": "Tape record / backward / zero_grad", "description": "C-engine tape with ownership semantics.", "source": "kernel/autodiff/tape.c", "test": "tests/python/test_c_tape.py" },
-  { "id": "feat-tape-ownership", "category": "Autograd", "title": "Tape ownership (no double-free)", "description": "Relinquish on create/record, duplicate guard, exit 0.", "source": "bindings/python/bindings/autograd_bindings.cpp", "test": "tests/python/test_c_tape.py" },
-  { "id": "feat-jvp", "category": "Autograd", "title": "JVP (Jacobian-vector product)", "description": "Forward-mode AD helper.", "source": "bindings/python/SneppX_ALG/interface_bindings/autograd.py", "test": "tests/python/test_jvp_vjp.py" },
-  { "id": "feat-vjp", "category": "Autograd", "title": "VJP (vector-Jacobian product)", "description": "Reverse-mode AD helper.", "source": "bindings/python/SneppX_ALG/interface_bindings/autograd.py", "test": "tests/python/test_jvp_vjp.py" },
-  { "id": "feat-grad-checkpoint-seq", "category": "Autograd", "title": "checkpoint_sequential", "description": "Sequential checkpointing for deep models.", "source": "bindings/python/SneppX_ALG/interface_bindings/grad_checkpoint.py", "test": "tests/python/test_grad_checkpoint.py" },
-  { "id": "feat-sgd", "category": "Optimizers", "title": "SGD", "description": "Stochastic gradient descent.", "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py", "test": "tests/python/test_optim.py" },
-  { "id": "feat-adam", "category": "Optimizers", "title": "Adam", "description": "Adaptive moment estimation.", "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py", "test": "tests/python/test_optim.py" },
-  { "id": "feat-adamw", "category": "Optimizers", "title": "AdamW", "description": "Adam with decoupled weight decay.", "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py", "test": "tests/python/test_optim.py" },
-  { "id": "feat-adamax", "category": "Optimizers", "title": "Adamax", "description": "Adam variant with infinity norm.", "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py", "test": "tests/python/test_optim.py" },
-  { "id": "feat-rmsprop", "category": "Optimizers", "title": "RMSprop", "description": "Root mean square propagation.", "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py", "test": "tests/python/test_optim.py" },
-  { "id": "feat-adagrad", "category": "Optimizers", "title": "Adagrad", "description": "Adaptive gradient algorithm.", "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py", "test": "tests/python/test_optim.py" },
-  { "id": "feat-adadelta", "category": "Optimizers", "title": "Adadelta", "description": "Adaptive delta optimizer.", "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py", "test": "tests/python/test_optim.py" },
-  { "id": "feat-nadam", "category": "Optimizers", "title": "NAdam", "description": "Nesterov-accelerated Adam.", "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py", "test": "tests/python/test_optim.py" },
-  { "id": "feat-rprop", "category": "Optimizers", "title": "Rprop", "description": "Resilient backpropagation.", "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py", "test": "tests/python/test_optim.py" },
-  { "id": "feat-asgd", "category": "Optimizers", "title": "ASGD", "description": "Averaged stochastic gradient descent.", "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py", "test": "tests/python/test_optim.py" },
-  { "id": "feat-lbfgs", "category": "Optimizers", "title": "LBFGS", "description": "Limited-memory BFGS.", "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py", "test": "tests/python/test_optim.py" },
-  { "id": "feat-sparseadam", "category": "Optimizers", "title": "SparseAdam", "description": "Adam for sparse gradients.", "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py", "test": "tests/python/test_optim.py" },
-  { "id": "feat-param-groups", "category": "Optimizers", "title": "Param groups", "description": "Per-parameter-group learning rates.", "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py", "test": "tests/python/test_optim.py" },
-  { "id": "feat-mse", "category": "Losses", "title": "MSELoss", "description": "Mean squared error.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_losses.py" },
-  { "id": "feat-ce", "category": "Losses", "title": "CrossEntropyLoss", "description": "Cross-entropy loss.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_losses.py" },
-  { "id": "feat-nll", "category": "Losses", "title": "NLLLoss", "description": "Negative log likelihood.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_losses.py" },
-  { "id": "feat-kldiv", "category": "Losses", "title": "KLDivLoss", "description": "KL divergence loss.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_losses.py" },
-  { "id": "feat-bce", "category": "Losses", "title": "BCELoss", "description": "Binary cross entropy.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_losses.py" },
-  { "id": "feat-bce-logits", "category": "Losses", "title": "BCEWithLogitsLoss", "description": "BCE with logits.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_losses.py" },
-  { "id": "feat-smoothl1", "category": "Losses", "title": "SmoothL1Loss", "description": "Smooth L1 loss.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_losses.py" },
-  { "id": "feat-huber", "category": "Losses", "title": "HuberLoss", "description": "Huber loss.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_losses.py" },
-  { "id": "feat-softmargin", "category": "Losses", "title": "SoftMarginLoss", "description": "Soft margin loss.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_loss_diff.py" },
-  { "id": "feat-poissonnll", "category": "Losses", "title": "PoissonNLLLoss", "description": "Poisson NLL loss.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_loss_diff.py" },
-  { "id": "feat-gaussiannll", "category": "Losses", "title": "GaussianNLLLoss", "description": "Gaussian NLL loss.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_loss_diff.py" },
-  { "id": "feat-hinge", "category": "Losses", "title": "HingeEmbeddingLoss", "description": "Hinge embedding loss.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_loss_diff.py" },
-  { "id": "feat-multimargin", "category": "Losses", "title": "MultiMarginLoss", "description": "Multi-margin loss.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_loss_diff.py" },
-  { "id": "feat-multilabelsoftmargin", "category": "Losses", "title": "MultiLabelSoftMarginLoss", "description": "Multi-label soft margin loss.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_loss_diff.py" },
-  { "id": "feat-cosineembedding", "category": "Losses", "title": "CosineEmbeddingLoss", "description": "Cosine embedding loss.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_loss_diff.py" },
-  { "id": "feat-reduce-loss", "category": "Losses", "title": "_reduce_loss helper", "description": "Reduction helper (mean/sum/none).", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_loss_diff.py" },
-  { "id": "feat-relu", "category": "Activations", "title": "ReLU", "description": "Rectified linear unit.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-leaky-relu", "category": "Activations", "title": "LeakyReLU", "description": "Leaky ReLU.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-elu", "category": "Activations", "title": "ELU", "description": "Exponential linear unit.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-selu", "category": "Activations", "title": "SELU", "description": "Scaled ELU.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-gelu", "category": "Activations", "title": "GELU", "description": "Gaussian error linear unit.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-silu", "category": "Activations", "title": "SiLU / Swish", "description": "Sigmoid linear unit.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-softplus", "category": "Activations", "title": "Softplus", "description": "Softplus activation.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-softsign", "category": "Activations", "title": "Softsign", "description": "Softsign activation.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-hardswish", "category": "Activations", "title": "Hardswish", "description": "Hard swish.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-hardtanh", "category": "Activations", "title": "Hardtanh", "description": "Hard tanh.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-mish", "category": "Activations", "title": "Mish", "description": "Mish activation.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-prelu", "category": "Activations", "title": "PReLU", "description": "Parametric ReLU.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_activation_autograd.py" },
-  { "id": "feat-logsigmoid", "category": "Activations", "title": "LogSigmoid", "description": "Log sigmoid (d/dx = sigmoid(-x)).", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_activation_autograd.py" },
-  { "id": "feat-celu", "category": "Activations", "title": "CELU", "description": "CELU activation.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-rrelu", "category": "Activations", "title": "RReLU", "description": "Randomized ReLU.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-relu6", "category": "Activations", "title": "ReLU6", "description": "ReLU6 activation.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-threshold", "category": "Activations", "title": "Threshold", "description": "Threshold activation.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-glu", "category": "Activations", "title": "GLU", "description": "Gated linear unit.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-batchnorm", "category": "Norms", "title": "BatchNorm1d/2d/3d", "description": "Batch normalization (differentiable).", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_norm.py" },
-  { "id": "feat-groupnorm", "category": "Norms", "title": "GroupNorm", "description": "Group normalization (differentiable).", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_norm.py" },
-  { "id": "feat-instancenorm", "category": "Norms", "title": "InstanceNorm1d/2d/3d", "description": "Instance normalization (differentiable).", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_norm.py" },
-  { "id": "feat-layernorm", "category": "Norms", "title": "LayerNorm", "description": "Layer normalization (differentiable).", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_norm.py" },
-  { "id": "feat-rmsnorm", "category": "Norms", "title": "RMSNorm", "description": "RMS normalization (differentiable).", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_norm.py" },
-  { "id": "feat-conv1d", "category": "Conv/Pool", "title": "Conv1d", "description": "1D convolution (f32+f64).", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_conv2d_autograd.py" },
-  { "id": "feat-conv2d", "category": "Conv/Pool", "title": "Conv2d", "description": "2D convolution (f32+f64, autograd).", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_conv2d_autograd.py" },
-  { "id": "feat-conv3d", "category": "Conv/Pool", "title": "Conv3d", "description": "3D convolution.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-convtranspose", "category": "Conv/Pool", "title": "ConvTranspose1d/2d/3d", "description": "Transposed convolutions.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-maxpool", "category": "Conv/Pool", "title": "MaxPool1d/2d/3d", "description": "Max pooling.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-avgpool", "category": "Conv/Pool", "title": "AvgPool1d/2d/3d", "description": "Average pooling.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-adaptivepool", "category": "Conv/Pool", "title": "AdaptiveAvg/MaxPool 1d/2d/3d", "description": "Adaptive pooling.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-unfold-fold", "category": "Conv/Pool", "title": "Unfold / Fold", "description": "Im2col / col2im.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-maxunpool", "category": "Conv/Pool", "title": "MaxUnpool1d/2d/3d", "description": "Max unpooling.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_nn.py" },
-  { "id": "feat-sparse-tensor", "category": "Sparse", "title": "SparseTensor COO/CSR/CSC/BSR", "description": "Sparse tensor layouts.", "source": "bindings/python/SneppX_ALG/interface_bindings/sparse.py", "test": "tests/python/test_sparse.py" },
-  { "id": "feat-sparse-mm", "category": "Sparse", "title": "sparse_mm / sparse_addmm", "description": "Sparse matrix multiply.", "source": "bindings/python/SneppX_ALG/interface_bindings/sparse.py", "test": "tests/python/test_sparse.py" },
-  { "id": "feat-sparse-sum", "category": "Sparse", "title": "sparse_sum / sparse_softmax", "description": "Sparse reductions.", "source": "bindings/python/SneppX_ALG/interface_bindings/sparse.py", "test": "tests/python/test_sparse.py" },
-  { "id": "feat-sparse-conv2d", "category": "Sparse", "title": "sparse_conv2d", "description": "Sparse convolution.", "source": "bindings/python/SneppX_ALG/interface_bindings/sparse.py", "test": "tests/python/test_sparse.py" },
-  { "id": "feat-sparse-adam", "category": "Sparse", "title": "SparseAdam", "description": "Adam for sparse gradients.", "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py", "test": "tests/python/test_sparse.py" },
-  { "id": "feat-state-dict", "category": "Serialization", "title": "Module.state_dict / load_state_dict", "description": "Strict/non-strict, IncompatibleKeys.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_state_dict.py" },
-  { "id": "feat-register-buffer", "category": "Serialization", "title": "register_buffer (persistent)", "description": "Buffer registration with persistence flag.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_state_dict.py" },
-  { "id": "feat-module-list-dict", "category": "Serialization", "title": "ModuleList / ModuleDict", "description": "Module containers.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_state_dict.py" },
-  { "id": "feat-param-list-dict", "category": "Serialization", "title": "ParameterList / ParameterDict", "description": "Parameter containers.", "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py", "test": "tests/python/test_state_dict.py" },
-  { "id": "feat-ed25519", "category": "Security", "title": "Ed25519 sign/verify/keypair", "description": "RFC 8032 Ed25519.", "source": "security/crypto/c/ed25519.c", "test": "tests/python/test_security_integrity.py" },
-  { "id": "feat-acvp-sha3", "category": "Security", "title": "ACVP SHA3 KAT (100%)", "description": "SHA3-224/256/384/512 KAT agreement.", "source": "bindings/python/SneppX_ALG/interface_bindings/acvp_kat.py", "test": "tests/python/test_acvp_sha3.py" },
-  { "id": "feat-acvp-mldsa", "category": "Security", "title": "ACVP ML-DSA interop", "description": "ML-DSA honest interop (zero false accepts).", "source": "bindings/python/SneppX_ALG/interface_bindings/acvp_kat.py", "test": "tests/python/test_acvp_mldsa.py" },
-  { "id": "feat-acvp-slhdsa", "category": "Security", "title": "ACVP SLH-DSA interop", "description": "SLH-DSA honest interop (zero false accepts).", "source": "bindings/python/SneppX_ALG/interface_bindings/acvp_kat.py", "test": "tests/python/test_acvp_slhdsa.py" },
-  { "id": "feat-signed-update", "category": "Security", "title": "Signed update integrity", "description": "Artifact integrity + quarantine.", "source": "security/updates/signed_update.c", "test": "tests/python/test_security_integrity.py" },
-  { "id": "feat-secrets-redact", "category": "Security", "title": "Secrets redaction", "description": "Secrets redaction utilities.", "source": "bindings/python/SneppX_ALG/interface_bindings/secrets_redact.py", "test": "tests/python/test_security_integrity.py" },
-  { "id": "feat-pqc-kyber", "category": "Security", "title": "Kyber (FIPS 203)", "description": "Post-quantum KEM.", "source": "security/crypto/c/kyber.c", "test": "tests/python/test_security_integrity.py" },
-  { "id": "feat-pqc-dilithium", "category": "Security", "title": "Dilithium (FIPS 204)", "description": "Post-quantum signatures.", "source": "security/crypto/c/dilithium.c", "test": "tests/python/test_security_integrity.py" },
-  { "id": "feat-pqc-sphincs", "category": "Security", "title": "SPHINCS+ (FIPS 205)", "description": "Post-quantum stateless signatures.", "source": "security/crypto/c/sphincs.c", "test": "tests/python/test_security_integrity.py" },
-  { "id": "feat-security-layers", "category": "Security", "title": "Security layers S0-S9", "description": "10 security layers (PQC, hardening, obfuscation, monitoring, network, sanitizer, vault, updates, formal verification, pentesting).", "source": "security/", "test": "tests/python/test_security_integrity.py" },
-  { "id": "feat-nccl", "category": "Distributed", "title": "NCCL binding (CPU fallback)", "description": "NCCL with CPU fallback for single-process correctness.", "source": "net/distributed/nccl.c", "test": "tests/python/test_distributed.py" },
-  { "id": "feat-all-reduce", "category": "Distributed", "title": "all_reduce", "description": "All-reduce collective.", "source": "kernel/distributed/ddp.c", "test": "tests/python/test_distributed.py" },
-  { "id": "feat-all-gather", "category": "Distributed", "title": "all_gather", "description": "All-gather collective.", "source": "kernel/distributed/zero.c", "test": "tests/python/test_distributed.py" },
-  { "id": "feat-broadcast", "category": "Distributed", "title": "broadcast", "description": "Broadcast collective.", "source": "kernel/distributed/ddp.c", "test": "tests/python/test_distributed.py" },
-  { "id": "feat-send-recv", "category": "Distributed", "title": "send / recv", "description": "Point-to-point communication.", "source": "kernel/distributed/ddp.c", "test": "tests/python/test_distributed.py" },
-  { "id": "feat-ddp", "category": "Distributed", "title": "DistributedDataParallel", "description": "DDP with NCCL collectives.", "source": "kernel/distributed/ddp.c", "test": "tests/python/test_distributed.py" },
-  { "id": "feat-tensor-parallel", "category": "Distributed", "title": "Tensor parallelism", "description": "Tensor parallel collective wiring.", "source": "kernel/distributed/tensor_parallel.c", "test": "tests/python/test_distributed.py" },
-  { "id": "feat-expert-parallel", "category": "Distributed", "title": "Expert parallelism", "description": "Expert parallel collective wiring.", "source": "kernel/distributed/expert_parallel.c", "test": "tests/python/test_distributed.py" },
-  { "id": "feat-zero3", "category": "Distributed", "title": "ZeRO-3 stage-3", "description": "ZeRO-3 all-gather stage-3.", "source": "kernel/distributed/zero.c", "test": "tests/python/test_distributed.py" },
-  { "id": "feat-pipeline-parallel", "category": "Distributed", "title": "Pipeline parallelism", "description": "Pipeline parallel collective wiring.", "source": "kernel/distributed/pipeline.c", "test": "tests/python/test_distributed.py" },
-  { "id": "feat-grad-comm", "category": "Distributed", "title": "Gradient communication", "description": "Gradient comm collectives.", "source": "kernel/distributed/gradient_comm.c", "test": "tests/python/test_distributed.py" },
-  { "id": "feat-bridge-from-numpy", "category": "Bridge", "title": "c_tensor_bridge from_numpy", "description": "numpy → C tensor bridge.", "source": "bindings/python/SneppX_ALG/interface_bindings/c_tensor_bridge.py", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-bridge-to-numpy", "category": "Bridge", "title": "c_tensor_bridge to_numpy", "description": "C tensor → numpy bridge.", "source": "bindings/python/SneppX_ALG/interface_bindings/c_tensor_bridge.py", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-bridge-roundtrip", "category": "Bridge", "title": "c_tensor_bridge round_trip", "description": "Lossless round-trip conversion.", "source": "bindings/python/SneppX_ALG/interface_bindings/c_tensor_bridge.py", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-pybind-tensor", "category": "Bridge", "title": "PyTensor pybind11 wrapper", "description": "Python bindings for C tensor.", "source": "bindings/python/bindings/tensor_bindings.cpp", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-pybind-variable", "category": "Bridge", "title": "PyVariable pybind11 wrapper", "description": "Python bindings for C variable.", "source": "bindings/python/bindings/autograd_bindings.cpp", "test": "tests/python/test_c_tape.py" },
-  { "id": "feat-pybind-tape", "category": "Bridge", "title": "PyTape pybind11 wrapper", "description": "Python bindings for C tape.", "source": "bindings/python/bindings/autograd_bindings.cpp", "test": "tests/python/test_c_tape.py" },
-  { "id": "feat-null-guard", "category": "Bridge", "title": "NULL-op RuntimeError guards", "description": "No segfaults on invalid inputs.", "source": "bindings/python/bindings/tensor_bindings.cpp", "test": "tests/python/test_c_tensor_bridge.py" },
-  { "id": "feat-stride-fix", "category": "Bridge", "title": "Byte-stride fix (×itemsize)", "description": "data() strides converted to bytes.", "source": "bindings/python/bindings/tensor_bindings.cpp", "test": "tests/python/test_c_tensor_bridge.py" }
+  {
+    "id": "feat-tensor-create",
+    "category": "Tensor Engine",
+    "title": "Tensor create / set_data / data() view",
+    "description": "Create tensors, set data, get numpy view over C memory (byte strides).",
+    "source": "kernel/tensor/tensor.c",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-from-numpy",
+    "category": "Tensor Engine",
+    "title": "from_numpy / to_numpy round-trip",
+    "description": "Lossless numpy ↔ C tensor conversion with shape/dtype preserved.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/c_tensor_bridge.py",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-dtype-map",
+    "category": "Tensor Engine",
+    "title": "Dtype map f16/f32/f64/int8-64/uint8/bool/complex",
+    "description": "Full dtype coverage between numpy and C engine.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/c_tensor_bridge.py",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-add-sub-mul-div",
+    "category": "Tensor Engine",
+    "title": "add / sub / mul / div / pow_",
+    "description": "Elementwise binary ops, f32+f64 dtype-following.",
+    "source": "kernel/tensor/tensor.c",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-matmul",
+    "category": "Tensor Engine",
+    "title": "matmul (f32+f64, batched 3-D)",
+    "description": "Batched matrix multiplication with dtype preservation.",
+    "source": "kernel/tensor/tensor.c",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-dot",
+    "category": "Tensor Engine",
+    "title": "dot product",
+    "description": "Scalar dot product, f32+f64 (reads f64 correctly).",
+    "source": "kernel/tensor/tensor.c",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-conv1d",
+    "category": "Tensor Engine",
+    "title": "conv1d (torch layout, f32+f64)",
+    "description": "1D convolution, C_out/C_in/K layout, dtype-following.",
+    "source": "kernel/tensor/tensor.c",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-conv2d",
+    "category": "Tensor Engine",
+    "title": "conv2d (torch layout, f32+f64)",
+    "description": "2D convolution, C_out/C_in/KH/KW layout, dtype-following.",
+    "source": "kernel/tensor/tensor.c",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-sum-mean",
+    "category": "Tensor Engine",
+    "title": "sum / mean (keepdims, dim)",
+    "description": "Reductions with dtype preservation (f32+f64).",
+    "source": "kernel/tensor/tensor.c",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-var-std",
+    "category": "Tensor Engine",
+    "title": "var / std (keepdims, dim)",
+    "description": "Variance/std with dtype preservation.",
+    "source": "kernel/tensor/tensor.c",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-unary-ops",
+    "category": "Tensor Engine",
+    "title": "relu/sigmoid/tanh/exp/log/sqrt/sin/cos",
+    "description": "Unary elementwise ops, dtype-following.",
+    "source": "kernel/tensor/tensor.c",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-neg-abs-sign",
+    "category": "Tensor Engine",
+    "title": "neg / abs / sign / floor / ceil / round / trunc",
+    "description": "Unary math ops, dtype-following.",
+    "source": "kernel/tensor/tensor.c",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-clamp",
+    "category": "Tensor Engine",
+    "title": "clamp / clamp_min / clamp_max",
+    "description": "Clamping ops.",
+    "source": "kernel/tensor/tensor.c",
+    "test": "tests/python/test_phase2_ops.py"
+  },
+  {
+    "id": "feat-minimum-maximum",
+    "category": "Tensor Engine",
+    "title": "minimum / maximum",
+    "description": "Elementwise min/max, dtype-following.",
+    "source": "kernel/tensor/tensor.c",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-pow",
+    "category": "Tensor Engine",
+    "title": "pow (elementwise)",
+    "description": "Elementwise power, dtype-following.",
+    "source": "kernel/tensor/tensor.c",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-transpose",
+    "category": "Tensor Engine",
+    "title": "transpose / permute",
+    "description": "Axis swapping.",
+    "source": "kernel/tensor/tensor.c",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-reshape",
+    "category": "Tensor Engine",
+    "title": "reshape (splat)",
+    "description": "Tensor.reshape(*shape) uses splat.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/tensor.py",
+    "test": "tests/python/test_tensor.py"
+  },
+  {
+    "id": "feat-cat-stack",
+    "category": "Tensor Engine",
+    "title": "cat / stack",
+    "description": "Concatenation and stacking.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/tensor.py",
+    "test": "tests/python/test_tensor.py"
+  },
+  {
+    "id": "feat-trace-diagonal",
+    "category": "Tensor Engine",
+    "title": "trace / diagonal",
+    "description": "Matrix trace and diagonal extraction.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/tensor.py",
+    "test": "tests/python/test_phase2_ops.py"
+  },
+  {
+    "id": "feat-prod-logsumexp",
+    "category": "Tensor Engine",
+    "title": "prod / logsumexp",
+    "description": "Product reduction and log-sum-exp.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/tensor.py",
+    "test": "tests/python/test_phase2_ops.py"
+  },
+  {
+    "id": "feat-remainder",
+    "category": "Tensor Engine",
+    "title": "remainder / mod",
+    "description": "Modulo operations.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/tensor.py",
+    "test": "tests/python/test_phase2_ops.py"
+  },
+  {
+    "id": "feat-square-reciprocal",
+    "category": "Tensor Engine",
+    "title": "square / reciprocal / sign",
+    "description": "Elementwise square, reciprocal, sign.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/tensor.py",
+    "test": "tests/python/test_phase2_ops.py"
+  },
+  {
+    "id": "feat-minmaxdim",
+    "category": "Tensor Engine",
+    "title": "amin / amax / argmin / argmax",
+    "description": "Min/max reductions with indices.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/tensor.py",
+    "test": "tests/python/test_phase2_ops.py"
+  },
+  {
+    "id": "feat-function-apply",
+    "category": "Autograd",
+    "title": "Function.apply graph building",
+    "description": "Builds autograd graph when any Tensor arg requires_grad.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/autograd_ops.py",
+    "test": "tests/python/test_autograd_ops.py"
+  },
+  {
+    "id": "feat-backward",
+    "category": "Autograd",
+    "title": "backward / grad() / create_graph",
+    "description": "Reverse-mode AD with higher-order support.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/autograd.py",
+    "test": "tests/python/test_higher_order_ad.py"
+  },
+  {
+    "id": "feat-jvp-vjp",
+    "category": "Autograd",
+    "title": "JVP / VJP forward-mode helpers",
+    "description": "Forward-mode AD via reverse-of-reverse.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/autograd.py",
+    "test": "tests/python/test_jvp_vjp.py"
+  },
+  {
+    "id": "feat-grad-checkpoint",
+    "category": "Autograd",
+    "title": "Gradient checkpointing",
+    "description": "checkpoint, checkpoint_sequential, CheckpointFunction.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/grad_checkpoint.py",
+    "test": "tests/python/test_grad_checkpoint.py"
+  },
+  {
+    "id": "feat-no-grad",
+    "category": "Autograd",
+    "title": "no_grad / set_grad_enabled / enable_grad",
+    "description": "Context managers for grad tracking control.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/autograd.py",
+    "test": "tests/python/test_grad_checkpoint.py"
+  },
+  {
+    "id": "feat-scalar-first",
+    "category": "Autograd",
+    "title": "Scalar-first ops backprop (0.5*x, 1.0-x)",
+    "description": "Fixed: ops return grads per positional arg, aligned via _tensor_positions.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/autograd_ops.py",
+    "test": "tests/python/test_scalar_ops.py"
+  },
+  {
+    "id": "feat-higher-order",
+    "category": "Autograd",
+    "title": "Higher-order AD (exact Hessians)",
+    "description": "2nd-order derivatives for 30+ ops, exact 2*J^T*J.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/autograd_ops.py",
+    "test": "tests/python/test_higher_order_ad.py"
+  },
+  {
+    "id": "feat-tape-record",
+    "category": "Autograd",
+    "title": "Tape record / backward / zero_grad",
+    "description": "C-engine tape with ownership semantics.",
+    "source": "kernel/autodiff/tape.c",
+    "test": "tests/python/test_c_tape.py"
+  },
+  {
+    "id": "feat-tape-ownership",
+    "category": "Autograd",
+    "title": "Tape ownership (no double-free)",
+    "description": "Relinquish on create/record, duplicate guard, exit 0.",
+    "source": "bindings/python/bindings/autograd_bindings.cpp",
+    "test": "tests/python/test_c_tape.py"
+  },
+  {
+    "id": "feat-jvp",
+    "category": "Autograd",
+    "title": "JVP (Jacobian-vector product)",
+    "description": "Forward-mode AD helper.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/autograd.py",
+    "test": "tests/python/test_jvp_vjp.py"
+  },
+  {
+    "id": "feat-vjp",
+    "category": "Autograd",
+    "title": "VJP (vector-Jacobian product)",
+    "description": "Reverse-mode AD helper.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/autograd.py",
+    "test": "tests/python/test_jvp_vjp.py"
+  },
+  {
+    "id": "feat-grad-checkpoint-seq",
+    "category": "Autograd",
+    "title": "checkpoint_sequential",
+    "description": "Sequential checkpointing for deep models.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/grad_checkpoint.py",
+    "test": "tests/python/test_grad_checkpoint.py"
+  },
+  {
+    "id": "feat-sgd",
+    "category": "Optimizers",
+    "title": "SGD",
+    "description": "Stochastic gradient descent.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py",
+    "test": "tests/python/test_optim.py"
+  },
+  {
+    "id": "feat-adam",
+    "category": "Optimizers",
+    "title": "Adam",
+    "description": "Adaptive moment estimation.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py",
+    "test": "tests/python/test_optim.py"
+  },
+  {
+    "id": "feat-adamw",
+    "category": "Optimizers",
+    "title": "AdamW",
+    "description": "Adam with decoupled weight decay.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py",
+    "test": "tests/python/test_optim.py"
+  },
+  {
+    "id": "feat-adamax",
+    "category": "Optimizers",
+    "title": "Adamax",
+    "description": "Adam variant with infinity norm.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py",
+    "test": "tests/python/test_optim.py"
+  },
+  {
+    "id": "feat-rmsprop",
+    "category": "Optimizers",
+    "title": "RMSprop",
+    "description": "Root mean square propagation.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py",
+    "test": "tests/python/test_optim.py"
+  },
+  {
+    "id": "feat-adagrad",
+    "category": "Optimizers",
+    "title": "Adagrad",
+    "description": "Adaptive gradient algorithm.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py",
+    "test": "tests/python/test_optim.py"
+  },
+  {
+    "id": "feat-adadelta",
+    "category": "Optimizers",
+    "title": "Adadelta",
+    "description": "Adaptive delta optimizer.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py",
+    "test": "tests/python/test_optim.py"
+  },
+  {
+    "id": "feat-nadam",
+    "category": "Optimizers",
+    "title": "NAdam",
+    "description": "Nesterov-accelerated Adam.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py",
+    "test": "tests/python/test_optim.py"
+  },
+  {
+    "id": "feat-rprop",
+    "category": "Optimizers",
+    "title": "Rprop",
+    "description": "Resilient backpropagation.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py",
+    "test": "tests/python/test_optim.py"
+  },
+  {
+    "id": "feat-asgd",
+    "category": "Optimizers",
+    "title": "ASGD",
+    "description": "Averaged stochastic gradient descent.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py",
+    "test": "tests/python/test_optim.py"
+  },
+  {
+    "id": "feat-lbfgs",
+    "category": "Optimizers",
+    "title": "LBFGS",
+    "description": "Limited-memory BFGS.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py",
+    "test": "tests/python/test_optim.py"
+  },
+  {
+    "id": "feat-sparseadam",
+    "category": "Optimizers",
+    "title": "SparseAdam",
+    "description": "Adam for sparse gradients.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py",
+    "test": "tests/python/test_optim.py"
+  },
+  {
+    "id": "feat-param-groups",
+    "category": "Optimizers",
+    "title": "Param groups",
+    "description": "Per-parameter-group learning rates.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py",
+    "test": "tests/python/test_optim.py"
+  },
+  {
+    "id": "feat-mse",
+    "category": "Losses",
+    "title": "MSELoss",
+    "description": "Mean squared error.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_losses.py"
+  },
+  {
+    "id": "feat-ce",
+    "category": "Losses",
+    "title": "CrossEntropyLoss",
+    "description": "Cross-entropy loss.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_losses.py"
+  },
+  {
+    "id": "feat-nll",
+    "category": "Losses",
+    "title": "NLLLoss",
+    "description": "Negative log likelihood.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_losses.py"
+  },
+  {
+    "id": "feat-kldiv",
+    "category": "Losses",
+    "title": "KLDivLoss",
+    "description": "KL divergence loss.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_losses.py"
+  },
+  {
+    "id": "feat-bce",
+    "category": "Losses",
+    "title": "BCELoss",
+    "description": "Binary cross entropy.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_losses.py"
+  },
+  {
+    "id": "feat-bce-logits",
+    "category": "Losses",
+    "title": "BCEWithLogitsLoss",
+    "description": "BCE with logits.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_losses.py"
+  },
+  {
+    "id": "feat-smoothl1",
+    "category": "Losses",
+    "title": "SmoothL1Loss",
+    "description": "Smooth L1 loss.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_losses.py"
+  },
+  {
+    "id": "feat-huber",
+    "category": "Losses",
+    "title": "HuberLoss",
+    "description": "Huber loss.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_losses.py"
+  },
+  {
+    "id": "feat-softmargin",
+    "category": "Losses",
+    "title": "SoftMarginLoss",
+    "description": "Soft margin loss.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_loss_diff.py"
+  },
+  {
+    "id": "feat-poissonnll",
+    "category": "Losses",
+    "title": "PoissonNLLLoss",
+    "description": "Poisson NLL loss.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_loss_diff.py"
+  },
+  {
+    "id": "feat-gaussiannll",
+    "category": "Losses",
+    "title": "GaussianNLLLoss",
+    "description": "Gaussian NLL loss.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_loss_diff.py"
+  },
+  {
+    "id": "feat-hinge",
+    "category": "Losses",
+    "title": "HingeEmbeddingLoss",
+    "description": "Hinge embedding loss.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_loss_diff.py"
+  },
+  {
+    "id": "feat-multimargin",
+    "category": "Losses",
+    "title": "MultiMarginLoss",
+    "description": "Multi-margin loss.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_loss_diff.py"
+  },
+  {
+    "id": "feat-multilabelsoftmargin",
+    "category": "Losses",
+    "title": "MultiLabelSoftMarginLoss",
+    "description": "Multi-label soft margin loss.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_loss_diff.py"
+  },
+  {
+    "id": "feat-cosineembedding",
+    "category": "Losses",
+    "title": "CosineEmbeddingLoss",
+    "description": "Cosine embedding loss.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_loss_diff.py"
+  },
+  {
+    "id": "feat-reduce-loss",
+    "category": "Losses",
+    "title": "_reduce_loss helper",
+    "description": "Reduction helper (mean/sum/none).",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_loss_diff.py"
+  },
+  {
+    "id": "feat-relu",
+    "category": "Activations",
+    "title": "ReLU",
+    "description": "Rectified linear unit.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-leaky-relu",
+    "category": "Activations",
+    "title": "LeakyReLU",
+    "description": "Leaky ReLU.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-elu",
+    "category": "Activations",
+    "title": "ELU",
+    "description": "Exponential linear unit.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-selu",
+    "category": "Activations",
+    "title": "SELU",
+    "description": "Scaled ELU.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-gelu",
+    "category": "Activations",
+    "title": "GELU",
+    "description": "Gaussian error linear unit.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-silu",
+    "category": "Activations",
+    "title": "SiLU / Swish",
+    "description": "Sigmoid linear unit.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-softplus",
+    "category": "Activations",
+    "title": "Softplus",
+    "description": "Softplus activation.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-softsign",
+    "category": "Activations",
+    "title": "Softsign",
+    "description": "Softsign activation.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-hardswish",
+    "category": "Activations",
+    "title": "Hardswish",
+    "description": "Hard swish.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-hardtanh",
+    "category": "Activations",
+    "title": "Hardtanh",
+    "description": "Hard tanh.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-mish",
+    "category": "Activations",
+    "title": "Mish",
+    "description": "Mish activation.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-prelu",
+    "category": "Activations",
+    "title": "PReLU",
+    "description": "Parametric ReLU.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_activation_autograd.py"
+  },
+  {
+    "id": "feat-logsigmoid",
+    "category": "Activations",
+    "title": "LogSigmoid",
+    "description": "Log sigmoid (d/dx = sigmoid(-x)).",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_activation_autograd.py"
+  },
+  {
+    "id": "feat-celu",
+    "category": "Activations",
+    "title": "CELU",
+    "description": "CELU activation.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-rrelu",
+    "category": "Activations",
+    "title": "RReLU",
+    "description": "Randomized ReLU.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-relu6",
+    "category": "Activations",
+    "title": "ReLU6",
+    "description": "ReLU6 activation.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-threshold",
+    "category": "Activations",
+    "title": "Threshold",
+    "description": "Threshold activation.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-glu",
+    "category": "Activations",
+    "title": "GLU",
+    "description": "Gated linear unit.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-batchnorm",
+    "category": "Norms",
+    "title": "BatchNorm1d/2d/3d",
+    "description": "Batch normalization (differentiable).",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_norm.py"
+  },
+  {
+    "id": "feat-groupnorm",
+    "category": "Norms",
+    "title": "GroupNorm",
+    "description": "Group normalization (differentiable).",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_norm.py"
+  },
+  {
+    "id": "feat-instancenorm",
+    "category": "Norms",
+    "title": "InstanceNorm1d/2d/3d",
+    "description": "Instance normalization (differentiable).",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_norm.py"
+  },
+  {
+    "id": "feat-layernorm",
+    "category": "Norms",
+    "title": "LayerNorm",
+    "description": "Layer normalization (differentiable).",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_norm.py"
+  },
+  {
+    "id": "feat-rmsnorm",
+    "category": "Norms",
+    "title": "RMSNorm",
+    "description": "RMS normalization (differentiable).",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_norm.py"
+  },
+  {
+    "id": "feat-conv1d",
+    "category": "Conv/Pool",
+    "title": "Conv1d",
+    "description": "1D convolution (f32+f64).",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_conv2d_autograd.py"
+  },
+  {
+    "id": "feat-conv2d",
+    "category": "Conv/Pool",
+    "title": "Conv2d",
+    "description": "2D convolution (f32+f64, autograd).",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_conv2d_autograd.py"
+  },
+  {
+    "id": "feat-conv3d",
+    "category": "Conv/Pool",
+    "title": "Conv3d",
+    "description": "3D convolution.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-convtranspose",
+    "category": "Conv/Pool",
+    "title": "ConvTranspose1d/2d/3d",
+    "description": "Transposed convolutions.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-maxpool",
+    "category": "Conv/Pool",
+    "title": "MaxPool1d/2d/3d",
+    "description": "Max pooling.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-avgpool",
+    "category": "Conv/Pool",
+    "title": "AvgPool1d/2d/3d",
+    "description": "Average pooling.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-adaptivepool",
+    "category": "Conv/Pool",
+    "title": "AdaptiveAvg/MaxPool 1d/2d/3d",
+    "description": "Adaptive pooling.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-unfold-fold",
+    "category": "Conv/Pool",
+    "title": "Unfold / Fold",
+    "description": "Im2col / col2im.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-maxunpool",
+    "category": "Conv/Pool",
+    "title": "MaxUnpool1d/2d/3d",
+    "description": "Max unpooling.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_nn.py"
+  },
+  {
+    "id": "feat-sparse-tensor",
+    "category": "Sparse",
+    "title": "SparseTensor COO/CSR/CSC/BSR",
+    "description": "Sparse tensor layouts.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/sparse.py",
+    "test": "tests/python/test_sparse.py"
+  },
+  {
+    "id": "feat-sparse-mm",
+    "category": "Sparse",
+    "title": "sparse_mm / sparse_addmm",
+    "description": "Sparse matrix multiply.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/sparse.py",
+    "test": "tests/python/test_sparse.py"
+  },
+  {
+    "id": "feat-sparse-sum",
+    "category": "Sparse",
+    "title": "sparse_sum / sparse_softmax",
+    "description": "Sparse reductions.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/sparse.py",
+    "test": "tests/python/test_sparse.py"
+  },
+  {
+    "id": "feat-sparse-conv2d",
+    "category": "Sparse",
+    "title": "sparse_conv2d",
+    "description": "Sparse convolution.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/sparse.py",
+    "test": "tests/python/test_sparse.py"
+  },
+  {
+    "id": "feat-sparse-adam",
+    "category": "Sparse",
+    "title": "SparseAdam",
+    "description": "Adam for sparse gradients.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/optim.py",
+    "test": "tests/python/test_sparse.py"
+  },
+  {
+    "id": "feat-state-dict",
+    "category": "Serialization",
+    "title": "Module.state_dict / load_state_dict",
+    "description": "Strict/non-strict, IncompatibleKeys.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_state_dict.py"
+  },
+  {
+    "id": "feat-register-buffer",
+    "category": "Serialization",
+    "title": "register_buffer (persistent)",
+    "description": "Buffer registration with persistence flag.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_state_dict.py"
+  },
+  {
+    "id": "feat-module-list-dict",
+    "category": "Serialization",
+    "title": "ModuleList / ModuleDict",
+    "description": "Module containers.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_state_dict.py"
+  },
+  {
+    "id": "feat-param-list-dict",
+    "category": "Serialization",
+    "title": "ParameterList / ParameterDict",
+    "description": "Parameter containers.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/nn.py",
+    "test": "tests/python/test_state_dict.py"
+  },
+  {
+    "id": "feat-ed25519",
+    "category": "Security",
+    "title": "Ed25519 sign/verify/keypair",
+    "description": "RFC 8032 Ed25519.",
+    "source": "security/crypto/c/ed25519.c",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "feat-acvp-sha3",
+    "category": "Security",
+    "title": "ACVP SHA3 KAT (100%)",
+    "description": "SHA3-224/256/384/512 KAT agreement.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/acvp_kat.py",
+    "test": "tests/python/test_acvp_sha3.py"
+  },
+  {
+    "id": "feat-acvp-mldsa",
+    "category": "Security",
+    "title": "ACVP ML-DSA interop",
+    "description": "ML-DSA honest interop (zero false accepts).",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/acvp_kat.py",
+    "test": "tests/python/test_acvp_mldsa.py"
+  },
+  {
+    "id": "feat-acvp-slhdsa",
+    "category": "Security",
+    "title": "ACVP SLH-DSA interop",
+    "description": "SLH-DSA honest interop (zero false accepts).",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/acvp_kat.py",
+    "test": "tests/python/test_acvp_slhdsa.py"
+  },
+  {
+    "id": "feat-signed-update",
+    "category": "Security",
+    "title": "Signed update integrity",
+    "description": "Artifact integrity + quarantine.",
+    "source": "security/updates/signed_update.c",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "feat-secrets-redact",
+    "category": "Security",
+    "title": "Secrets redaction",
+    "description": "Secrets redaction utilities.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/secrets_redact.py",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "feat-pqc-kyber",
+    "category": "Security",
+    "title": "Kyber (FIPS 203)",
+    "description": "Post-quantum KEM.",
+    "source": "security/crypto/c/kyber.c",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "feat-pqc-dilithium",
+    "category": "Security",
+    "title": "Dilithium (FIPS 204)",
+    "description": "Post-quantum signatures.",
+    "source": "security/crypto/c/dilithium.c",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "feat-pqc-sphincs",
+    "category": "Security",
+    "title": "SPHINCS+ (FIPS 205)",
+    "description": "Post-quantum stateless signatures.",
+    "source": "security/crypto/c/sphincsplus.c",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "feat-security-layers",
+    "category": "Security",
+    "title": "Security layers S0-S9",
+    "description": "10 security layers (PQC, hardening, obfuscation, monitoring, network, sanitizer, vault, updates, formal verification, pentesting).",
+    "source": "security/",
+    "test": "tests/python/test_security_integrity.py"
+  },
+  {
+    "id": "feat-nccl",
+    "category": "Distributed",
+    "title": "NCCL binding (CPU fallback)",
+    "description": "NCCL with CPU fallback for single-process correctness.",
+    "source": "net/distributed/nccl.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "feat-all-reduce",
+    "category": "Distributed",
+    "title": "all_reduce",
+    "description": "All-reduce collective.",
+    "source": "kernel/distributed/ddp.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "feat-all-gather",
+    "category": "Distributed",
+    "title": "all_gather",
+    "description": "All-gather collective.",
+    "source": "kernel/distributed/zero.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "feat-broadcast",
+    "category": "Distributed",
+    "title": "broadcast",
+    "description": "Broadcast collective.",
+    "source": "kernel/distributed/ddp.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "feat-send-recv",
+    "category": "Distributed",
+    "title": "send / recv",
+    "description": "Point-to-point communication.",
+    "source": "kernel/distributed/ddp.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "feat-ddp",
+    "category": "Distributed",
+    "title": "DistributedDataParallel",
+    "description": "DDP with NCCL collectives.",
+    "source": "kernel/distributed/ddp.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "feat-tensor-parallel",
+    "category": "Distributed",
+    "title": "Tensor parallelism",
+    "description": "Tensor parallel collective wiring.",
+    "source": "kernel/distributed/tensor_parallel.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "feat-expert-parallel",
+    "category": "Distributed",
+    "title": "Expert parallelism",
+    "description": "Expert parallel collective wiring.",
+    "source": "kernel/distributed/expert_parallel.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "feat-zero3",
+    "category": "Distributed",
+    "title": "ZeRO-3 stage-3",
+    "description": "ZeRO-3 all-gather stage-3.",
+    "source": "kernel/distributed/zero.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "feat-pipeline-parallel",
+    "category": "Distributed",
+    "title": "Pipeline parallelism",
+    "description": "Pipeline parallel collective wiring.",
+    "source": "kernel/distributed/pipeline.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "feat-grad-comm",
+    "category": "Distributed",
+    "title": "Gradient communication",
+    "description": "Gradient comm collectives.",
+    "source": "kernel/distributed/gradient_comm.c",
+    "test": "tests/python/test_distributed.py"
+  },
+  {
+    "id": "feat-bridge-from-numpy",
+    "category": "Bridge",
+    "title": "c_tensor_bridge from_numpy",
+    "description": "numpy → C tensor bridge.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/c_tensor_bridge.py",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-bridge-to-numpy",
+    "category": "Bridge",
+    "title": "c_tensor_bridge to_numpy",
+    "description": "C tensor → numpy bridge.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/c_tensor_bridge.py",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-bridge-roundtrip",
+    "category": "Bridge",
+    "title": "c_tensor_bridge round_trip",
+    "description": "Lossless round-trip conversion.",
+    "source": "bindings/python/SneppX_ALG/interface_bindings/c_tensor_bridge.py",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-pybind-tensor",
+    "category": "Bridge",
+    "title": "PyTensor pybind11 wrapper",
+    "description": "Python bindings for C tensor.",
+    "source": "bindings/python/bindings/tensor_bindings.cpp",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-pybind-variable",
+    "category": "Bridge",
+    "title": "PyVariable pybind11 wrapper",
+    "description": "Python bindings for C variable.",
+    "source": "bindings/python/bindings/autograd_bindings.cpp",
+    "test": "tests/python/test_c_tape.py"
+  },
+  {
+    "id": "feat-pybind-tape",
+    "category": "Bridge",
+    "title": "PyTape pybind11 wrapper",
+    "description": "Python bindings for C tape.",
+    "source": "bindings/python/bindings/autograd_bindings.cpp",
+    "test": "tests/python/test_c_tape.py"
+  },
+  {
+    "id": "feat-null-guard",
+    "category": "Bridge",
+    "title": "NULL-op RuntimeError guards",
+    "description": "No segfaults on invalid inputs.",
+    "source": "bindings/python/bindings/tensor_bindings.cpp",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  },
+  {
+    "id": "feat-stride-fix",
+    "category": "Bridge",
+    "title": "Byte-stride fix (×itemsize)",
+    "description": "data() strides converted to bytes.",
+    "source": "bindings/python/bindings/tensor_bindings.cpp",
+    "test": "tests/python/test_c_tensor_bridge.py"
+  }
 ]
