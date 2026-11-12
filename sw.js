@@ -50,7 +50,6 @@ const ASSETS = [
   'js/font-size.js',
   'js/print.js',
   'js/charts.js',
-  'js/search.js',
   'js/comparison-table.js',
   'js/system-theme.js',
   'js/focus-trap.js',
