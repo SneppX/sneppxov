@@ -143,6 +143,7 @@ test('search ignores malformed entries and refuses traversal source paths', asyn
 test('search reports unavailable data when the request fails', async () => {
   let onInput;
   const children = [];
+  let opened = false;
   const input = {
     value: 'anything',
     addEventListener(type, callback) {
@@ -150,7 +151,10 @@ test('search reports unavailable data when the request fails', async () => {
     }
   };
   const results = {
-    classList: { add() {}, remove() {} },
+    classList: {
+      add() { opened = true; },
+      remove() { opened = false; }
+    },
     appendChild(element) { children.push(element); },
     innerHTML: ''
   };
@@ -176,7 +180,7 @@ test('search reports unavailable data when the request fails', async () => {
   onInput();
 
   assert.match(results.innerHTML, /Search data is unavailable/);
-  assert.equal(results.classList.add && typeof onInput, 'function');
+  assert.equal(opened, true);
 });
 
 
