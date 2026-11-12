@@ -97,7 +97,7 @@
   function safeSourcePath(value) {
     if (typeof value !== 'string') return null;
     var source = value.trim();
-    if (!source || source.charAt(0) === '/' || source.indexOf('\\\\') !== -1 ||
+    if (!source || source.charAt(0) === '/' || source.indexOf('\\') !== -1 ||
         /[?#:\\u0000-\\u001f]/.test(source)) {
       return null;
     }
