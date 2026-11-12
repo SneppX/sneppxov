@@ -31,5 +31,7 @@ jobs:
         run: python -c "import json; from pathlib import Path; [json.loads(p.read_text(encoding='utf-8')) for p in [Path('manifest.json'), Path('data/components.json'), Path('data/features.json'), Path('data/comparison.json'), Path('data/index.json')]]"
       - name: Check JavaScript syntax
         run: find . -name '*.js' -not -path './.git/*' -print0 | xargs -0 -n1 node --check
+      - name: Run frontend behavior tests
+        run: node --test tests/search.test.js
       - name: Validate catalogs
         run: python scripts/validate_catalog.py --core sneppx-alg
