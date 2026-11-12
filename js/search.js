@@ -36,21 +36,20 @@
       }
 
       matches.forEach(function (m) {
-        var item = document.createElement('div');
+        var item = document.createElement(m.source ? 'a' : 'div');
         item.className = 'search-result-item';
+        if (m.source) {
+          item.href = 'https://github.com/SneppX/sneppx-alg/blob/main/' +
+            m.source.split('/').map(encodeURIComponent).join('/');
+          item.target = '_blank';
+          item.rel = 'noopener noreferrer';
+          item.addEventListener('click', function () {
+            results.classList.remove('open');
+            input.value = '';
+          });
+        }
         item.innerHTML = '<div class="title">' + escapeHtml(m.title) + '</div>' +
           '<div class="desc">' + escapeHtml(m.description) + '</div>';
-        item.addEventListener('click', function () {
-          if (m.source) {
-            window.open(
-              'https://github.com/SneppX/sneppx-alg/blob/main/' + m.source.split('/').map(encodeURIComponent).join('/'),
-              '_blank',
-              'noopener,noreferrer'
-            );
-          }
-          results.classList.remove('open');
-          input.value = '';
-        });
         results.appendChild(item);
       });
 
