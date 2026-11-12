@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -64,6 +65,47 @@ def validate_catalog(path: Path, core_root: Path) -> list[str]:
     return errors
 
 
+
+def validate_pwa_assets() -> list[str]:
+    """Check precached paths and ensure every HTML page opts into the PWA."""
+    errors: list[str] = []
+    service_worker = ROOT / "sw.js"
+    try:
+        worker_text = service_worker.read_text(encoding="utf-8")
+    except OSError as exc:
+        return [f"sw.js: cannot read service worker: {exc}"]
+
+    assets = re.findall(r"^\\s*'([^']+)'", worker_text, flags=re.MULTILINE)
+    if not assets:
+        errors.append("sw.js: no precache assets found")
+
+    for asset in assets:
+        relative = Path(asset)
+        if relative.is_absolute() or ".." in relative.parts:
+            errors.append(f"sw.js: unsafe precache path: {asset}")
+            continue
+        target = (ROOT / relative).resolve()
+        if ROOT.resolve() not in target.parents and target != ROOT.resolve():
+            errors.append(f"sw.js: precache path escapes website root: {asset}")
+        elif not target.exists():
+            errors.append(f"sw.js: precache asset does not exist: {asset}")
+
+    for page in sorted(ROOT.glob("*.html")):
+        html = page.read_text(encoding="utf-8")
+        label = page.relative_to(ROOT)
+        if 'rel="manifest"' not in html:
+            errors.append(f"{label}: missing web app manifest link")
+        if "js/sw-register.js" not in html:
+            errors.append(f"{label}: missing service worker registration")
+        if 'id="hamburger"' in html and (
+            'aria-controls="siteNav"' not in html or 'id="siteNav"' not in html
+        ):
+            errors.append(f"{label}: mobile navigation control is not connected to its nav")
+
+    print(f"sw.js: validated {len(assets)} precache entries and {len(list(ROOT.glob('*.html')))} HTML pages")
+    return errors
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--core", type=Path, required=True, help="Path to a checkout of SneppX/sneppx-alg")
@@ -75,6 +117,7 @@ def main() -> int:
     errors: list[str] = []
     for relative in CATALOGS:
         errors.extend(validate_catalog(ROOT / relative, core_root))
+    errors.extend(validate_pwa_assets())
 
     if errors:
         print("\nCatalog validation failed:", file=sys.stderr)
