@@ -23,6 +23,7 @@ jobs:
           repository: SneppX/sneppx-alg
           ref: main
           path: sneppx-alg
+          persist-credentials: false
       - name: Set up Python
         uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c
         with:
