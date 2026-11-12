@@ -87,6 +87,62 @@ test('search results are keyboard-accessible safe external links', async () => {
 });
 
 
+
+test('search shows a loading state while data is pending', async () => {
+  let onInput;
+  let resolveResponse;
+  const children = [];
+  const input = {
+    value: 'ready',
+    addEventListener(type, callback) {
+      if (type === 'input') onInput = callback;
+    }
+  };
+  const results = {
+    classList: { add() {}, remove() {} },
+    appendChild(element) { children.push(element); },
+    innerHTML: ''
+  };
+  const box = {
+    querySelector(selector) {
+      return selector === 'input' ? input :
+        selector === '.search-results' ? results : null;
+    },
+    getAttribute() { return 'data/search.json'; },
+    contains() { return true; }
+  };
+  const document = {
+    querySelectorAll() { return [box]; },
+    createElement(tagName) {
+      return { tagName, addEventListener() {} };
+    },
+    addEventListener() {}
+  };
+  const fetch = () => new Promise(resolve => {
+    resolveResponse = resolve;
+  });
+
+  vm.runInNewContext(source, { document, fetch });
+  onInput();
+  assert.match(results.innerHTML, /Loading search data/);
+
+  resolveResponse({
+    ok: true,
+    json: async () => [{
+      title: 'Ready result',
+      description: 'Loaded',
+      category: 'test',
+      source: 'src/ready.c'
+    }]
+  });
+  await new Promise(resolve => setImmediate(resolve));
+  onInput();
+
+  assert.equal(children.length, 1);
+  assert.equal(children[0].tagName, 'a');
+});
+
+
 test('search ignores malformed entries and refuses traversal source paths', async () => {
   let onInput;
   const children = [];
