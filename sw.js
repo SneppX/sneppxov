@@ -1,5 +1,5 @@
 // PWA Service Worker
-const CACHE_NAME = 'sneppxov-v2';
+const CACHE_NAME = 'sneppxov-v3';
 const ASSETS = [
   './',
   'index.html',
