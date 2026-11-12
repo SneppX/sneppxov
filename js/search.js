@@ -42,7 +42,11 @@
           '<div class="desc">' + escapeHtml(m.description) + '</div>';
         item.addEventListener('click', function () {
           if (m.source) {
-            window.open('https://github.com/SneppX/sneppx-alg/blob/main/' + encodeURIComponent(m.source), '_blank');
+            window.open(
+              'https://github.com/SneppX/sneppx-alg/blob/main/' + m.source.split('/').map(encodeURIComponent).join('/'),
+              '_blank',
+              'noopener,noreferrer'
+            );
           }
           results.classList.remove('open');
           input.value = '';
