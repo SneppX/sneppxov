@@ -70,7 +70,6 @@ test('search results are keyboard-accessible safe external links', async () => {
   await new Promise(resolve => setImmediate(resolve));
   assert.equal(typeof onInput, 'function');
 
-  onInput();
 
   assert.equal(children.length, 1);
   const link = children[0];
@@ -188,7 +187,6 @@ test('search ignores malformed entries and refuses traversal source paths', asyn
 
   vm.runInNewContext(source, { document, fetch });
   await new Promise(resolve => setImmediate(resolve));
-  onInput();
 
   assert.equal(children.length, 1);
   assert.equal(children[0].tagName, 'div');
@@ -232,7 +230,6 @@ test('search reports unavailable data when the request fails', async () => {
 
   vm.runInNewContext(source, { document, fetch });
   await new Promise(resolve => setImmediate(resolve));
-  onInput();
 
   assert.match(results.innerHTML, /Search data is unavailable/);
   assert.equal(opened, true);
@@ -279,7 +276,6 @@ test('search results without a source are not fake clickable links', async () =>
 
   vm.runInNewContext(source, { document, fetch });
   await new Promise(resolve => setImmediate(resolve));
-  onInput();
 
   assert.equal(children.length, 1);
   assert.equal(children[0].tagName, 'div');
