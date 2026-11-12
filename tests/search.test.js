@@ -86,6 +86,100 @@ test('search results are keyboard-accessible safe external links', async () => {
   assert.equal(typeof link.listeners.click, 'function');
 });
 
+
+test('search ignores malformed entries and refuses traversal source paths', async () => {
+  let onInput;
+  const children = [];
+  const input = {
+    value: 'unsafe',
+    addEventListener(type, callback) {
+      if (type === 'input') onInput = callback;
+    }
+  };
+  const results = {
+    classList: { add() {}, remove() {} },
+    appendChild(element) { children.push(element); },
+    innerHTML: ''
+  };
+  const box = {
+    querySelector(selector) {
+      return selector === 'input' ? input :
+        selector === '.search-results' ? results : null;
+    },
+    getAttribute() { return 'data/search.json'; },
+    contains() { return true; }
+  };
+  const document = {
+    querySelectorAll() { return [box]; },
+    createElement(tagName) {
+      return { tagName, addEventListener() {} };
+    },
+    addEventListener() {}
+  };
+  const fetch = async () => ({
+    ok: true,
+    json: async () => [
+      null,
+      'not an object',
+      [],
+      {
+        title: 'Unsafe source path',
+        description: 'Must remain non-clickable',
+        category: 'security',
+        source: '../../README.md'
+      }
+    ]
+  });
+
+  vm.runInNewContext(source, { document, fetch });
+  await new Promise(resolve => setImmediate(resolve));
+  onInput();
+
+  assert.equal(children.length, 1);
+  assert.equal(children[0].tagName, 'div');
+  assert.equal(children[0].href, undefined);
+});
+
+test('search reports unavailable data when the request fails', async () => {
+  let onInput;
+  const children = [];
+  const input = {
+    value: 'anything',
+    addEventListener(type, callback) {
+      if (type === 'input') onInput = callback;
+    }
+  };
+  const results = {
+    classList: { add() {}, remove() {} },
+    appendChild(element) { children.push(element); },
+    innerHTML: ''
+  };
+  const box = {
+    querySelector(selector) {
+      return selector === 'input' ? input :
+        selector === '.search-results' ? results : null;
+    },
+    getAttribute() { return 'data/search.json'; },
+    contains() { return true; }
+  };
+  const document = {
+    querySelectorAll() { return [box]; },
+    createElement(tagName) {
+      return { tagName, addEventListener() {} };
+    },
+    addEventListener() {}
+  };
+  const fetch = async () => ({ ok: false, status: 503 });
+
+  vm.runInNewContext(source, { document, fetch });
+  await new Promise(resolve => setImmediate(resolve));
+  onInput();
+
+  assert.match(results.innerHTML, /Search data is unavailable/);
+  assert.equal(results.classList.add && typeof onInput, 'function');
+});
+
+
 test('search results without a source are not fake clickable links', async () => {
   let onInput;
   const children = [];
