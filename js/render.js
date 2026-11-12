@@ -71,8 +71,8 @@
   function safeSourcePath(value) {
     if (typeof value !== 'string') return null;
     var source = value.trim();
-    if (!source || source.charAt(0) === '/' || source.indexOf('\\\\') !== -1 ||
-        /[?#:\\x00-\\x1f]/.test(source)) {
+    if (!source || source.charAt(0) === '/' || source.indexOf('\\') !== -1 ||
+        /[?#:\x00-\x1f]/.test(source)) {
       return null;
     }
 
