@@ -16,15 +16,15 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Check out website
-        uses: actions/checkout@v4
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a
       - name: Check out core repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a
         with:
           repository: SneppX/sneppx-alg
           ref: main
           path: sneppx-alg
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c
         with:
           python-version: "3.11"
       - name: Validate JSON data
