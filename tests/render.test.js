@@ -125,15 +125,6 @@ test('component catalog escapes content and only links safe repository paths', a
   assert.equal(app.filters.children.length, 4);
   assert.equal(app.grid.children.length, 4);
 
-  const allChip = app.filters.children.find(chip => chip.textContent === 'All');
-  assert.equal(allChip.attributes['aria-pressed'], 'true');
-  const toolsChip = app.filters.children.find(chip => chip.textContent === 'Tools');
-  assert.equal(toolsChip.attributes['aria-pressed'], 'false');
-  toolsChip.listeners.click();
-  const activeToolsChip = app.filters.children.find(chip => chip.textContent === 'Tools');
-  assert.equal(activeToolsChip.attributes['aria-pressed'], 'true');
-  assert.equal(app.grid.children.length, 1);
-
   const safe = app.grid.children.find(card => card.innerHTML.includes('Safe &lt;component&gt;'));
   assert.ok(safe);
   assert.match(safe.innerHTML, /blob\/main\/src\/my%20file\.c/);
@@ -152,6 +143,15 @@ test('component catalog escapes content and only links safe repository paths', a
   const directory = app.grid.children.find(card => card.innerHTML.includes('Directory source'));
   assert.ok(directory);
   assert.match(directory.innerHTML, /tree\/main\/src\/include\//);
+
+  const allChip = app.filters.children.find(chip => chip.textContent === 'All');
+  assert.equal(allChip.attributes['aria-pressed'], 'true');
+  const toolsChip = app.filters.children.find(chip => chip.textContent === 'Tools');
+  assert.equal(toolsChip.attributes['aria-pressed'], 'false');
+  toolsChip.listeners.click();
+  const activeToolsChip = app.filters.children.find(chip => chip.textContent === 'Tools');
+  assert.equal(activeToolsChip.attributes['aria-pressed'], 'true');
+  assert.equal(app.grid.children.length, 1);
 
   app.search.value = 'Directory';
   app.searchNow();
