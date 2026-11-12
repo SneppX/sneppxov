@@ -29,14 +29,16 @@
           return entry && typeof entry === 'object' && !Array.isArray(entry);
         });
         dataLoaded = true;
+        renderSearchResults();
       })
       .catch(function () {
         loadFailed = true;
         dataLoaded = true;
         data = [];
+        renderSearchResults();
       });
 
-    input.addEventListener('input', function () {
+    function renderSearchResults() {
       var q = String(input.value || '').toLowerCase().trim();
       results.innerHTML = '';
 
@@ -93,7 +95,9 @@
       });
 
       results.classList.add('open');
-    });
+    }
+
+    input.addEventListener('input', renderSearchResults);
 
     document.addEventListener('click', function (e) {
       if (!box.contains(e.target)) {
