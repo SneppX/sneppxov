@@ -90,7 +90,7 @@ test('search results without a source are not fake clickable links', async () =>
   let onInput;
   const children = [];
   const input = {
-    value: 'test',
+    value: 'local',
     addEventListener(type, callback) {
       if (type === 'input') onInput = callback;
     }
