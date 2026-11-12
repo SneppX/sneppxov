@@ -10,6 +10,7 @@
     var dataAttr = box.getAttribute('data-search');
     var data = [];
     var loadFailed = false;
+    var dataLoaded = false;
 
     if (!input || !results || !dataAttr) return;
 
@@ -27,9 +28,11 @@
         data = json.filter(function (entry) {
           return entry && typeof entry === 'object' && !Array.isArray(entry);
         });
+        dataLoaded = true;
       })
       .catch(function () {
         loadFailed = true;
+        dataLoaded = true;
         data = [];
       });
 
@@ -44,6 +47,12 @@
 
       if (loadFailed) {
         results.innerHTML = '<div class="search-empty">Search data is unavailable</div>';
+        results.classList.add('open');
+        return;
+      }
+
+      if (!dataLoaded) {
+        results.innerHTML = '<div class="search-empty">Loading search data…</div>';
         results.classList.add('open');
         return;
       }
