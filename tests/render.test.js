@@ -13,16 +13,30 @@ function createHarness(fetch) {
   let onSearch;
   const grid = {
     children: [],
-    innerHTML: '',
+    _innerHTML: '',
     textContent: '',
+    get innerHTML() {
+      return this._innerHTML;
+    },
+    set innerHTML(value) {
+      this._innerHTML = value;
+      this.children = [];
+    },
     appendChild(element) {
       this.children.push(element);
     }
   };
   const filters = {
     children: [],
-    innerHTML: '',
+    _innerHTML: '',
     textContent: '',
+    get innerHTML() {
+      return this._innerHTML;
+    },
+    set innerHTML(value) {
+      this._innerHTML = value;
+      this.children = [];
+    },
     appendChild(element) {
       this.children.push(element);
     }
