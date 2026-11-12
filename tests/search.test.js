@@ -136,7 +136,6 @@ test('search shows a loading state while data is pending', async () => {
     }]
   });
   await new Promise(resolve => setImmediate(resolve));
-  onInput();
 
   assert.equal(children.length, 1);
   assert.equal(children[0].tagName, 'a');
