@@ -16,11 +16,11 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Check out website
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           persist-credentials: false
       - name: Check out core repository
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           repository: SneppX/sneppx-alg
           ref: main
