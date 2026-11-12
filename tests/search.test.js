@@ -83,7 +83,7 @@ test('search results are keyboard-accessible safe external links', async () => {
   );
   assert.match(link.innerHTML, /Test &lt;img src=x&gt;/);
   assert.match(link.innerHTML, /A &amp; B/);
-  assert.equal(link.listeners.click instanceof Function, true);
+  assert.equal(typeof link.listeners.click, 'function');
 });
 
 test('search results without a source are not fake clickable links', async () => {
