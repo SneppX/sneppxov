@@ -26,6 +26,7 @@
       var btn = document.createElement('button');
       btn.className = 'chip' + (cat === activeCategory ? ' active' : '');
       btn.textContent = cat;
+      btn.setAttribute('aria-pressed', cat === activeCategory ? 'true' : 'false');
       btn.addEventListener('click', function () {
         activeCategory = cat;
         renderChips();
