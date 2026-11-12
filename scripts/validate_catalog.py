@@ -75,7 +75,7 @@ def validate_pwa_assets() -> list[str]:
     except OSError as exc:
         return [f"sw.js: cannot read service worker: {exc}"]
 
-    assets = re.findall(r"^\\s*'([^']+)'", worker_text, flags=re.MULTILINE)
+    assets = re.findall(r"^\s*'([^']+)'", worker_text, flags=re.MULTILINE)
     if not assets:
         errors.append("sw.js: no precache assets found")
 
