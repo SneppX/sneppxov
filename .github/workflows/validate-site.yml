@@ -35,6 +35,6 @@ jobs:
       - name: Check JavaScript syntax
         run: find . -name '*.js' -not -path './.git/*' -print0 | xargs -0 -n1 node --check
       - name: Run frontend behavior tests
-        run: node --test tests/search.test.js
+        run: node --test tests/render.test.js
       - name: Validate catalogs
         run: python scripts/validate_catalog.py --core sneppx-alg
