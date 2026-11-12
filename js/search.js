@@ -98,7 +98,7 @@
     if (typeof value !== 'string') return null;
     var source = value.trim();
     if (!source || source.charAt(0) === '/' || source.indexOf('\\') !== -1 ||
-        /[?#:\\u0000-\\u001f]/.test(source)) {
+        /[?#:\x00-\x1f]/.test(source)) {
       return null;
     }
     var segments = source.split('/');
