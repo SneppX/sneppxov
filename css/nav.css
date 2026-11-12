@@ -21,6 +21,12 @@
   background: rgba(99, 102, 241, 0.08);
 }
 
+.site-nav a:focus-visible,
+.hamburger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 /* Hamburger (mobile) */
 .hamburger {
   display: none;

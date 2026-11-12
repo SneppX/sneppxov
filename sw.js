@@ -1,5 +1,5 @@
 // PWA Service Worker
-const CACHE_NAME = 'sneppxov-v1';
+const CACHE_NAME = 'sneppxov-v2';
 const ASSETS = [
   './',
   'index.html',
@@ -57,6 +57,29 @@ const ASSETS = [
   'js/toast.js',
   'js/social-share.js',
   'js/render.js',
+  'changelog.html',
+  'sitemap.html',
+  'favicon.svg',
+  'css/alert.css',
+  'css/badge.css',
+  'css/card-hover.css',
+  'css/component-grid.css',
+  'css/empty-state.css',
+  'css/hero-anim.css',
+  'css/playground.css',
+  'css/search-highlight.css',
+  'css/stat-grid.css',
+  'css/stats.css',
+  'css/timeline.css',
+  'js/alert-dismiss.js',
+  'js/playground.js',
+  'js/toast-api.js',
+  'js/sw-register.js',
+  'data/comparison.json',
+  'data/components.json',
+  'data/features.json',
+  'data/index.json',
+  'schema.json',
   'manifest.json'
 ];
 

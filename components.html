@@ -4,21 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Components — SneppX-Alg</title>
-  <meta name="description" content="100+ real components of the SneppX-Alg engine, each linked to source." />
+  <meta name="description" content="93 documented components of the SneppX-Alg engine, each linked to source." />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="css/nav.css" />
   <link rel="stylesheet" href="css/hero.css" />
   <link rel="stylesheet" href="css/features.css" />
   <link rel="stylesheet" href="css/cards.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#6366f1" />
 </head>
 <body>
   <header class="site-header">
     <div class="container">
       <a class="brand" href="index.html">SneppX-Alg</a>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
+      <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-controls="siteNav" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <nav class="site-nav">
+      <nav class="site-nav" id="siteNav">
         <a href="index.html">Home</a>
         <a href="components.html" class="active">Components</a>
         <a href="features.html">Features</a>
@@ -34,7 +36,7 @@
   <main>
     <section class="hero">
       <div class="container">
-        <h1>100+ Components</h1>
+        <h1>93 Components</h1>
         <p class="hero-sub">Every real file, module, and artifact in the SneppX-Alg engine — each linked to source.</p>
       </div>
     </section>
@@ -59,5 +61,6 @@
   <script src="js/countup.js"></script>
   <script src="js/render.js"></script>
   <script src="app.js"></script>
+  <script src="js/sw-register.js"></script>
 </body>
 </html>
