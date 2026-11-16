@@ -4,6 +4,15 @@ const path = require('node:path');
 const test = require('node:test');
 const root = path.join(__dirname, '..');
 
+test('all HTML pages expose skip navigation and a main landmark', () => {
+  const pages = fs.readdirSync(root).filter(file => file.endsWith('.html'));
+  for (const page of pages) {
+    const html = fs.readFileSync(path.join(root, page), 'utf8');
+    assert.ok(html.includes('class="skip-link" href="#main-content"'), page + ' has a skip link');
+    assert.ok(html.includes('id="main-content"'), page + ' has a main landmark target');
+  }
+});
+
 test('landing page uses specific project copy and source-first links', () => {
   const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   assert.ok(html.includes('Understand the system'));

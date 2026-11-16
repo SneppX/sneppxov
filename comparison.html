@@ -11,20 +11,20 @@
   <link rel="stylesheet" href="css/hero.css" />
   <link rel="stylesheet" href="css/comparison-table.css" />
   <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#6366f1" />
+  <meta name="theme-color" content="#b95738" />
 </head>
-<body>
+<body><a class="skip-link" href="#main-content">Skip to content</a>
   <header class="site-header">
     <div class="container">
       <a class="brand" href="index.html">SneppX-Alg</a>
       <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-controls="siteNav" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <nav class="site-nav" id="siteNav">
+      <nav class="site-nav" id="siteNav" aria-label="Main navigation">
         <a href="index.html">Home</a>
         <a href="components.html">Components</a>
         <a href="features.html">Features</a>
-        <a href="comparison.html" class="active">Compare</a>
+        <a href="comparison.html" class="active" aria-current="page">Compare</a>
         <a href="engine.html">Engine</a>
         <a href="security.html">Security</a>
         <a href="docs.html">Docs</a>
@@ -33,7 +33,7 @@
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">Theme</button>
     </div>
   </header>
-  <main>
+  <main id="main-content">
     <section class="hero">
       <div class="container">
         <h1>Feature Comparison</h1>
