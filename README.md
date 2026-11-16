@@ -1,23 +1,29 @@
-# sneppxov
+# SneppX-OV
 
-Static reference website for the **SneppX-Alg** open-source AI framework.
+Public, static documentation site for the SneppX-Alg project.
 
-- **93 documented components** and **134 documented features** in the site catalogs
-- Catalog entries link to source files and tests in `SneppX/sneppx-alg` where a dedicated test exists
-- Static HTML/CSS/JS — no build step, GitHub Pages compatible
-- Project comparison page at `comparison.html`, backed by the validated `data/comparison.json` catalog
+The site provides:
+- A project overview and architecture notes
+- Searchable catalogues of documented components and capabilities
+- Source and test links into `SneppX/sneppx-alg`
+- Security, build, comparison, and contribution notes
 
 ## Live site
 
-GitHub Pages project site: https://sneppx.github.io/sneppxov/
+https://sneppx.github.io/sneppxov/
 
 ## Local preview
 
+Run a static HTTP server from the repository root:
+
 ```bash
 python -m http.server 8000
-# then open http://localhost:8000
 ```
 
-## License
+Then open http://localhost:8000.
+
+The site uses plain HTML, CSS, and JavaScript. It has no remote font, analytics, or frontend framework dependency.
+
+## Licence
 
 MIT

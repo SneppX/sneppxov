@@ -1,11 +1,11 @@
 {
   "name": "SneppX-Alg",
-  "short_name": "SneppXAlgo",
+  "short_name": "SneppX-Alg",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#6366f1",
-  "description": "SneppX-Alg universal AI algorithm engine showcase",
+  "background_color": "#f4f2ec",
+  "theme_color": "#b95738",
+  "description": "SneppX-Alg project reference and documentation",
   "icons": [
     {
       "src": "favicon.svg",
