@@ -13,6 +13,13 @@ test('all HTML pages expose skip navigation and a main landmark', () => {
   }
 });
 
+test('changelog records the published site refresh', () => {
+  const html = fs.readFileSync(path.join(root, 'changelog.html'), 'utf8');
+  assert.ok(html.includes('v1.1.0'));
+  assert.ok(html.includes('Added skip navigation'));
+  assert.ok(html.includes('Removed unsupported sponsorship tiers'));
+});
+
 test('landing page uses specific project copy and source-first links', () => {
   const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   assert.ok(html.includes('Understand the system'));
