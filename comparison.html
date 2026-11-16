@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feature Comparison — SneppX-Alg</title>
+  <meta name="description" content="Compare the documented capabilities of SneppX-OV, SneppX-ALG, SneppX-Shield, and SneppX-Serve." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/nav.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/comparison-table.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#6366f1" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">SneppX-Alg</a>
+      <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-controls="siteNav" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" id="siteNav">
+        <a href="index.html">Home</a>
+        <a href="components.html">Components</a>
+        <a href="features.html">Features</a>
+        <a href="comparison.html" class="active">Compare</a>
+        <a href="engine.html">Engine</a>
+        <a href="security.html">Security</a>
+        <a href="docs.html">Docs</a>
+        <a href="community.html">Community</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">Theme</button>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>Feature Comparison</h1>
+        <p class="hero-sub">Compare the capabilities recorded in the SneppX project catalog.</p>
+      </div>
+    </section>
+    <section class="container" style="padding:2rem 0;">
+      <p id="comparisonNote">The table is generated from the repository's comparison data. Use horizontal scrolling on smaller screens to inspect every project column.</p>
+      <div class="comparison-table-wrap" role="region" aria-label="Project feature comparison" tabindex="0">
+        <table id="comparisonTable" class="comparison-table" aria-describedby="comparisonNote">
+          <caption>Documented feature availability by project</caption>
+          <thead>
+            <tr>
+              <th scope="col">Feature</th>
+              <th scope="col">SneppX-OV</th>
+              <th scope="col">SneppX-ALG</th>
+              <th scope="col">SneppX-Shield</th>
+              <th scope="col">SneppX-Serve</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="5">Loading comparison data…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p>MIT License · SneppX · <a href="index.html">Home</a> · <a href="components.html">Components</a> · <a href="features.html">Features</a> · <a href="comparison.html">Compare</a> · <a href="https://github.com/SneppX/sneppx-alg">Source</a></p>
+    </div>
+  </footer>
+  <script src="js/theme.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="app.js"></script>
+  <script src="js/comparison-table.js"></script>
+  <script src="js/sw-register.js"></script>
+</body>
+</html>

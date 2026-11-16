@@ -1,4 +1,4 @@
-// Feature comparison table renderer
+// Accessible renderer for the project comparison catalog.
 (function () {
   'use strict';
 
@@ -8,29 +8,65 @@
   var tbody = table.querySelector('tbody');
   if (!tbody) return;
 
-  fetch('data/comparison.json')
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      data.forEach(function (row) {
-        var tr = document.createElement('tr');
-        tr.innerHTML =
-          '<td>' + escapeHtml(row.feature) + '</td>' +
-          row.sneppxov.split(' ').map(function (v) {
-            return '<span class="feature-badge ' + (v === 'Yes' ? 'yes' : 'no') + '">' + v + '</span>';
-          }).join('') +
-          '<td></td><td></td><td></td>';
-        // Actually we need 4 columns for sneppxov, sneppx-alg, sneppx-shield, sneppx-serve
-        tr.innerHTML =
-          '<td>' + escapeHtml(row.feature) + '</td>' +
-          '<td><span class="feature-badge ' + (row.sneppxov === 'Yes' ? 'yes' : 'no') + '">' + row.sneppxov + '</span></td>' +
-          '<td><span class="feature-badge ' + (row.sneppx_alg === 'Yes' ? 'yes' : 'no') + '">' + row.sneppx_alg + '</span></td>' +
-          '<td><span class="feature-badge ' + (row.sneppx_shield === 'Yes' ? 'yes' : 'no') + '">' + row.sneppx_shield + '</span></td>' +
-          '<td><span class="feature-badge ' + (row.sneppx_serve === 'Yes' ? 'yes' : 'no') + '">' + row.sneppx_serve + '</span></td>';
-        tbody.appendChild(tr);
+  var columns = [
+    { key: 'sneppxov' },
+    { key: 'sneppx-alg' },
+    { key: 'sneppx-shield' },
+    { key: 'sneppx-serve' }
+  ];
+
+  function showError() {
+    var row = document.createElement('tr');
+    var cell = document.createElement('td');
+    cell.colSpan = 5;
+    cell.textContent = 'Comparison data could not be loaded. Please refresh the page.';
+    row.appendChild(cell);
+    tbody.replaceChildren(row);
+  }
+
+  function render(data) {
+    if (!Array.isArray(data) || data.length === 0) {
+      throw new Error('Expected a non-empty comparison array.');
+    }
+
+    var rows = data.map(function (record) {
+      if (!record || typeof record.feature !== 'string' || !record.feature.trim()) {
+        throw new Error('Comparison row is missing its feature name.');
+      }
+
+      var row = document.createElement('tr');
+      var feature = document.createElement('th');
+      feature.setAttribute('scope', 'row');
+      feature.textContent = record.feature;
+      row.appendChild(feature);
+
+      columns.forEach(function (column) {
+        var value = record[column.key];
+        if (value !== 'Yes' && value !== 'No') {
+          throw new Error('Comparison row contains an invalid project value.');
+        }
+
+        var cell = document.createElement('td');
+        var badge = document.createElement('span');
+        badge.className = 'feature-badge ' + (value === 'Yes' ? 'yes' : 'no');
+        badge.textContent = value;
+        cell.appendChild(badge);
+        row.appendChild(cell);
       });
+
+      return row;
     });
 
-  function escapeHtml(s) {
-    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    tbody.replaceChildren.apply(tbody, rows);
   }
+
+  fetch('data/comparison.json')
+    .then(function (response) {
+      if (!response || !response.ok) {
+        throw new Error('Comparison request failed.');
+      }
+      return response.json();
+    })
+    .then(render)
+    .catch(showError);
 })();

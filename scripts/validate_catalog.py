@@ -11,6 +11,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOGS = ("data/components.json", "data/features.json")
+COMPARISON_CATALOG = "data/comparison.json"
+COMPARISON_COLUMNS = ("sneppxov", "sneppx-alg", "sneppx-shield", "sneppx-serve")
+COMPARISON_VALUES = {"Yes", "No"}
 
 
 def validate_catalog(path: Path, core_root: Path) -> list[str]:
@@ -66,6 +69,54 @@ def validate_catalog(path: Path, core_root: Path) -> list[str]:
 
 
 
+def validate_comparison_catalog() -> list[str]:
+    """Validate the separate project-comparison schema and every status cell."""
+    path = ROOT / COMPARISON_CATALOG
+    try:
+        records = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return [f"{COMPARISON_CATALOG}: cannot read valid JSON: {exc}"]
+
+    if not isinstance(records, list) or not records:
+        return [f"{COMPARISON_CATALOG}: expected a non-empty JSON array"]
+
+    required = {"feature", *COMPARISON_COLUMNS}
+    seen_features: set[str] = set()
+    errors: list[str] = []
+
+    for index, record in enumerate(records):
+        label = f"{COMPARISON_CATALOG}[{index}]"
+        if not isinstance(record, dict):
+            errors.append(f"{label}: expected an object")
+            continue
+
+        missing = required - record.keys()
+        extra = record.keys() - required
+        if missing:
+            errors.append(f"{label}: missing columns: {', '.join(sorted(missing))}")
+        if extra:
+            errors.append(f"{label}: unexpected columns: {', '.join(sorted(extra))}")
+
+        feature = record.get("feature")
+        if not isinstance(feature, str) or not feature.strip():
+            errors.append(f"{label}: feature must be a non-empty string")
+        else:
+            normalized = feature.strip().casefold()
+            if normalized in seen_features:
+                errors.append(f"{label}: duplicate feature {feature!r}")
+            seen_features.add(normalized)
+
+        for column in COMPARISON_COLUMNS:
+            value = record.get(column)
+            if value not in COMPARISON_VALUES:
+                errors.append(
+                    f"{label}: {column} must be one of {sorted(COMPARISON_VALUES)}, got {value!r}"
+                )
+
+    print(f"{COMPARISON_CATALOG}: validated {len(records)} comparison rows")
+    return errors
+
+
 def validate_pwa_assets() -> list[str]:
     """Check precached paths and ensure every HTML page opts into the PWA."""
     errors: list[str] = []
@@ -117,6 +168,7 @@ def main() -> int:
     errors: list[str] = []
     for relative in CATALOGS:
         errors.extend(validate_catalog(ROOT / relative, core_root))
+    errors.extend(validate_comparison_catalog())
     errors.extend(validate_pwa_assets())
 
     if errors:
