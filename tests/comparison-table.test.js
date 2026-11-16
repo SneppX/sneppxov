@@ -167,6 +167,32 @@ test('comparison renderer rejects missing and blank feature names atomically', a
   }
 });
 
+test('comparison renderer exits without fetching when its table structure is absent', () => {
+  let requests = 0;
+  const fetch = () => {
+    requests += 1;
+  };
+
+  vm.runInNewContext(source, {
+    document: {
+      getElementById: () => null
+    },
+    fetch
+  });
+
+  const tableWithoutBody = {
+    querySelector: () => null
+  };
+  vm.runInNewContext(source, {
+    document: {
+      getElementById: id => id === 'comparisonTable' ? tableWithoutBody : null
+    },
+    fetch
+  });
+
+  assert.equal(requests, 0);
+});
+
 test('comparison page exposes an accessible table and a keyboard-scrollable region', () => {
   const html = fs.readFileSync(
     path.join(__dirname, '..', 'comparison.html'),
