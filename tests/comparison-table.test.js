@@ -138,6 +138,35 @@ test('comparison renderer shows its fallback when the network request rejects', 
   assert.equal(app.tbody.children[0].children[0].colSpan, 5);
 });
 
+test('comparison renderer rejects missing and blank feature names atomically', async () => {
+  for (const feature of [null, '', '   ']) {
+    const app = createHarness(async () => ({
+      ok: true,
+      json: async () => [
+        {
+          feature: 'Valid row before malformed row',
+          sneppxov: 'Yes',
+          'sneppx-alg': 'No',
+          'sneppx-shield': 'No',
+          'sneppx-serve': 'No'
+        },
+        {
+          feature,
+          sneppxov: 'Yes',
+          'sneppx-alg': 'No',
+          'sneppx-shield': 'No',
+          'sneppx-serve': 'No'
+        }
+      ]
+    }));
+
+    await new Promise(resolve => setImmediate(resolve));
+    assert.equal(app.tbody.children.length, 1);
+    assert.match(app.tbody.children[0].children[0].textContent, /could not be loaded/i);
+    assert.equal(app.tbody.children[0].children[0].colSpan, 5);
+  }
+});
+
 test('comparison page exposes an accessible table and a keyboard-scrollable region', () => {
   const html = fs.readFileSync(
     path.join(__dirname, '..', 'comparison.html'),
