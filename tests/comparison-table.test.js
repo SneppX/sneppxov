@@ -92,3 +92,18 @@ test('comparison renderer shows a safe fallback for malformed data and failed re
   assert.equal(failed.tbody.children.length, 1);
   assert.match(failed.tbody.children[0].children[0].textContent, /could not be loaded/i);
 });
+
+test('comparison page exposes an accessible table and a keyboard-scrollable region', () => {
+  const html = fs.readFileSync(
+    path.join(__dirname, '..', 'comparison.html'),
+    'utf8'
+  );
+
+  assert.match(html, /<main[\s>]/);
+  assert.match(html, /role="region"[^>]*aria-label="Project feature comparison"[^>]*tabindex="0"/);
+  assert.match(html, /<table[^>]*id="comparisonTable"[^>]*aria-describedby="comparisonNote"/);
+  assert.match(html, /<caption>Documented feature availability by project<\/caption>/);
+  assert.match(html, /<th scope="col">Feature<\/th>/);
+  assert.match(html, /<tbody>[\s\S]*Loading comparison data/);
+  assert.match(html, /<script src="js\/comparison-table\.js"><\/script>/);
+});
