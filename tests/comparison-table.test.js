@@ -93,6 +93,40 @@ test('comparison renderer shows a safe fallback for malformed data and failed re
   assert.match(failed.tbody.children[0].children[0].textContent, /could not be loaded/i);
 });
 
+test('comparison renderer rejects empty catalogs and invalid status values without partial output', async () => {
+  const empty = createHarness(async () => ({
+    ok: true,
+    json: async () => []
+  }));
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(empty.tbody.children.length, 1);
+  assert.match(empty.tbody.children[0].children[0].textContent, /could not be loaded/i);
+
+  const invalid = createHarness(async () => ({
+    ok: true,
+    json: async () => [
+      {
+        feature: 'Valid first row',
+        sneppxov: 'Yes',
+        'sneppx-alg': 'No',
+        'sneppx-shield': 'No',
+        'sneppx-serve': 'No'
+      },
+      {
+        feature: 'Invalid second row',
+        sneppxov: 'Maybe',
+        'sneppx-alg': 'No',
+        'sneppx-shield': 'No',
+        'sneppx-serve': 'No'
+      }
+    ]
+  }));
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(invalid.tbody.children.length, 1);
+  assert.match(invalid.tbody.children[0].children[0].textContent, /could not be loaded/i);
+  assert.equal(invalid.tbody.children[0].children[0].colSpan, 5);
+});
+
 test('comparison page exposes an accessible table and a keyboard-scrollable region', () => {
   const html = fs.readFileSync(
     path.join(__dirname, '..', 'comparison.html'),
