@@ -127,6 +127,17 @@ test('comparison renderer rejects empty catalogs and invalid status values witho
   assert.equal(invalid.tbody.children[0].children[0].colSpan, 5);
 });
 
+test('comparison renderer shows its fallback when the network request rejects', async () => {
+  const app = createHarness(async () => {
+    throw new Error('Network unavailable');
+  });
+
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(app.tbody.children.length, 1);
+  assert.match(app.tbody.children[0].children[0].textContent, /could not be loaded/i);
+  assert.equal(app.tbody.children[0].children[0].colSpan, 5);
+});
+
 test('comparison page exposes an accessible table and a keyboard-scrollable region', () => {
   const html = fs.readFileSync(
     path.join(__dirname, '..', 'comparison.html'),
