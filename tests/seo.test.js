@@ -39,3 +39,13 @@ test("editorial pages have canonical and social metadata", () => {
     assert.ok(html.includes('name="twitter:card"'), page + " Twitter card");
   }
 });
+
+test("reference pages have canonical and social metadata", () => {
+  for (const page of ["docs.html", "engine.html", "features.html", "security.html"]) {
+    const html = fs.readFileSync(path.join(root, page), "utf8");
+    const url = "https://sneppx.github.io/sneppxov/" + page;
+    assert.ok(html.includes('<link rel="canonical" href="' + url + '" />'), page + " canonical");
+    assert.ok(html.includes('<meta property="og:url" content="' + url + '" />'), page + " Open Graph");
+    assert.ok(html.includes('name="twitter:card"'), page + " Twitter card");
+  }
+});
