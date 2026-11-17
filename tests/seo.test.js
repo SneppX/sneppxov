@@ -25,6 +25,7 @@ test("sitemap lists each public HTML page exactly once", () => {
   const sitemap = fs.readFileSync(path.join(root, "sitemap.xml"), "utf8");
   for (const page of pages) {
     const url = "https://sneppx.github.io/sneppxov/" + page;
-    assert.equal(sitemap.split(url).length - 1, 1, page || "homepage");
+    const entry = "<loc>" + url + "</loc>";
+    assert.equal(sitemap.split(entry).length - 1, 1, page || "homepage");
   }
 });
