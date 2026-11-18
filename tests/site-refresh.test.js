@@ -47,3 +47,11 @@ test('shared styles support responsive navigation, keyboard focus, and reduced m
   assert.ok(css.includes('prefers-reduced-motion'));
   assert.ok(!css.includes('fonts.googleapis.com'));
 });
+
+test('changelog records the active-project comparison refresh', () => {
+  const html = fs.readFileSync(path.join(root, 'changelog.html'), 'utf8');
+  assert.ok(html.includes('v1.2.0'));
+  assert.ok(html.includes('active repositories'));
+  assert.ok(html.includes('VSTodo'));
+  assert.ok(html.includes('93 components and 134 capabilities'));
+});

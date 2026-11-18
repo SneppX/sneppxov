@@ -47,15 +47,14 @@ function createHarness(fetch) {
   return { tbody };
 }
 
-test('comparison renderer reads all four project columns, including hyphenated keys', async () => {
+test('comparison renderer reads all three active project columns, including hyphenated keys', async () => {
   const app = createHarness(async () => ({
     ok: true,
     json: async () => [{
       feature: '<script>not markup</script>',
-      sneppxov: 'Yes',
-      'sneppx-alg': 'No',
-      'sneppx-shield': 'Yes',
-      'sneppx-serve': 'No'
+      'sneppx-alg': 'Yes',
+      vstodo: 'No',
+      sneppxov: 'Yes'
     }]
   }));
 
@@ -63,16 +62,16 @@ test('comparison renderer reads all four project columns, including hyphenated k
 
   assert.equal(app.tbody.children.length, 1);
   const row = app.tbody.children[0];
-  assert.equal(row.children.length, 5);
+  assert.equal(row.children.length, 4);
   assert.equal(row.children[0].tagName, 'th');
   assert.equal(row.children[0].attributes.scope, 'row');
   assert.equal(row.children[0].textContent, '<script>not markup</script>');
 
   const values = row.children.slice(1).map(cell => cell.children[0].textContent);
-  assert.deepEqual(values, ['Yes', 'No', 'Yes', 'No']);
+  assert.deepEqual(values, ['Yes', 'No', 'Yes']);
   assert.deepEqual(
     row.children.slice(1).map(cell => cell.children[0].className),
-    ['feature-badge yes', 'feature-badge no', 'feature-badge yes', 'feature-badge no']
+    ['feature-badge yes', 'feature-badge no', 'feature-badge yes']
   );
 });
 
@@ -85,7 +84,7 @@ test('comparison renderer shows a safe fallback for malformed data and failed re
   await new Promise(resolve => setImmediate(resolve));
   assert.equal(malformed.tbody.children.length, 1);
   assert.match(malformed.tbody.children[0].children[0].textContent, /could not be loaded/i);
-  assert.equal(malformed.tbody.children[0].children[0].colSpan, 5);
+  assert.equal(malformed.tbody.children[0].children[0].colSpan, 4);
 
   const failed = createHarness(async () => ({ ok: false, status: 503 }));
   await new Promise(resolve => setImmediate(resolve));
@@ -107,24 +106,22 @@ test('comparison renderer rejects empty catalogs and invalid status values witho
     json: async () => [
       {
         feature: 'Valid first row',
-        sneppxov: 'Yes',
         'sneppx-alg': 'No',
-        'sneppx-shield': 'No',
-        'sneppx-serve': 'No'
+        vstodo: 'No',
+        sneppxov: 'Yes'
       },
       {
         feature: 'Invalid second row',
-        sneppxov: 'Maybe',
         'sneppx-alg': 'No',
-        'sneppx-shield': 'No',
-        'sneppx-serve': 'No'
+        vstodo: 'Maybe',
+        sneppxov: 'Yes'
       }
     ]
   }));
   await new Promise(resolve => setImmediate(resolve));
   assert.equal(invalid.tbody.children.length, 1);
   assert.match(invalid.tbody.children[0].children[0].textContent, /could not be loaded/i);
-  assert.equal(invalid.tbody.children[0].children[0].colSpan, 5);
+  assert.equal(invalid.tbody.children[0].children[0].colSpan, 4);
 });
 
 test('comparison renderer shows its fallback when the network request rejects', async () => {
@@ -135,7 +132,7 @@ test('comparison renderer shows its fallback when the network request rejects', 
   await new Promise(resolve => setImmediate(resolve));
   assert.equal(app.tbody.children.length, 1);
   assert.match(app.tbody.children[0].children[0].textContent, /could not be loaded/i);
-  assert.equal(app.tbody.children[0].children[0].colSpan, 5);
+  assert.equal(app.tbody.children[0].children[0].colSpan, 4);
 });
 
 test('comparison renderer rejects missing and blank feature names atomically', async () => {
@@ -145,17 +142,15 @@ test('comparison renderer rejects missing and blank feature names atomically', a
       json: async () => [
         {
           feature: 'Valid row before malformed row',
-          sneppxov: 'Yes',
           'sneppx-alg': 'No',
-          'sneppx-shield': 'No',
-          'sneppx-serve': 'No'
+          vstodo: 'No',
+          sneppxov: 'Yes'
         },
         {
           feature,
-          sneppxov: 'Yes',
           'sneppx-alg': 'No',
-          'sneppx-shield': 'No',
-          'sneppx-serve': 'No'
+          vstodo: 'No',
+          sneppxov: 'Yes'
         }
       ]
     }));
@@ -163,7 +158,7 @@ test('comparison renderer rejects missing and blank feature names atomically', a
     await new Promise(resolve => setImmediate(resolve));
     assert.equal(app.tbody.children.length, 1);
     assert.match(app.tbody.children[0].children[0].textContent, /could not be loaded/i);
-    assert.equal(app.tbody.children[0].children[0].colSpan, 5);
+    assert.equal(app.tbody.children[0].children[0].colSpan, 4);
   }
 });
 
@@ -202,7 +197,11 @@ test('comparison page exposes an accessible table and a keyboard-scrollable regi
   assert.match(html, /<main[\s>]/);
   assert.match(html, /role="region"[^>]*aria-label="Project feature comparison"[^>]*tabindex="0"/);
   assert.match(html, /<table[^>]*id="comparisonTable"[^>]*aria-describedby="comparisonNote"/);
-  assert.match(html, /<caption>Documented feature availability by project<\/caption>/);
+  assert.match(html, /<caption>Verified capabilities across active SneppX projects<\/caption>/);
+  assert.match(html, /<th scope="col">SneppX-ALG<\/th>/);
+  assert.match(html, /<th scope="col">VSTodo<\/th>/);
+  assert.match(html, /<th scope="col">SneppX-OV<\/th>/);
+  assert.doesNotMatch(html, /SneppX-Shield|SneppX-Serve/);
   assert.match(html, /<th scope="col">Feature<\/th>/);
   assert.match(html, /<tbody>[\s\S]*Loading comparison data/);
   assert.match(html, /<script src="js\/comparison-table\.js"><\/script>/);

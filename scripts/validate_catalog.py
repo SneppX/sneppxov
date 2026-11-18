@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CATALOGS = ("data/components.json", "data/features.json")
 COMPARISON_CATALOG = "data/comparison.json"
-COMPARISON_COLUMNS = ("sneppxov", "sneppx-alg", "sneppx-shield", "sneppx-serve")
+COMPARISON_COLUMNS = ("sneppx-alg", "vstodo", "sneppxov")
 COMPARISON_VALUES = {"Yes", "No"}
 
 

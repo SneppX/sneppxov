@@ -1,184 +1,62 @@
 [
   {
-    "feature": "Dark/Light Theme",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
+    "feature": "Native C/C++ engine",
+    "sneppx-alg": "Yes",
+    "vstodo": "No",
+    "sneppxov": "No"
   },
   {
-    "feature": "Keyboard Shortcuts",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
+    "feature": "Python bindings",
+    "sneppx-alg": "Yes",
+    "vstodo": "No",
+    "sneppxov": "No"
   },
   {
-    "feature": "Font Size Adjuster",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
+    "feature": "Tensor operations and automatic differentiation",
+    "sneppx-alg": "Yes",
+    "vstodo": "No",
+    "sneppxov": "No"
   },
   {
-    "feature": "Print Mode",
-    "sneppxov": "Yes",
+    "feature": "Go implementation",
     "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
+    "vstodo": "Yes",
+    "sneppxov": "No"
   },
   {
-    "feature": "Search with Filtering",
-    "sneppxov": "Yes",
+    "feature": "Version-control command-line workflows",
     "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
+    "vstodo": "Yes",
+    "sneppxov": "No"
   },
   {
-    "feature": "Accessibility (A11y)",
-    "sneppxov": "Yes",
+    "feature": "Local repository clone transport",
     "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
+    "vstodo": "Yes",
+    "sneppxov": "No"
   },
   {
-    "feature": "Toast Notifications",
-    "sneppxov": "Yes",
+    "feature": "Source-linked component catalogue",
     "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
+    "vstodo": "No",
+    "sneppxov": "Yes"
   },
   {
-    "feature": "Reading Progress Bar",
-    "sneppxov": "Yes",
+    "feature": "Searchable feature explorer",
     "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
+    "vstodo": "No",
+    "sneppxov": "Yes"
   },
   {
-    "feature": "Back to Top Button",
-    "sneppxov": "Yes",
+    "feature": "Responsive documentation website",
     "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
+    "vstodo": "No",
+    "sneppxov": "Yes"
   },
   {
-    "feature": "Syntax Highlighting",
-    "sneppxov": "Yes",
+    "feature": "GitHub smart-HTTP remote transport",
     "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
-  },
-  {
-    "feature": "Modal Dialogs",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
-  },
-  {
-    "feature": "Accordion Component",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
-  },
-  {
-    "feature": "Tabs Component",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
-  },
-  {
-    "feature": "Dropdown Menu",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
-  },
-  {
-    "feature": "Breadcrumb Navigation",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
-  },
-  {
-    "feature": "System Theme Detection",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
-  },
-  {
-    "feature": "Focus Trap",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
-  },
-  {
-    "feature": "Skip to Content Link",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
-  },
-  {
-    "feature": "Responsive Design",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
-  },
-  {
-    "feature": "PWA Ready",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
-  },
-  {
-    "feature": "Sitemap + Robots",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
-  },
-  {
-    "feature": "Open Graph Meta Tags",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
-  },
-  {
-    "feature": "Favicon",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
-  },
-  {
-    "feature": "Stat Counters",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
-  },
-  {
-    "feature": "Component Browser",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
-  },
-  {
-    "feature": "Feature Explorer",
-    "sneppxov": "Yes",
-    "sneppx-alg": "No",
-    "sneppx-shield": "No",
-    "sneppx-serve": "No"
+    "vstodo": "No",
+    "sneppxov": "No"
   }
 ]

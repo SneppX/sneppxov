@@ -9,16 +9,16 @@
   if (!tbody) return;
 
   var columns = [
-    { key: 'sneppxov' },
     { key: 'sneppx-alg' },
-    { key: 'sneppx-shield' },
-    { key: 'sneppx-serve' }
+    { key: 'vstodo' },
+    { key: 'sneppxov' }
   ];
+  var columnCount = columns.length + 1;
 
   function showError() {
     var row = document.createElement('tr');
     var cell = document.createElement('td');
-    cell.colSpan = 5;
+    cell.colSpan = columnCount;
     cell.textContent = 'Comparison data could not be loaded. Please refresh the page.';
     row.appendChild(cell);
     tbody.replaceChildren(row);
