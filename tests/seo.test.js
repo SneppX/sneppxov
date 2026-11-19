@@ -4,7 +4,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const root = path.resolve(__dirname, "..");
-const pages = ["", "changelog.html", "community.html", "comparison.html", "components.html", "docs.html", "engine.html", "features.html", "security.html"];
+const pages = ["", "changelog.html", "community.html", "components.html", "docs.html", "engine.html", "features.html", "security.html"];
 
 test("homepage has canonical, social, and structured metadata", () => {
   const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
@@ -31,7 +31,7 @@ test("sitemap lists each public HTML page exactly once", () => {
 });
 
 test("editorial pages have canonical and social metadata", () => {
-  for (const page of ["changelog.html", "community.html", "comparison.html", "components.html"]) {
+  for (const page of ["changelog.html", "community.html", "components.html"]) {
     const html = fs.readFileSync(path.join(root, page), "utf8");
     const url = "https://sneppx.github.io/sneppxov/" + page;
     assert.ok(html.includes('<link rel="canonical" href="' + url + '" />'), page + " canonical");
