@@ -1,12 +1,8 @@
-# SneppX-OV
+# SneppXOV
 
-Public, static documentation site for the SneppX-Alg project.
+The public website for the SneppX organization.
 
-The site provides:
-- A project overview and architecture notes
-- Searchable catalogues of documented components and capabilities
-- Source and test links into `SneppX/sneppx-alg`
-- Security, build, and contribution notes
+It brings together public project repositories, project-specific documentation, developer resources, contribution guidance, and links to upstream commit history and releases.
 
 ## Live site
 
@@ -14,16 +10,20 @@ https://sneppx.github.io/sneppxov/
 
 ## Local preview
 
-Run a static HTTP server from the repository root:
+Run `python -m http.server 8000` from the repository root, then open http://localhost:8000.
 
-```bash
-python -m http.server 8000
-```
+## Implementation
 
-Then open http://localhost:8000.
+The site uses plain HTML, CSS, and JavaScript. It does not require a frontend framework, remote font service, analytics service, or paid runtime. Theme preference is stored locally. Site search uses a local page index.
 
-The site uses plain HTML, CSS, and JavaScript. It has no remote font, analytics, or frontend framework dependency.
+Project descriptions and links must be verified against upstream repositories. Do not add unsupported metrics, claims, screenshots, or release information.
 
-## Licence
+## Quality checks
+
+`node --test tests/*.test.js`
+
+`python scripts/validate_catalog.py --core ../sneppx-alg`
+
+## License
 
 MIT

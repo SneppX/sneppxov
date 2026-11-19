@@ -1,11 +1,1 @@
-// PWA service worker. Bump the cache key whenever the offline shell changes.
-const CACHE_NAME = 'sneppxov-v6';
-const ASSETS = [
-  './','index.html','components.html','features.html','engine.html','security.html','docs.html','community.html','404.html','changelog.html','sitemap.html',
-  'style.css','css/nav.css','css/hero.css','css/features.css','css/cards.css',
-  'app.js','js/theme.js','js/nav.js','js/reveal.js','js/countup.js','js/copy.js','js/render.js','js/sw-register.js',
-  'favicon.svg','data/components.json','data/features.json','manifest.json'
-];
-self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(ASSETS)));});
-self.addEventListener('fetch',event=>{event.respondWith(caches.match(event.request).then(response=>response||fetch(event.request)));});
-self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE_NAME).map(key=>caches.delete(key)))));});
+const CACHE_NAME='sneppxov-v7';const ASSETS=['./','index.html','about.html','projects.html','developers.html','updates.html','community.html','components.html','features.html','engine.html','security.html','docs.html','404.html','changelog.html','sitemap.html','style.css','css/sneppxov-v2.css','css/nav.css','css/hero.css','css/features.css','css/cards.css','js/theme.js','js/nav.js','js/site.js','js/projects.js','js/sw-register.js','favicon.svg','manifest.json','data/components.json','data/features.json'];self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(ASSETS)));self.skipWaiting();});self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;const u=new URL(e.request.url);if(u.origin!==self.location.origin)return;e.respondWith(caches.match(e.request).then(c=>c||fetch(e.request).then(r=>{if(r.ok){const copy=r.clone();caches.open(CACHE_NAME).then(cache=>cache.put(e.request,copy));}return r;})));});self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE_NAME).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});

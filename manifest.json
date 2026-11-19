@@ -1,16 +1,1 @@
-{
-  "name": "SneppX-Alg",
-  "short_name": "SneppX-Alg",
-  "start_url": "./",
-  "display": "standalone",
-  "background_color": "#f4f2ec",
-  "theme_color": "#b95738",
-  "description": "SneppX-Alg project reference and documentation",
-  "icons": [
-    {
-      "src": "favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
-    }
-  ]
-}
+{"name":"SneppX","short_name":"SneppX","start_url":"./","scope":"./","display":"standalone","background_color":"#f7f7f5","theme_color":"#5146c8","description":"SneppX projects, source repositories, developer documentation, and contribution resources.","icons":[{"src":"favicon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}]}
