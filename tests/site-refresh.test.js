@@ -6,3 +6,5 @@ test('project directory lists verified public repositories',()=>{const html=read
 test('theme modes include light, dark, and system',()=>{assert.ok(read('js/theme.js').includes("modes=['system','light','dark']"));assert.ok(read('js/theme.js').includes('localStorage'));assert.ok(read('css/sneppxov-v2.css').includes('prefers-color-scheme:dark'));});
 test('command palette is keyboard accessible and uses a local page index',()=>{const js=read('js/site.js');assert.ok(js.includes("e.key.toLowerCase()==='k'"));assert.ok(js.includes('showModal'));assert.ok(!js.includes('fetch('));});
 test('contribution guidance contains practical contribution paths',()=>{const html=read('community.html');assert.ok(html.includes('Report a problem'));assert.ok(html.includes('Propose a change'));assert.ok(!html.includes('Enterprise support and SLA'));assert.ok(!html.includes('Sponsoring Tiers'));});
+
+test('no public page links to a retired comparison destination',()=>{for(const page of fs.readdirSync(root).filter(name=>name.endsWith('.html'))){const html=read(page);assert.doesNotMatch(html,/href=["'][^"']*compar[^"']*\.html/i,page);}});
