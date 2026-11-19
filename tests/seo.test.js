@@ -4,7 +4,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const root = path.resolve(__dirname, "..");
-const pages = ["", "about.html", "projects.html", "developers.html", "updates.html", "changelog.html", "community.html", "components.html", "docs.html", "engine.html", "features.html", "security.html"];
+const pages = ["", "about.html", "projects.html", "project.html", "developers.html", "updates.html", "changelog.html", "community.html", "components.html", "docs.html", "engine.html", "features.html", "security.html"];
 
 test("homepage has canonical, social, and structured metadata", () => {
   const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
@@ -50,4 +50,4 @@ test("reference pages have canonical and social metadata", () => {
   }
 });
 
-test("new organization pages expose canonical and social metadata",()=>{for(const page of ["about.html","projects.html","developers.html","updates.html"]){const html=fs.readFileSync(path.join(root,page),"utf8");const url="https://sneppx.github.io/sneppxov/"+page;assert.ok(html.includes('<link rel="canonical" href="'+url+'"'),page+" canonical");assert.ok(html.includes('property="og:url" content="'+url+'"'),page+" Open Graph");assert.ok(html.includes('name="twitter:card"'),page+" Twitter card");}});
+test("new organization pages expose canonical and social metadata",()=>{for(const page of ["about.html","projects.html","project.html","developers.html","updates.html"]){const html=fs.readFileSync(path.join(root,page),"utf8");const url="https://sneppx.github.io/sneppxov/"+page;assert.ok(html.includes('<link rel="canonical" href="'+url+'"'),page+" canonical");assert.ok(html.includes('property="og:url" content="'+url+'"'),page+" Open Graph");assert.ok(html.includes('name="twitter:card"'),page+" Twitter card");}});
