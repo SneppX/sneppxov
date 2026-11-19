@@ -56,11 +56,33 @@ test('changelog records the active-project comparison refresh', () => {
   assert.ok(html.includes('93 components and 134 capabilities'));
 });
 
-test("comparison marks VSTodo HTTP fetch and clone as implemented", () => {
-  const rows = JSON.parse(fs.readFileSync(path.join(root, "data/comparison.json"), "utf8"));
-  const feature = rows.find(row => row.feature === "GitHub smart-HTTP fetch and clone");
-  assert.ok(feature);
-  assert.equal(feature["sneppx-alg"], "No");
-  assert.equal(feature.vstodo, "Yes");
-  assert.equal(feature.sneppxov, "No");
+
+test('comparison page and its supporting assets are removed from the public site', () => {
+  const removed = [
+    'comparison.html',
+    'css/comparison-table.css',
+    'js/comparison-table.js',
+    'data/comparison.json',
+    'tests/comparison-table.test.js'
+  ];
+  for (const file of removed) {
+    assert.ok(!fs.existsSync(path.join(root, file)), file + ' is removed');
+  }
+
+  const index = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const worker = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');
+  const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+  const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
+  const workflow = fs.readFileSync(path.join(root, '.github/workflows/validate-site.yml'), 'utf8');
+
+  for (const [label, content] of [
+    ['index navigation', index],
+    ['service worker', worker],
+    ['XML sitemap', sitemap],
+    ['README', readme],
+    ['validation workflow', workflow]
+  ]) {
+    assert.ok(!content.includes('comparison.html'), label + ' has no comparison page reference');
+    assert.ok(!content.includes('data/comparison.json'), label + ' has no comparison data reference');
+  }
 });

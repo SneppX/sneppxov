@@ -6,7 +6,7 @@ The site provides:
 - A project overview and architecture notes
 - Searchable catalogues of documented components and capabilities
 - Source and test links into `SneppX/sneppx-alg`
-- Security, build, comparison, and contribution notes
+- Security, build, and contribution notes
 
 ## Live site
 
