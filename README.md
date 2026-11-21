@@ -20,7 +20,7 @@ Project descriptions and links must be verified against upstream repositories. D
 
 ## Code style
 
-- Prettier formats HTML, CSS, JavaScript, JSON, Markdown, and GitHub Actions YAML; SVG assets use Prettier's HTML parser.
+- Prettier formats HTML, CSS, JavaScript, JSON, Markdown, and SVG assets. GitHub Actions workflows use consistent two-space YAML formatting and are maintained separately to protect workflow permissions.
 - Ruff formats and lints Python code.
 - EditorConfig defines consistent UTF-8, LF line endings, final newlines, and indentation.
 - Generated files, dependencies, and minified vendor assets are excluded from formatting.
