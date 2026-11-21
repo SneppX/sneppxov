@@ -7,3 +7,6 @@ sneppx-alg/
 # Keep minified vendor assets untouched
 **/*.min.js
 **/*.min.css
+
+# GitHub Actions workflows are maintained and reviewed separately
+.github/workflows/
