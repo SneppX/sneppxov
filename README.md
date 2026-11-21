@@ -20,7 +20,7 @@ Project descriptions and links must be verified against upstream repositories. D
 
 ## Code style
 
-- Prettier formats HTML, CSS, JavaScript, JSON, Markdown, SVG, XML, and GitHub Actions YAML.
+- Prettier formats HTML, CSS, JavaScript, JSON, Markdown, and GitHub Actions YAML; SVG assets use Prettier's HTML parser.
 - Ruff formats and lints Python code.
 - EditorConfig defines consistent UTF-8, LF line endings, final newlines, and indentation.
 - Generated files, dependencies, and minified vendor assets are excluded from formatting.
@@ -30,7 +30,8 @@ Project descriptions and links must be verified against upstream repositories. D
 ```sh
 node --test tests/*.test.js
 python scripts/validate_catalog.py --core ../sneppx-alg
-npx prettier@3.6.2 --check "**/*.{html,css,js,json,md,yml,yaml,svg,xml}"
+npx prettier@3.6.2 --check "**/*.{html,css,js,json,md,yml,yaml}"
+npx prettier@3.6.2 --check "**/*.svg" --parser html
 ruff check scripts
 ruff format --check scripts
 ```
