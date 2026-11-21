@@ -1,0 +1,9 @@
+# Git metadata and generated/dependency directories
+.git/
+node_modules/
+.cache/
+sneppx-alg/
+
+# Keep minified vendor assets untouched
+**/*.min.js
+**/*.min.css

@@ -1,0 +1,83 @@
+name: Format and verify codebase
+
+on:
+  workflow_run:
+    workflows: ["Validate website catalogs"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: format-codebase-main
+  cancel-in-progress: false
+
+jobs:
+  format-and-verify:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out the validated website commit
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+
+      - name: Check out core repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+        with:
+          repository: SneppX/sneppx-alg
+          ref: main
+          path: sneppx-alg
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c
+        with:
+          python-version: "3.11"
+
+      - name: Install Ruff
+        run: python -m pip install --disable-pip-version-check ruff==0.14.4
+
+      - name: Format web and documentation files
+        run: npx --yes prettier@3.6.2 --write "**/*.{html,css,js,json,md,yml,yaml,svg,xml}"
+
+      - name: Format Python files
+        run: ruff format scripts
+
+      - name: Check formatting
+        run: |
+          npx --yes prettier@3.6.2 --check "**/*.{html,css,js,json,md,yml,yaml,svg,xml}"
+          ruff format --check scripts
+
+      - name: Lint Python
+        run: ruff check scripts
+
+      - name: Validate JSON data
+        run: python -c "import json; from pathlib import Path; [json.loads(p.read_text(encoding='utf-8')) for p in Path('.').rglob('*.json') if 'sneppx-alg' not in p.parts and '.git' not in p.parts]"
+
+      - name: Check JavaScript syntax
+        run: find . -name '*.js' -not -path './.git/*' -not -path './sneppx-alg/*' -print0 | xargs -0 -n1 node --check
+
+      - name: Run frontend behavior tests
+        run: node --test tests/*.test.js
+
+      - name: Validate catalogs and PWA assets
+        run: python scripts/validate_catalog.py --core sneppx-alg
+
+      - name: Check patch whitespace
+        run: git diff --check
+
+      - name: Commit verified formatting changes
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "The codebase is already formatted."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --all
+          git commit -m "style: format and standardize the entire codebase"
+          git push origin HEAD:main

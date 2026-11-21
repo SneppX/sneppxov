@@ -18,11 +18,22 @@ The site uses plain HTML, CSS, and JavaScript. It does not require a frontend fr
 
 Project descriptions and links must be verified against upstream repositories. Do not add unsupported metrics, claims, screenshots, or release information.
 
+## Code style
+
+- Prettier formats HTML, CSS, JavaScript, JSON, Markdown, SVG, XML, and GitHub Actions YAML.
+- Ruff formats and lints Python code.
+- EditorConfig defines consistent UTF-8, LF line endings, final newlines, and indentation.
+- Generated files, dependencies, and minified vendor assets are excluded from formatting.
+
 ## Quality checks
 
-`node --test tests/*.test.js`
-
-`python scripts/validate_catalog.py --core ../sneppx-alg`
+```sh
+node --test tests/*.test.js
+python scripts/validate_catalog.py --core ../sneppx-alg
+npx prettier@3.6.2 --check "**/*.{html,css,js,json,md,yml,yaml,svg,xml}"
+ruff check scripts
+ruff format --check scripts
+```
 
 ## License
 

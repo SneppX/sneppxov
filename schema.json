@@ -1,9 +1,9 @@
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "SneppX-Alg",
+  "name": "SneppX",
   "url": "https://sneppx.github.io/sneppxov/",
-  "description": "SneppX-ALG project showcase with 93 catalogued components and 134 documented capabilities",
+  "description": "The official SneppX organization website, bringing together public projects, source repositories, developer documentation, and contribution resources.",
   "publisher": {
     "@type": "Organization",
     "name": "SneppX",
