@@ -4,25 +4,65 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const root = path.resolve(__dirname, "..");
-const pages = ["", "about.html", "projects.html", "project.html", "developers.html", "updates.html", "changelog.html", "community.html", "components.html", "docs.html", "engine.html", "features.html", "security.html"];
+const pages = [
+  "",
+  "about.html",
+  "projects.html",
+  "project.html",
+  "developers.html",
+  "updates.html",
+  "changelog.html",
+  "community.html",
+  "components.html",
+  "docs.html",
+  "engine.html",
+  "features.html",
+  "security.html",
+];
+
+function read(file) {
+  return fs.readFileSync(path.join(root, file), "utf8");
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function hasTagWithAttributes(html, tagName, attributes) {
+  const tags = html.match(new RegExp(`<${tagName}\\b[^>]*>`, "gi")) || [];
+  return tags.some((tag) =>
+    Object.entries(attributes).every(([name, value]) =>
+      new RegExp(`\\b${name}=["']${escapeRegExp(value)}["']`, "i").test(tag),
+    ),
+  );
+}
+
+function hasSocialMetadata(html, url) {
+  return (
+    hasTagWithAttributes(html, "link", { rel: "canonical", href: url }) &&
+    hasTagWithAttributes(html, "meta", { property: "og:url", content: url }) &&
+    hasTagWithAttributes(html, "meta", { name: "twitter:card" })
+  );
+}
 
 test("homepage has canonical, social, and structured metadata", () => {
-  const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
-  assert.match(html, /<title>[^<]{8,}<\/title>/i);
-  assert.match(html, /<meta name="description" content="[^"]{40,}"\s*\/>/i);
-  assert.ok(html.includes('<link rel="canonical" href="https://sneppx.github.io/sneppxov/" />'));
-  assert.ok(html.includes('property="og:url"'));
-  assert.ok(html.includes('name="twitter:card"'));
+  const html = read("index.html");
+  assert.match(html, /<title>[^<]{8,}<\\/title>/i);
+
+  const description = (
+    html.match(/<meta\\b(?=[^>]*\\bname=["']description["'])[^>]*>/is) || []
+  )[0] || "";
+  assert.match(description, /\\bcontent=["'][^"']{40,}["']/i);
+  assert.ok(hasSocialMetadata(html, "https://sneppx.github.io/sneppxov/"));
   assert.ok(html.includes('type="application/ld+json"'));
 });
 
 test("robots.txt points to the public XML sitemap", () => {
-  const robots = fs.readFileSync(path.join(root, "robots.txt"), "utf8");
-  assert.ok(robots.includes("Sitemap: https://sneppx.github.io/sneppxov/sitemap.xml"));
+  assert.ok(read("robots.txt").includes("Sitemap: https://sneppx.github.io/sneppxov/sitemap.xml"));
 });
 
 test("sitemap lists each public HTML page exactly once", () => {
-  const sitemap = fs.readFileSync(path.join(root, "sitemap.xml"), "utf8");
+  const sitemap = read("sitemap.xml");
   for (const page of pages) {
     const url = "https://sneppx.github.io/sneppxov/" + page;
     const entry = "<loc>" + url + "</loc>";
@@ -32,22 +72,33 @@ test("sitemap lists each public HTML page exactly once", () => {
 
 test("editorial pages have canonical and social metadata", () => {
   for (const page of ["changelog.html", "community.html", "components.html"]) {
-    const html = fs.readFileSync(path.join(root, page), "utf8");
+    const html = read(page);
     const url = "https://sneppx.github.io/sneppxov/" + page;
-    assert.ok(html.includes('<link rel="canonical" href="' + url + '" />'), page + " canonical");
-    assert.ok(html.includes('<meta property="og:url" content="' + url + '" />'), page + " Open Graph");
-    assert.ok(html.includes('name="twitter:card"'), page + " Twitter card");
+    assert.ok(hasSocialMetadata(html, url), page);
   }
 });
 
 test("reference pages have canonical and social metadata", () => {
   for (const page of ["docs.html", "engine.html", "features.html", "security.html"]) {
-    const html = fs.readFileSync(path.join(root, page), "utf8");
+    const html = read(page);
     const url = "https://sneppx.github.io/sneppxov/" + page;
-    assert.ok(html.includes('<link rel="canonical" href="' + url + '" />'), page + " canonical");
-    assert.ok(html.includes('<meta property="og:url" content="' + url + '" />'), page + " Open Graph");
-    assert.ok(html.includes('name="twitter:card"'), page + " Twitter card");
+    assert.ok(hasSocialMetadata(html, url), page);
   }
 });
 
-test("new organization pages expose canonical and social metadata",()=>{for(const page of ["about.html","projects.html","project.html","developers.html","updates.html"]){const html=fs.readFileSync(path.join(root,page),"utf8");const url="https://sneppx.github.io/sneppxov/"+page;assert.ok(html.includes('<link rel="canonical" href="'+url+'"'),page+" canonical");assert.ok(html.includes('property="og:url" content="'+url+'"'),page+" Open Graph");assert.ok(html.includes('name="twitter:card"'),page+" Twitter card");}});
+test("organization pages have canonical and social metadata", () => {
+  for (const page of ["about.html", "projects.html", "project.html", "developers.html", "updates.html"]) {
+    const html = read(page);
+    const url = "https://sneppx.github.io/sneppxov/" + page;
+    assert.ok(hasSocialMetadata(html, url), page);
+  }
+});
+
+test("structured data identifies SneppX as the organization website", () => {
+  const schema = JSON.parse(read("schema.json"));
+  assert.equal(schema["@type"], "WebSite");
+  assert.equal(schema.name, "SneppX");
+  assert.equal(schema.publisher.name, "SneppX");
+  assert.match(schema.description, /organization website/i);
+  assert.doesNotMatch(schema.description, /93 catalogued|134 documented/i);
+});
