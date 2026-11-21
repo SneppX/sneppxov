@@ -76,12 +76,12 @@ jobs:
 
       - name: Commit verified formatting changes
         run: |
-          if [ -z "$(git status --porcelain -- . ':!sneppx-alg')" ]; then
+          if [ -z "$(git status --porcelain -- . ':!sneppx-alg' ':!.github/workflows')" ]; then
             echo "The codebase is already formatted."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add --all -- . ':!sneppx-alg'
+          git add --all -- . ':!sneppx-alg' ':!.github/workflows'
           git commit -m "style: format and standardize the entire codebase"
           git push origin HEAD:main
