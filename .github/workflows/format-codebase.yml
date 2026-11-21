@@ -42,14 +42,18 @@ jobs:
         run: python -m pip install --disable-pip-version-check ruff==0.14.4
 
       - name: Format web and documentation files
-        run: npx --yes prettier@3.6.2 --write "**/*.{html,css,js,json,md,yml,yaml,svg,xml}"
+        run: npx --yes prettier@3.6.2 --write "**/*.{html,css,js,json,md,yml,yaml}"
+
+      - name: Format SVG assets
+        run: npx --yes prettier@3.6.2 --write "**/*.svg" --parser html
 
       - name: Format Python files
         run: ruff format scripts
 
       - name: Check formatting
         run: |
-          npx --yes prettier@3.6.2 --check "**/*.{html,css,js,json,md,yml,yaml,svg,xml}"
+          npx --yes prettier@3.6.2 --check "**/*.{html,css,js,json,md,yml,yaml}"
+          npx --yes prettier@3.6.2 --check "**/*.svg" --parser html
           ruff format --check scripts
 
       - name: Lint Python
