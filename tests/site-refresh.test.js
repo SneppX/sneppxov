@@ -40,15 +40,15 @@ test("project directory lists verified public repositories", () => {
 test("theme modes include light, dark, and system", () => {
   assert.match(
     read("js/theme.js"),
-    /modes\\s*=\\s*\\[\\s*['"]system['"]\\s*,\\s*['"]light['"]\\s*,\\s*['"]dark['"]\\s*\\]/,
+    /modes\s*=\s*\[\s*['"]system['"]\s*,\s*['"]light['"]\s*,\s*['"]dark['"]\s*\]/,
   );
   assert.ok(read("js/theme.js").includes("localStorage"));
-  assert.match(read("css/sneppxov-v2.css"), /prefers-color-scheme\\s*:\\s*dark/);
+  assert.match(read("css/sneppxov-v2.css"), /prefers-color-scheme\s*:\s*dark/);
 });
 
 test("command palette is keyboard accessible and uses a local page index", () => {
   const js = read("js/site.js");
-  assert.match(js, /e\\.key\\.toLowerCase\\(\\)\\s*===\\s*['"]k['"]/);
+  assert.match(js, /e\.key\.toLowerCase\(\)\s*===\s*['"]k['"]/);
   assert.ok(js.includes("showModal"));
   assert.ok(!js.includes("fetch("));
 });
@@ -64,7 +64,7 @@ test("contribution guidance contains practical contribution paths", () => {
 test("no public page links to a retired comparison destination", () => {
   for (const page of fs.readdirSync(root).filter((name) => name.endsWith(".html"))) {
     const html = read(page);
-    assert.doesNotMatch(html, /href=["'][^"']*compar[^"']*\\.html/i, page);
+    assert.doesNotMatch(html, /href=["'][^"']*compar[^"']*\.html/i, page);
   }
 });
 

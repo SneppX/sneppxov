@@ -24,16 +24,10 @@ function read(file) {
   return fs.readFileSync(path.join(root, file), "utf8");
 }
 
-function escapeRegExp(value) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
 function hasTagWithAttributes(html, tagName, attributes) {
-  const tags = html.match(new RegExp(`<${tagName}\\b[^>]*>`, "gi")) || [];
+  const tags = html.match(new RegExp("<" + tagName + "\\b[^>]*>", "gi")) || [];
   return tags.some((tag) =>
-    Object.entries(attributes).every(([name, value]) =>
-      new RegExp(`\\b${name}=["']${escapeRegExp(value)}["']`, "i").test(tag),
-    ),
+    Object.entries(attributes).every(([name, value]) => tag.includes(name + '="' + value + '"')),
   );
 }
 
@@ -47,12 +41,12 @@ function hasSocialMetadata(html, url) {
 
 test("homepage has canonical, social, and structured metadata", () => {
   const html = read("index.html");
-  assert.match(html, /<title>[^<]{8,}<\\/title>/i);
+  assert.match(html, /<title>[^<]{8,}<\/title>/i);
 
   const description = (
-    html.match(/<meta\\b(?=[^>]*\\bname=["']description["'])[^>]*>/is) || []
+    html.match(/<meta\b(?=[^>]*\bname="description")[^>]*>/is) || []
   )[0] || "";
-  assert.match(description, /\\bcontent=["'][^"']{40,}["']/i);
+  assert.match(description, /\bcontent="[^"]{40,}"/i);
   assert.ok(hasSocialMetadata(html, "https://sneppx.github.io/sneppxov/"));
   assert.ok(html.includes('type="application/ld+json"'));
 });
