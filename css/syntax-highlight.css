@@ -11,12 +11,31 @@ pre code {
   line-height: 1.5;
 }
 
-pre code .keyword { color: #c678dd; }
-pre code .function { color: #61afef; }
-pre code .string { color: #98c379; }
-pre code .number { color: #d19a66; }
-pre code .comment { color: #5c6370; font-style: italic; }
-pre code .tag { color: #e06c75; }
-pre code .attr { color: #d19a66; }
-pre code .value { color: #98c379; }
-pre code .operator { color: #56b6c2; }
+pre code .keyword {
+  color: #c678dd;
+}
+pre code .function {
+  color: #61afef;
+}
+pre code .string {
+  color: #98c379;
+}
+pre code .number {
+  color: #d19a66;
+}
+pre code .comment {
+  color: #5c6370;
+  font-style: italic;
+}
+pre code .tag {
+  color: #e06c75;
+}
+pre code .attr {
+  color: #d19a66;
+}
+pre code .value {
+  color: #98c379;
+}
+pre code .operator {
+  color: #56b6c2;
+}

@@ -16,7 +16,10 @@
 
     var toast = document.createElement('div');
     toast.className = 'toast ' + type;
-    toast.innerHTML = '<span>' + escapeHtml(message) + '</span>' +
+    toast.innerHTML =
+      '<span>' +
+      escapeHtml(message) +
+      '</span>' +
       '<button class="toast-close" aria-label="Dismiss">×</button>';
 
     container.appendChild(toast);

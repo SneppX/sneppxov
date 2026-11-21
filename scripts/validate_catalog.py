@@ -65,7 +65,6 @@ def validate_catalog(path: Path, core_root: Path) -> list[str]:
     return errors
 
 
-
 def validate_pwa_assets() -> list[str]:
     """Check precached paths and ensure every HTML page opts into the PWA."""
     errors: list[str] = []
@@ -102,13 +101,17 @@ def validate_pwa_assets() -> list[str]:
         ):
             errors.append(f"{label}: mobile navigation control is not connected to its nav")
 
-    print(f"sw.js: validated {len(assets)} precache entries and {len(list(ROOT.glob('*.html')))} HTML pages")
+    print(
+        f"sw.js: validated {len(assets)} precache entries and {len(list(ROOT.glob('*.html')))} HTML pages"
+    )
     return errors
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--core", type=Path, required=True, help="Path to a checkout of SneppX/sneppx-alg")
+    parser.add_argument(
+        "--core", type=Path, required=True, help="Path to a checkout of SneppX/sneppx-alg"
+    )
     args = parser.parse_args()
     core_root = args.core.resolve()
     if not core_root.is_dir():

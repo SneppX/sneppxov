@@ -6,7 +6,7 @@
   var currentSize = parseFloat(localStorage.getItem('sx-font-size') || '1');
 
   function applySize(size) {
-    root.style.fontSize = (size * 100) + '%';
+    root.style.fontSize = size * 100 + '%';
     localStorage.setItem('sx-font-size', size);
     var display = document.getElementById('fontSizeValue');
     if (display) display.textContent = size.toFixed(1) + 'x';

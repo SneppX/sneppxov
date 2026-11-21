@@ -4,10 +4,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 const test = require('node:test');
 
-const source = fs.readFileSync(
-  path.join(__dirname, '..', 'js', 'render.js'),
-  'utf8'
-);
+const source = fs.readFileSync(path.join(__dirname, '..', 'js', 'render.js'), 'utf8');
 
 function createHarness(fetch) {
   let onSearch;
@@ -24,7 +21,7 @@ function createHarness(fetch) {
     },
     appendChild(element) {
       this.children.push(element);
-    }
+    },
   };
   const filters = {
     children: [],
@@ -39,18 +36,18 @@ function createHarness(fetch) {
     },
     appendChild(element) {
       this.children.push(element);
-    }
+    },
   };
   const search = {
     value: '',
     addEventListener(type, callback) {
       if (type === 'input') onSearch = callback;
-    }
+    },
   };
   const elements = {
     compGrid: grid,
     compFilters: filters,
-    compSearch: search
+    compSearch: search,
   };
   const document = {
     getElementById(id) {
@@ -66,9 +63,9 @@ function createHarness(fetch) {
         },
         setAttribute(name, value) {
           this.attributes[name] = value;
-        }
+        },
       };
-    }
+    },
   };
 
   vm.runInNewContext(source, { document, fetch });
@@ -80,7 +77,7 @@ function createHarness(fetch) {
     searchNow() {
       assert.equal(typeof onSearch, 'function');
       onSearch();
-    }
+    },
   };
 }
 
@@ -96,28 +93,28 @@ test('component catalog escapes content and only links safe repository paths', a
         description: 'Description & details',
         category: 'Core',
         source: 'src/my file.c',
-        test: 'tests/my test.py'
+        test: 'tests/my test.py',
       },
       {
         title: 'Unsafe traversal',
         description: 'Traversal must not become a link',
         category: 'Security',
         source: '../../README.md',
-        test: '../outside.py'
+        test: '../outside.py',
       },
       {
         title: 'Unsafe external URL',
         description: 'External hosts are not catalog sources',
         category: 'Security',
-        source: 'https://evil.example/payload'
+        source: 'https://evil.example/payload',
       },
       {
         title: 'Directory source',
         description: 'Directory links use the tree view',
         category: 'Tools',
-        source: 'src/include/'
-      }
-    ]
+        source: 'src/include/',
+      },
+    ],
   });
   const app = createHarness(fetch);
   await new Promise(resolve => setImmediate(resolve));
@@ -167,7 +164,7 @@ test('component catalog handles failed and malformed data safely', async () => {
 
   const malformed = createHarness(async () => ({
     ok: true,
-    json: async () => ({ unexpected: 'object' })
+    json: async () => ({ unexpected: 'object' }),
   }));
   await new Promise(resolve => setImmediate(resolve));
   assert.match(malformed.grid.textContent, /could not be loaded/i);

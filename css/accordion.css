@@ -29,7 +29,7 @@
   background: rgba(99, 102, 241, 0.05);
 }
 
-.accordion-header[aria-expanded="true"] {
+.accordion-header[aria-expanded='true'] {
   background: var(--accent);
   color: #fff;
 }
@@ -56,7 +56,7 @@
   transition: transform 0.15s;
 }
 
-.accordion-header[aria-expanded="true"] .accordion-toggle {
+.accordion-header[aria-expanded='true'] .accordion-toggle {
   transform: rotate(180deg);
   border-color: #fff;
   color: #fff;

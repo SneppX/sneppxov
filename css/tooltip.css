@@ -19,7 +19,9 @@
   white-space: nowrap;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.15s, visibility 0.15s;
+  transition:
+    opacity 0.15s,
+    visibility 0.15s;
   pointer-events: none;
   z-index: 100;
 }
@@ -29,24 +31,24 @@
   visibility: visible;
 }
 
-[data-tooltip][data-position="top"]::after {
+[data-tooltip][data-position='top']::after {
   bottom: 125%;
 }
 
-[data-tooltip][data-position="bottom"]::after {
+[data-tooltip][data-position='bottom']::after {
   top: 125%;
   left: 50%;
   transform: translateX(-50%);
 }
 
-[data-tooltip][data-position="left"]::after {
+[data-tooltip][data-position='left']::after {
   right: 125%;
   bottom: 50%;
   left: auto;
   transform: translateY(50%);
 }
 
-[data-tooltip][data-position="right"]::after {
+[data-tooltip][data-position='right']::after {
   left: 125%;
   bottom: 50%;
   transform: translateY(50%);

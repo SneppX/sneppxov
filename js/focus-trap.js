@@ -8,7 +8,9 @@
     var openModal = document.querySelector('.modal-overlay.open');
     if (!openModal) return;
 
-    var focusable = openModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    var focusable = openModal.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    );
     var first = focusable[0];
     var last = focusable[focusable.length - 1];
 

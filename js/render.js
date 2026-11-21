@@ -11,7 +11,7 @@
   var activeCategory = 'All';
 
   function categories() {
-    var set = { 'All': true };
+    var set = { All: true };
     data.forEach(function (entry) {
       var category = String(entry.category || 'Uncategorized');
       set[category] = true;
@@ -50,45 +50,63 @@
       var test = safeSourcePath(entry.test);
       var sourceLink = source
         ? ' · <a href="https://github.com/SneppX/sneppx-alg/' +
-          (source.directory ? 'tree' : 'blob') + '/main/' + source.path +
+          (source.directory ? 'tree' : 'blob') +
+          '/main/' +
+          source.path +
           '" target="_blank" rel="noopener noreferrer">source</a>'
         : '';
-      var testLink = test && !test.directory
-        ? ' · <a href="https://github.com/SneppX/sneppx-alg/blob/main/' +
-          test.path + '" target="_blank" rel="noopener noreferrer">test</a>'
-        : '';
+      var testLink =
+        test && !test.directory
+          ? ' · <a href="https://github.com/SneppX/sneppx-alg/blob/main/' +
+            test.path +
+            '" target="_blank" rel="noopener noreferrer">test</a>'
+          : '';
 
       var card = document.createElement('div');
       card.className = 'feature-card reveal';
-      card.innerHTML = '<h3>' + escapeHtml(title) + '</h3>' +
-        '<p>' + escapeHtml(description) + '</p>' +
+      card.innerHTML =
+        '<h3>' +
+        escapeHtml(title) +
+        '</h3>' +
+        '<p>' +
+        escapeHtml(description) +
+        '</p>' +
         '<p style="font-size:0.8rem;margin-top:0.5rem;"><span style="color:var(--accent);">' +
-        escapeHtml(category) + '</span>' + sourceLink + testLink + '</p>';
+        escapeHtml(category) +
+        '</span>' +
+        sourceLink +
+        testLink +
+        '</p>';
       grid.appendChild(card);
     });
   }
 
-
   function safeSourcePath(value) {
     if (typeof value !== 'string') return null;
     var source = value.trim();
-    if (!source || source.charAt(0) === '/' || source.indexOf('\\') !== -1 ||
-        /[?#:\x00-\x1f]/.test(source)) {
+    if (
+      !source ||
+      source.charAt(0) === '/' ||
+      source.indexOf('\\') !== -1 ||
+      /[?#:\x00-\x1f]/.test(source)
+    ) {
       return null;
     }
 
     var directory = source.charAt(source.length - 1) === '/';
     var segments = source.split('/');
     if (directory) segments.pop();
-    if (segments.some(function (segment) {
-      return !segment || segment === '.' || segment === '..';
-    })) {
+    if (
+      segments.some(function (segment) {
+        return !segment || segment === '.' || segment === '..';
+      })
+    ) {
       return null;
     }
 
     return {
       path: segments.map(encodeURIComponent).join('/') + (directory ? '/' : ''),
-      directory: directory
+      directory: directory,
     };
   }
 

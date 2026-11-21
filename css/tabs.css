@@ -28,7 +28,7 @@
   color: var(--fg);
 }
 
-.tablist button[aria-selected="true"] {
+.tablist button[aria-selected='true'] {
   border-bottom-color: var(--accent);
   color: var(--accent);
   background: rgba(99, 102, 241, 0.08);

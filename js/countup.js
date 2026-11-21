@@ -22,15 +22,20 @@
     var els = document.querySelectorAll('.stat-num[data-count]');
     if (!els.length) return;
     if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            animateCount(e.target);
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.5 });
-      els.forEach(function (el) { io.observe(el); });
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              animateCount(e.target);
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.5 },
+      );
+      els.forEach(function (el) {
+        io.observe(el);
+      });
     } else {
       els.forEach(animateCount);
     }

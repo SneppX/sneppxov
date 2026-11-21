@@ -15,16 +15,25 @@
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(text).then(function () {
             btn.textContent = 'Copied!';
-            setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+            setTimeout(function () {
+              btn.textContent = 'Copy';
+            }, 1500);
           });
         } else {
           var ta = document.createElement('textarea');
           ta.value = text;
           document.body.appendChild(ta);
           ta.select();
-          try { document.execCommand('copy'); btn.textContent = 'Copied!'; } catch (e) { btn.textContent = 'Failed'; }
+          try {
+            document.execCommand('copy');
+            btn.textContent = 'Copied!';
+          } catch (e) {
+            btn.textContent = 'Failed';
+          }
           document.body.removeChild(ta);
-          setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+          setTimeout(function () {
+            btn.textContent = 'Copy';
+          }, 1500);
         }
       });
       pre.style.position = 'relative';

@@ -1,13 +1,33 @@
 /* Print mode */
 @media print {
-  .site-header, .site-footer, .hero-cta, .feature-grid, .stats,
-  #backToTop, .font-size-controls, .dropdown, [data-modal] {
+  .site-header,
+  .site-footer,
+  .hero-cta,
+  .feature-grid,
+  .stats,
+  #backToTop,
+  .font-size-controls,
+  .dropdown,
+  [data-modal] {
     display: none !important;
   }
-  body { background: #fff !important; color: #000 !important; }
-  .container { max-width: 100% !important; padding: 0 !important; }
-  .feature-card, .stat { break-inside: avoid; }
-  a::after { content: " (" attr(href) ")"; font-size: 0.8rem; color: #666; }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  .feature-card,
+  .stat {
+    break-inside: avoid;
+  }
+  a::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8rem;
+    color: #666;
+  }
 }
 
 /* Print button styling */

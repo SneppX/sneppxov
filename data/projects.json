@@ -1,4 +1,25 @@
 [
-  {"id":"sneppx-alg","name":"SneppX-ALG","category":"AI and machine learning","description":"An open-source AI and machine-learning framework with a native C/C++ core and Python bindings for tensor operations, automatic differentiation, neural network components, and model utilities.","repository":"https://github.com/SneppX/sneppx-alg","website":"https://sneppx.github.io/sneppx-alg/","references":[{"label":"Components","url":"components.html"},{"label":"Capabilities","url":"features.html"},{"label":"Architecture","url":"engine.html"},{"label":"Build and API notes","url":"docs.html"},{"label":"Security notes","url":"security.html"}]},
-  {"id":"vstodo","name":"VSTodo","category":"Developer tools","description":"A version-control tool published under the SneppX organization. Consult the repository for current implementation, usage, and release information.","repository":"https://github.com/SneppX/vstodo","references":[]}
+  {
+    "id": "sneppx-alg",
+    "name": "SneppX-ALG",
+    "category": "AI and machine learning",
+    "description": "An open-source AI and machine-learning framework with a native C/C++ core and Python bindings for tensor operations, automatic differentiation, neural network components, and model utilities.",
+    "repository": "https://github.com/SneppX/sneppx-alg",
+    "website": "https://sneppx.github.io/sneppx-alg/",
+    "references": [
+      { "label": "Components", "url": "components.html" },
+      { "label": "Capabilities", "url": "features.html" },
+      { "label": "Architecture", "url": "engine.html" },
+      { "label": "Build and API notes", "url": "docs.html" },
+      { "label": "Security notes", "url": "security.html" }
+    ]
+  },
+  {
+    "id": "vstodo",
+    "name": "VSTodo",
+    "category": "Developer tools",
+    "description": "A version-control tool published under the SneppX organization. Consult the repository for current implementation, usage, and release information.",
+    "repository": "https://github.com/SneppX/vstodo",
+    "references": []
+  }
 ]

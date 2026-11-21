@@ -16,6 +16,6 @@
   color: #4f46e5;
 }
 
-[data-theme="dark"] .feature-card.feature-hover:hover h3 {
+[data-theme='dark'] .feature-card.feature-hover:hover h3 {
   color: #818cf8;
 }

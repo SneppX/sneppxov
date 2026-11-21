@@ -1,6 +1,6 @@
 /* Dark/light system theme auto-detect */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme='light']) {
     --bg: #0f172a;
     --fg: #e2e8f0;
     --accent: #818cf8;

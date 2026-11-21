@@ -14,7 +14,7 @@
     runBtn.addEventListener('click', function () {
       var code = editor ? editor.textContent : '';
       output.textContent = 'Executing...\n';
-      
+
       try {
         // Safe eval for demo purposes only
         var result = eval(code);

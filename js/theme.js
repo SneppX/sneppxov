@@ -1,1 +1,28 @@
-(function(){'use strict';var root=document.documentElement,button=document.getElementById('themeToggle'),key='sneppx-theme',modes=['system','light','dark'];function apply(mode){if(!modes.includes(mode))mode='system';root.setAttribute('data-theme',mode);if(button){button.textContent='Theme: '+mode[0].toUpperCase()+mode.slice(1);button.setAttribute('aria-label','Color theme: '+mode+'. Activate to change theme.');}try{localStorage.setItem(key,mode);}catch(error){}}var initial='system';try{var stored=localStorage.getItem(key);if(modes.includes(stored))initial=stored;}catch(error){}apply(initial);if(button)button.addEventListener('click',function(){apply(modes[(modes.indexOf(root.getAttribute('data-theme'))+1)%modes.length]);});}());
+(function () {
+  'use strict';
+  var root = document.documentElement,
+    button = document.getElementById('themeToggle'),
+    key = 'sneppx-theme',
+    modes = ['system', 'light', 'dark'];
+  function apply(mode) {
+    if (!modes.includes(mode)) mode = 'system';
+    root.setAttribute('data-theme', mode);
+    if (button) {
+      button.textContent = 'Theme: ' + mode[0].toUpperCase() + mode.slice(1);
+      button.setAttribute('aria-label', 'Color theme: ' + mode + '. Activate to change theme.');
+    }
+    try {
+      localStorage.setItem(key, mode);
+    } catch (error) {}
+  }
+  var initial = 'system';
+  try {
+    var stored = localStorage.getItem(key);
+    if (modes.includes(stored)) initial = stored;
+  } catch (error) {}
+  apply(initial);
+  if (button)
+    button.addEventListener('click', function () {
+      apply(modes[(modes.indexOf(root.getAttribute('data-theme')) + 1) % modes.length]);
+    });
+})();

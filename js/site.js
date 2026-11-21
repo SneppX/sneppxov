@@ -1,1 +1,67 @@
-(function(){'use strict';var trigger=document.getElementById('commandTrigger');if(!trigger||!document.createElement('dialog').showModal)return;var pages=[['Home','index.html'],['About SneppX','about.html'],['Projects','projects.html'],['Developer resources','developers.html'],['Community','community.html'],['Updates','updates.html'],['SneppX-ALG components','components.html'],['SneppX-ALG capabilities','features.html'],['SneppX-ALG architecture','engine.html'],['SneppX-ALG build notes','docs.html'],['SneppX-ALG security notes','security.html']];var d=document.createElement('dialog');d.className='command-dialog';var f=document.createElement('form');f.method='dialog';var i=document.createElement('input');i.type='search';i.placeholder='Search pages and resources';i.setAttribute('aria-label','Search pages and resources');var r=document.createElement('div');r.className='command-results';var h=document.createElement('p');h.className='command-hint';h.textContent='Enter opens the first result · Escape closes search';f.append(i,r,h);d.append(f);document.body.append(d);function render(){var q=i.value.trim().toLowerCase();r.replaceChildren();pages.filter(p=>!q||(p[0]+' '+p[1]).toLowerCase().includes(q)).forEach(p=>{var a=document.createElement('a');a.href=p[1];a.textContent=p[0];r.append(a);});}function open(){d.showModal();i.value='';render();i.focus();}trigger.addEventListener('click',open);i.addEventListener('input',render);document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}if(e.key==='Enter'&&d.open){var a=r.querySelector('a');if(a){e.preventDefault();location.href=a.href;}}});}());
+(function () {
+  'use strict';
+  var trigger = document.getElementById('commandTrigger');
+  if (!trigger || !document.createElement('dialog').showModal) return;
+  var pages = [
+    ['Home', 'index.html'],
+    ['About SneppX', 'about.html'],
+    ['Projects', 'projects.html'],
+    ['Developer resources', 'developers.html'],
+    ['Community', 'community.html'],
+    ['Updates', 'updates.html'],
+    ['SneppX-ALG components', 'components.html'],
+    ['SneppX-ALG capabilities', 'features.html'],
+    ['SneppX-ALG architecture', 'engine.html'],
+    ['SneppX-ALG build notes', 'docs.html'],
+    ['SneppX-ALG security notes', 'security.html'],
+  ];
+  var d = document.createElement('dialog');
+  d.className = 'command-dialog';
+  var f = document.createElement('form');
+  f.method = 'dialog';
+  var i = document.createElement('input');
+  i.type = 'search';
+  i.placeholder = 'Search pages and resources';
+  i.setAttribute('aria-label', 'Search pages and resources');
+  var r = document.createElement('div');
+  r.className = 'command-results';
+  var h = document.createElement('p');
+  h.className = 'command-hint';
+  h.textContent = 'Enter opens the first result · Escape closes search';
+  f.append(i, r, h);
+  d.append(f);
+  document.body.append(d);
+  function render() {
+    var q = i.value.trim().toLowerCase();
+    r.replaceChildren();
+    pages
+      .filter(p => !q || (p[0] + ' ' + p[1]).toLowerCase().includes(q))
+      .forEach(p => {
+        var a = document.createElement('a');
+        a.href = p[1];
+        a.textContent = p[0];
+        r.append(a);
+      });
+  }
+  function open() {
+    d.showModal();
+    i.value = '';
+    render();
+    i.focus();
+  }
+  trigger.addEventListener('click', open);
+  i.addEventListener('input', render);
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      open();
+    }
+    if (e.key === 'Enter' && d.open) {
+      var a = r.querySelector('a');
+      if (a) {
+        e.preventDefault();
+        location.href = a.href;
+      }
+    }
+  });
+})();
