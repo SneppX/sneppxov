@@ -490,3 +490,47 @@ body .container {
     font-size: 2.4rem;
   }
 }
+
+.migration-panel {
+  padding: 1.5rem;
+  border: 1px solid var(--sx-line);
+  border-radius: 12px;
+  background: var(--sx-panel);
+}
+.migration-panel h2,
+.migration-steps h3 {
+  margin-top: 0;
+}
+.migration-panel p,
+.migration-steps p,
+.migration-limits {
+  color: var(--sx-muted);
+  line-height: 1.75;
+}
+.migration-steps {
+  padding-left: 1.5rem;
+}
+.migration-steps li {
+  padding: 0.75rem 0 1rem 0.4rem;
+}
+.migration-steps h3 {
+  color: var(--sx-fg);
+  font-size: 1.1rem;
+}
+.migration-code {
+  overflow-x: auto;
+  margin: 1rem 0;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--sx-line);
+  border-radius: 8px;
+  background: var(--sx-panel);
+  color: var(--sx-fg);
+  line-height: 1.7;
+}
+.migration-code code {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.88rem;
+}
+.migration-limits li {
+  margin-bottom: 0.6rem;
+}

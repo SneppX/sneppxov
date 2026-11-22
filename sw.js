@@ -1,11 +1,12 @@
 // PWA service worker. Bump the cache name when the offline shell changes.
-const CACHE_NAME = 'sneppxov-v8';
+const CACHE_NAME = 'sneppxov-v9';
 const ASSETS = [
   './',
   'index.html',
   'about.html',
   'projects.html',
   'project.html',
+  'vstodo.html',
   'data/projects.json',
   'js/project-detail.js',
   'developers.html',

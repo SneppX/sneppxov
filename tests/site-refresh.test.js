@@ -91,3 +91,26 @@ test('project detail record is included in the offline shell and sitemap', () =>
   assert.ok(read('sw.js').includes("'data/projects.json'"));
   assert.ok(read('sitemap.xml').includes('https://sneppx.github.io/sneppxov/project.html'));
 });
+
+test('VSTodo adoption guide documents the verified non-destructive workflow', () => {
+  const html = read('vstodo.html');
+  const records = JSON.parse(read('data/projects.json'));
+  const vstodo = records.find(item => item.id === 'vstodo');
+  assert.ok(html.includes('vstodo adopt'));
+  assert.ok(html.includes('.git/config'));
+  assert.ok(html.includes('.git/index'));
+  assert.ok(html.includes('vstodo export-git'));
+  assert.ok(html.includes('VSTODO_GITHUB_TOKEN'));
+  assert.ok(html.includes('not automatic two-way synchronization'));
+  assert.ok(html.includes('Linked worktrees'));
+  assert.ok(vstodo.references.some(ref => ref.url === 'vstodo.html'));
+  assert.ok(read('index.html').includes('vstodo.html'));
+  assert.ok(read('developers.html').includes('vstodo.html'));
+});
+
+test('VSTodo adoption guide is indexed, cached offline, and included in the sitemap', () => {
+  assert.ok(read('js/site.js').includes("['VSTodo Git adoption and migration', 'vstodo.html']"));
+  assert.ok(read('sw.js').includes("'vstodo.html'"));
+  assert.ok(read('sw.js').includes("sneppxov-v9"));
+  assert.ok(read('sitemap.xml').includes('https://sneppx.github.io/sneppxov/vstodo.html'));
+});

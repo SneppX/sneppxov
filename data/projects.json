@@ -7,19 +7,51 @@
     "repository": "https://github.com/SneppX/sneppx-alg",
     "website": "https://sneppx.github.io/sneppx-alg/",
     "references": [
-      { "label": "Components", "url": "components.html" },
-      { "label": "Capabilities", "url": "features.html" },
-      { "label": "Architecture", "url": "engine.html" },
-      { "label": "Build and API notes", "url": "docs.html" },
-      { "label": "Security notes", "url": "security.html" }
+      {
+        "label": "Components",
+        "url": "components.html"
+      },
+      {
+        "label": "Capabilities",
+        "url": "features.html"
+      },
+      {
+        "label": "Architecture",
+        "url": "engine.html"
+      },
+      {
+        "label": "Build and API notes",
+        "url": "docs.html"
+      },
+      {
+        "label": "Security notes",
+        "url": "security.html"
+      }
     ]
   },
   {
     "id": "vstodo",
     "name": "VSTodo",
     "category": "Developer tools",
-    "description": "A version-control tool published under the SneppX organization. Consult the repository for current implementation, usage, and release information.",
+    "description": "An independently implemented version-control system in Go with Git-compatible object formats, GitHub smart-HTTP transport, and a non-destructive adoption path for supported existing Git repositories.",
     "repository": "https://github.com/SneppX/vstodo",
-    "references": []
+    "references": [
+      {
+        "label": "Git adoption and migration guide",
+        "url": "vstodo.html"
+      },
+      {
+        "label": "VSTodo README",
+        "url": "https://github.com/SneppX/vstodo/blob/main/README.md"
+      },
+      {
+        "label": "Command reference",
+        "url": "https://github.com/SneppX/vstodo/blob/main/docs/COMMANDS.md"
+      },
+      {
+        "label": "Architecture",
+        "url": "https://github.com/SneppX/vstodo/blob/main/docs/ARCHITECTURE.md"
+      }
+    ]
   }
 ]

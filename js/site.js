@@ -6,6 +6,7 @@
     ['Home', 'index.html'],
     ['About SneppX', 'about.html'],
     ['Projects', 'projects.html'],
+    ['VSTodo Git adoption and migration', 'vstodo.html'],
     ['Developer resources', 'developers.html'],
     ['Community', 'community.html'],
     ['Updates', 'updates.html'],
