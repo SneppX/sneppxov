@@ -69,8 +69,8 @@ async function checkAccessibility(page, route) {
       await route.abort();
     });
     await page.goto(baseURL + '/updates.html', { waitUntil: 'networkidle' });
-    await page.getByText('Test commit from browser fixture').waitFor();
-    await page.getByText('VSTodo fixture release').waitFor();
+    await page.locator('[data-repo="SneppX/vstodo"]').getByText('Test commit from browser fixture').waitFor();
+    await page.locator('[data-repo="SneppX/vstodo"]').getByText('VSTodo fixture release').waitFor();
 
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto(baseURL + '/index.html', { waitUntil: 'networkidle' });

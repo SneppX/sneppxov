@@ -19,6 +19,7 @@
   ];
   var d = document.createElement('dialog');
   d.className = 'command-dialog';
+  d.setAttribute('aria-label', 'Site search');
   var f = document.createElement('form');
   f.method = 'dialog';
   var i = document.createElement('input');
