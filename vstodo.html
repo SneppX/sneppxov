@@ -171,6 +171,42 @@ vstodo push origin main</code></pre>
           </div>
         </div>
       </section>
+      <section class="section-block">
+        <div class="container narrow">
+          <p class="eyebrow">RECONCILE GIT-SIDE COMMITS</p>
+          <h2>Bring Git commits into VSTodo safely</h2>
+          <p>
+            If you continue using Git after adoption, check whether its branch has moved before
+            switching tools. These commands compare and reconcile committed history; they do not
+            import Git's staged or unstaged edits.
+          </p>
+          <pre class="migration-code"><code>vstodo git-status
+vstodo sync-git</code></pre>
+          <p>
+            <code>vstodo git-status</code> is read-only. <code>vstodo sync-git</code> imports and
+            validates Git's loose and packed objects, then advances the matching VSTodo branch only
+            when Git is a fast-forward of VSTodo. It protects the Git source branch with its
+            standard lock file and updates the VSTodo ref with compare-and-swap.
+          </p>
+          <div class="migration-panel">
+            <strong>What remains untouched:</strong> Git refs, Git configuration, Git's index,
+            VSTodo's index, and working files. After the VSTodo branch advances, run
+            <code>vstodo status</code> to review the preserved index and working tree against the
+            new HEAD.
+          </div>
+          <h3>When the histories do not match</h3>
+          <ul class="migration-limits">
+            <li>If VSTodo is ahead, no ref changes; use <code>vstodo export-git</code> when you choose to copy those commits back to Git</li>
+            <li>If the histories diverged, the branches differ, Git HEAD is detached, or a Git ref is locked, reconciliation is refused</li>
+            <li>A refused reconciliation can leave valid but unreachable imported objects in <code>.vstodo/</code>; it does not delete objects or rewrite either history</li>
+          </ul>
+          <p>
+            This uses explicit fast-forward-only transfers in either direction, not automatic
+            two-way synchronization.
+            <a class="text-link" href="vstodo-architecture.html">Read the architecture overview →</a>
+          </p>
+        </div>
+      </section>
       <section class="section-block section-muted">
         <div class="container narrow">
           <p class="eyebrow">CURRENT LIMITS</p>
