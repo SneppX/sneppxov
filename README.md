@@ -14,7 +14,7 @@ Run `python -m http.server 8000` from the repository root, then open http://loca
 
 ## Implementation
 
-The site uses plain HTML, CSS, and JavaScript. It does not require a frontend framework, remote font service, analytics service, or paid runtime. Theme preference is stored locally. Site search uses a local page index.
+The site uses plain HTML, CSS, and JavaScript. It does not require a frontend framework, remote font service, analytics service, or paid runtime. Theme preference is stored locally. Site search uses a local page index. The updates page reads public GitHub commit and release records and caches them in the browser for up to 15 minutes.
 
 Project descriptions and links must be verified against upstream repositories. Do not add unsupported metrics, claims, screenshots, or release information.
 
@@ -39,3 +39,14 @@ ruff format --check scripts
 ## License
 
 MIT
+
+
+## Browser and accessibility tests
+
+The website validation workflow runs a browser smoke suite against a local HTTP
+server. It uses Playwright and axe-core in CI to exercise navigation, project
+details, live update rendering, mobile navigation, and WCAG 2.1 A/AA checks.
+
+For a local run, install Playwright and axe-core, install Chromium, start
+\`python -m http.server 4173\` in one terminal, then run the browser test in
+another terminal with \`NODE_PATH\` set to the global npm module directory.

@@ -36,5 +36,24 @@ jobs:
         run: find . -name '*.js' -not -path './.git/*' -print0 | xargs -0 -n1 node --check
       - name: Run frontend behavior tests
         run: node --test tests/*.test.js
+      - name: Install browser test tools
+        run: npm install --global --no-audit --no-fund playwright@1.56.1 @axe-core/playwright@4.10.2
+      - name: Expose global Node modules
+        run: echo "NODE_PATH=$(npm root -g)" >> "$GITHUB_ENV"
+      - name: Install Chromium
+        run: playwright install --with-deps chromium
+      - name: Start local website server
+        run: |
+          python -m http.server 4173 --bind 127.0.0.1 > /tmp/sneppxov-http.log 2>&1 &
+          for attempt in $(seq 1 20); do
+            if curl --fail --silent http://127.0.0.1:4173/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/sneppxov-http.log
+          exit 1
+      - name: Run browser and WCAG accessibility checks
+        run: node tests/browser-smoke.cjs
       - name: Validate catalogs
         run: python scripts/validate_catalog.py --core sneppx-alg
