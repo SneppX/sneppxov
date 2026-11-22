@@ -9,7 +9,8 @@
       var raw = localStorage.getItem(key);
       if (!raw) return null;
       var value = JSON.parse(raw);
-      if (!value || Date.now() - value.savedAt > cacheDuration || !Array.isArray(value.data)) return null;
+      if (!value || Date.now() - value.savedAt > cacheDuration || !Array.isArray(value.data))
+        return null;
       return value.data;
     } catch (error) {
       return null;
@@ -80,7 +81,9 @@
       link.textContent = message;
       var meta = document.createElement('span');
       meta.className = 'update-meta';
-      meta.textContent = [sha.slice(0, 7), formatDate(author.date || committer.date)].filter(Boolean).join(' · ');
+      meta.textContent = [sha.slice(0, 7), formatDate(author.date || committer.date)]
+        .filter(Boolean)
+        .join(' · ');
       item.append(link, meta);
       list.append(item);
     });
@@ -102,7 +105,9 @@
       link.textContent = name;
       var meta = document.createElement('span');
       meta.className = 'update-meta';
-      meta.textContent = [formatDate(record.published_at), record.prerelease ? 'Pre-release' : ''].filter(Boolean).join(' · ');
+      meta.textContent = [formatDate(record.published_at), record.prerelease ? 'Pre-release' : '']
+        .filter(Boolean)
+        .join(' · ');
       item.append(link, meta);
       list.append(item);
     });
@@ -125,7 +130,8 @@
         ? 'Some live GitHub data could not be loaded. The source links are still available.'
         : 'Loaded from GitHub. This browser caches results for up to 15 minutes.';
       results.forEach(function (result, index) {
-        if (result.status === 'rejected') addMessage(index === 0 ? commits : releases, 'Live data is temporarily unavailable.');
+        if (result.status === 'rejected')
+          addMessage(index === 0 ? commits : releases, 'Live data is temporarily unavailable.');
       });
     });
   });

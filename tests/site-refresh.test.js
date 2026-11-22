@@ -115,7 +115,6 @@ test('VSTodo adoption guide is indexed, cached offline, and included in the site
   assert.ok(read('sitemap.xml').includes('https://sneppx.github.io/sneppxov/vstodo.html'));
 });
 
-
 test('VSTodo architecture and Git reconciliation guide are linked and cached offline', () => {
   const architecture = read('vstodo-architecture.html');
   const guide = read('vstodo.html');
@@ -126,10 +125,16 @@ test('VSTodo architecture and Git reconciliation guide are linked and cached off
   assert.ok(guide.includes('vstodo git-status'));
   assert.ok(guide.includes('vstodo sync-git'));
   assert.ok(vstodo.references.some(ref => ref.url === 'vstodo-architecture.html'));
-  assert.ok(read('js/site.js').includes("['VSTodo architecture and system design', 'vstodo-architecture.html']"));
+  assert.ok(
+    read('js/site.js').includes(
+      "['VSTodo architecture and system design', 'vstodo-architecture.html']",
+    ),
+  );
   assert.ok(read('sw.js').includes("'vstodo-architecture.html'"));
   assert.ok(read('sw.js').includes('sneppxov-v10'));
-  assert.ok(read('sitemap.xml').includes('https://sneppx.github.io/sneppxov/vstodo-architecture.html'));
+  assert.ok(
+    read('sitemap.xml').includes('https://sneppx.github.io/sneppxov/vstodo-architecture.html'),
+  );
 });
 
 test('updates page renders upstream GitHub activity through a safe text-only renderer', () => {

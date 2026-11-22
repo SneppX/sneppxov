@@ -3,7 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="description" content="A source-backed overview of VSTodo's Go architecture, object model, storage, transport, and Git interoperability boundaries." />
+    <meta
+      name="description"
+      content="A source-backed overview of VSTodo's Go architecture, object model, storage, transport, and Git interoperability boundaries."
+    />
     <meta name="theme-color" content="#5146c8" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="style.css" />
@@ -12,7 +15,10 @@
     <title>VSTodo architecture | SneppX</title>
     <meta property="og:site_name" content="SneppX" />
     <meta property="og:title" content="VSTodo architecture | SneppX" />
-    <meta property="og:description" content="How VSTodo stores repository history and interoperates with supported Git repositories." />
+    <meta
+      property="og:description"
+      content="How VSTodo stores repository history and interoperates with supported Git repositories."
+    />
     <meta property="og:url" content="https://sneppx.github.io/sneppxov/vstodo-architecture.html" />
     <meta name="twitter:card" content="summary" />
     <link rel="manifest" href="manifest.json" />
@@ -22,11 +28,24 @@
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href="index.html"><span class="brand-mark">S</span>SneppX</a>
-        <button class="hamburger" id="hamburger" type="button" aria-label="Open navigation menu" aria-controls="siteNav" aria-expanded="false"><span></span><span></span><span></span></button>
+        <button
+          class="hamburger"
+          id="hamburger"
+          type="button"
+          aria-label="Open navigation menu"
+          aria-controls="siteNav"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
         <nav class="site-nav" id="siteNav" aria-label="Main navigation">
-          <a href="index.html">Home</a><a href="about.html">About</a><a href="projects.html">Projects</a><a href="developers.html">Developers</a><a href="community.html">Community</a><a href="updates.html">Updates</a>
+          <a href="index.html">Home</a><a href="about.html">About</a
+          ><a href="projects.html">Projects</a><a href="developers.html">Developers</a
+          ><a href="community.html">Community</a><a href="updates.html">Updates</a>
         </nav>
-        <button class="command-trigger" id="commandTrigger" type="button">Search <kbd>Ctrl K</kbd></button>
+        <button class="command-trigger" id="commandTrigger" type="button">
+          Search <kbd>Ctrl K</kbd>
+        </button>
         <button class="theme-toggle" id="themeToggle" type="button">Theme: System</button>
       </div>
     </header>
@@ -35,9 +54,19 @@
         <div class="container narrow">
           <p class="eyebrow">VSTODO · SYSTEM DESIGN</p>
           <h1>How VSTodo is put together.</h1>
-          <p class="lede">VSTodo is an independently implemented version-control system in Go. Its implementation uses Git-compatible object serialization and a supported subset of Git smart-HTTP for interoperability; it does not copy Git's source code.</p>
+          <p class="lede">
+            VSTodo is an independently implemented version-control system in Go. Its implementation
+            uses Git-compatible object serialization and a supported subset of Git smart-HTTP for
+            interoperability; it does not copy Git's source code.
+          </p>
           <div class="actions">
-            <a class="button button-primary" href="https://github.com/SneppX/vstodo" target="_blank" rel="noopener noreferrer">Browse source ↗</a>
+            <a
+              class="button button-primary"
+              href="https://github.com/SneppX/vstodo"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Browse source ↗</a
+            >
             <a class="button button-secondary" href="vstodo.html">Git adoption guide</a>
           </div>
         </div>
@@ -45,7 +74,11 @@
       <section class="section-block">
         <div class="container narrow">
           <h2>Command and library layers</h2>
-          <p>The command-line interface dispatches commands to focused handlers. Each handler uses the application context to access repository discovery, object storage, the staging index, and references.</p>
+          <p>
+            The command-line interface dispatches commands to focused handlers. Each handler uses
+            the application context to access repository discovery, object storage, the staging
+            index, and references.
+          </p>
           <pre class="migration-code"><code>CLI command
     ↓
 command handler
@@ -55,61 +88,143 @@ internal/app.App
     ├── object and pack storage
     ├── staging index
     └── HEAD and reference store</code></pre>
-          <p>The library packages live under <code>internal/</code>; command handlers live at the module root. The project currently uses the Go standard library without third-party runtime dependencies.</p>
+          <p>
+            The library packages live under <code>internal/</code>; command handlers live at the
+            module root. The project currently uses the Go standard library without third-party
+            runtime dependencies.
+          </p>
         </div>
       </section>
       <section class="section-block section-muted">
         <div class="container narrow">
           <h2>Git-compatible object model</h2>
-          <p>Core objects are addressed by the SHA-1 of their canonical type, size, and content envelope. The supported object types are:</p>
+          <p>
+            Core objects are addressed by the SHA-1 of their canonical type, size, and content
+            envelope. The supported object types are:
+          </p>
           <div class="architecture-table">
             <table>
-              <thead><tr><th scope="col">Object</th><th scope="col">Stores</th><th scope="col">Role</th></tr></thead>
+              <thead>
+                <tr>
+                  <th scope="col">Object</th>
+                  <th scope="col">Stores</th>
+                  <th scope="col">Role</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr><th scope="row">Blob</th><td>Raw file bytes</td><td>File content</td></tr>
-                <tr><th scope="row">Tree</th><td>Mode, name, object ID entries</td><td>Directory snapshot</td></tr>
-                <tr><th scope="row">Commit</th><td>Root tree, parents, identities, message</td><td>Versioned snapshot and history</td></tr>
-                <tr><th scope="row">Tag</th><td>Target object, tagger, message</td><td>Annotated reference</td></tr>
+                <tr>
+                  <th scope="row">Blob</th>
+                  <td>Raw file bytes</td>
+                  <td>File content</td>
+                </tr>
+                <tr>
+                  <th scope="row">Tree</th>
+                  <td>Mode, name, object ID entries</td>
+                  <td>Directory snapshot</td>
+                </tr>
+                <tr>
+                  <th scope="row">Commit</th>
+                  <td>Root tree, parents, identities, message</td>
+                  <td>Versioned snapshot and history</td>
+                </tr>
+                <tr>
+                  <th scope="row">Tag</th>
+                  <td>Target object, tagger, message</td>
+                  <td>Annotated reference</td>
+                </tr>
               </tbody>
             </table>
           </div>
           <pre class="migration-code"><code>&lt;type&gt; &lt;size&gt;\0&lt;content&gt;</code></pre>
-          <p>Using the same core object encoding makes supported loose objects and packfiles readable by Git tooling. It does not make VSTodo a complete Git implementation.</p>
+          <p>
+            Using the same core object encoding makes supported loose objects and packfiles readable
+            by Git tooling. It does not make VSTodo a complete Git implementation.
+          </p>
         </div>
       </section>
       <section class="section-block">
         <div class="container narrow">
           <h2>Storage and references</h2>
           <ul class="architecture-list">
-            <li><strong>Loose objects:</strong> immutable, zlib-compressed files under <code>.vstodo/objects/</code>, published atomically.</li>
-            <li><strong>Pack storage:</strong> validated Git-compatible packfiles and version-2 indexes; fetch publishes the pack and index before advancing remote-tracking refs.</li>
-            <li><strong>Index:</strong> a Git DIRC version-2 staging index with checksums, file modes, lock-file publication, and stale-snapshot protection.</li>
-            <li><strong>References:</strong> HEAD, branches, tags, and remote-tracking refs stored separately from the object database, with lock-file and compare-and-swap updates.</li>
+            <li>
+              <strong>Loose objects:</strong> immutable, zlib-compressed files under
+              <code>.vstodo/objects/</code>, published atomically.
+            </li>
+            <li>
+              <strong>Pack storage:</strong> validated Git-compatible packfiles and version-2
+              indexes; fetch publishes the pack and index before advancing remote-tracking refs.
+            </li>
+            <li>
+              <strong>Index:</strong> a Git DIRC version-2 staging index with checksums, file modes,
+              lock-file publication, and stale-snapshot protection.
+            </li>
+            <li>
+              <strong>References:</strong> HEAD, branches, tags, and remote-tracking refs stored
+              separately from the object database, with lock-file and compare-and-swap updates.
+            </li>
           </ul>
-          <p>Pack lookup currently decodes a complete pack to resolve objects and deltas. Large-pack random access and repacking remain scalability work.</p>
+          <p>
+            Pack lookup currently decodes a complete pack to resolve objects and deltas. Large-pack
+            random access and repacking remain scalability work.
+          </p>
         </div>
       </section>
       <section class="section-block section-muted">
         <div class="container narrow">
           <h2>Remote transport</h2>
-          <p>The HTTP transport implements reference discovery and the fetch, clone, pull, and fast-forward-only branch push flows needed by current workflows. Credentials are supplied through environment variables rather than embedded in remote URLs.</p>
-          <p>Force pushes, tag pushes, multi-ref pushes, SSH transport, and full Git protocol/configuration compatibility are not currently supported.</p>
+          <p>
+            The HTTP transport implements reference discovery and the fetch, clone, pull, and
+            fast-forward-only branch push flows needed by current workflows. Credentials are
+            supplied through environment variables rather than embedded in remote URLs.
+          </p>
+          <p>
+            Force pushes, tag pushes, multi-ref pushes, SSH transport, and full Git
+            protocol/configuration compatibility are not currently supported.
+          </p>
         </div>
       </section>
       <section class="section-block">
         <div class="container narrow">
           <h2>Git adoption and synchronization</h2>
-          <p>Adoption creates a separate <code>.vstodo/</code> metadata directory beside a supported <code>.git/</code> directory. Git objects and refs are imported; copies of Git's config and index are preserved. Git remains available throughout the process.</p>
+          <p>
+            Adoption creates a separate <code>.vstodo/</code> metadata directory beside a supported
+            <code>.git/</code> directory. Git objects and refs are imported; copies of Git's config
+            and index are preserved. Git remains available throughout the process.
+          </p>
           <ol class="migration-steps">
-            <li><strong><code>vstodo git-status</code></strong> compares the current Git and VSTodo branch tips without changing repository state.</li>
-            <li><strong><code>vstodo sync-git</code></strong> imports Git objects and fast-forwards the matching VSTodo branch only when Git is ahead. A Git branch lock and VSTodo compare-and-swap protect the update.</li>
-            <li><strong><code>vstodo export-git</code></strong> is the explicit reverse operation for exporting VSTodo-created commits into the checked-out Git branch.</li>
+            <li>
+              <strong><code>vstodo git-status</code></strong> compares the current Git and VSTodo
+              branch tips without changing repository state.
+            </li>
+            <li>
+              <strong><code>vstodo sync-git</code></strong> imports Git objects and fast-forwards
+              the matching VSTodo branch only when Git is ahead. A Git branch lock and VSTodo
+              compare-and-swap protect the update.
+            </li>
+            <li>
+              <strong><code>vstodo export-git</code></strong> is the explicit reverse operation for
+              exporting VSTodo-created commits into the checked-out Git branch.
+            </li>
           </ol>
-          <p>These commands reconcile committed branch history only. They preserve both indexes and the working files; they do not import Git's staged or unstaged changes. Diverged histories are rejected rather than resolved automatically.</p>
+          <p>
+            These commands reconcile committed branch history only. They preserve both indexes and
+            the working files; they do not import Git's staged or unstaged changes. Diverged
+            histories are rejected rather than resolved automatically.
+          </p>
           <div class="card-links">
             <a href="vstodo.html">Full adoption and migration guide</a>
-            <a href="https://github.com/SneppX/vstodo/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener noreferrer">Upstream architecture reference ↗</a>
-            <a href="https://github.com/SneppX/vstodo/blob/main/docs/COMMANDS.md" target="_blank" rel="noopener noreferrer">Command reference ↗</a>
+            <a
+              href="https://github.com/SneppX/vstodo/blob/main/docs/ARCHITECTURE.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Upstream architecture reference ↗</a
+            >
+            <a
+              href="https://github.com/SneppX/vstodo/blob/main/docs/COMMANDS.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Command reference ↗</a
+            >
           </div>
         </div>
       </section>
@@ -118,12 +233,24 @@ internal/app.App
           <h2>Current compatibility limits</h2>
           <ul class="architecture-list">
             <li>SHA-1 object IDs only; SHA-256 repositories are not supported.</li>
-            <li>Adoption requires a standard <code>.git</code> directory. Linked worktrees, submodules, and object alternates are rejected.</li>
-            <li>HTTP and HTTPS remote transport is supported; SSH remote settings can be preserved but are not usable by VSTodo transport.</li>
-            <li>Git hooks, reflogs, all index extensions, complete config semantics, and every Git transport capability are not implemented.</li>
+            <li>
+              Adoption requires a standard <code>.git</code> directory. Linked worktrees,
+              submodules, and object alternates are rejected.
+            </li>
+            <li>
+              HTTP and HTTPS remote transport is supported; SSH remote settings can be preserved but
+              are not usable by VSTodo transport.
+            </li>
+            <li>
+              Git hooks, reflogs, all index extensions, complete config semantics, and every Git
+              transport capability are not implemented.
+            </li>
             <li>Pack maintenance and bounded-memory random access remain outstanding.</li>
           </ul>
-          <p>Check the source repository for the implementation state of a command before using it in a critical workflow.</p>
+          <p>
+            Check the source repository for the implementation state of a command before using it in
+            a critical workflow.
+          </p>
         </div>
       </section>
     </main>
@@ -131,7 +258,12 @@ internal/app.App
       <div class="container footer-inner">
         <a class="footer-brand" href="index.html">SneppX</a>
         <div class="footer-links">
-          <a href="about.html">About</a><a href="projects.html">Projects</a><a href="developers.html">Developers</a><a href="community.html">Community</a><a href="updates.html">Updates</a><a href="https://github.com/SneppX" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="about.html">About</a><a href="projects.html">Projects</a
+          ><a href="developers.html">Developers</a><a href="community.html">Community</a
+          ><a href="updates.html">Updates</a
+          ><a href="https://github.com/SneppX" target="_blank" rel="noopener noreferrer"
+            >GitHub ↗</a
+          >
         </div>
         <small>© 2026 SneppX</small>
       </div>

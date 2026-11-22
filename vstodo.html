@@ -196,14 +196,25 @@ vstodo sync-git</code></pre>
           </div>
           <h3>When the histories do not match</h3>
           <ul class="migration-limits">
-            <li>If VSTodo is ahead, no ref changes; use <code>vstodo export-git</code> when you choose to copy those commits back to Git</li>
-            <li>If the histories diverged, the branches differ, Git HEAD is detached, or a Git ref is locked, reconciliation is refused</li>
-            <li>A refused reconciliation can leave valid but unreachable imported objects in <code>.vstodo/</code>; it does not delete objects or rewrite either history</li>
+            <li>
+              If VSTodo is ahead, no ref changes; use <code>vstodo export-git</code> when you choose
+              to copy those commits back to Git
+            </li>
+            <li>
+              If the histories diverged, the branches differ, Git HEAD is detached, or a Git ref is
+              locked, reconciliation is refused
+            </li>
+            <li>
+              A refused reconciliation can leave valid but unreachable imported objects in
+              <code>.vstodo/</code>; it does not delete objects or rewrite either history
+            </li>
           </ul>
           <p>
             This uses explicit fast-forward-only transfers in either direction, not automatic
             two-way synchronization.
-            <a class="text-link" href="vstodo-architecture.html">Read the architecture overview →</a>
+            <a class="text-link" href="vstodo-architecture.html"
+              >Read the architecture overview →</a
+            >
           </p>
         </div>
       </section>
