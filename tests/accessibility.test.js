@@ -34,7 +34,10 @@ test('images and interactive controls have accessible names', () => {
     for (const image of images) assert.match(image, /\balt=["'][^"']*["']/i, page);
     const buttons = html.match(/<button\b[^>]*>[\s\S]*?<\/button>/gi) || [];
     for (const button of buttons) {
-      const named = /\baria-label=/.test(button) || /\btitle=/.test(button) || />(?:\s|<[^>]+>)*[^<\s][\s\S]*?<\/button>/i.test(button);
+      const named =
+        /\baria-label=/.test(button) ||
+        /\btitle=/.test(button) ||
+        />(?:\s|<[^>]+>)*[^<\s][\s\S]*?<\/button>/i.test(button);
       assert.ok(named, page + ' contains an unnamed button: ' + button.slice(0, 120));
     }
   }

@@ -40,7 +40,6 @@ ruff format --check scripts
 
 MIT
 
-
 ## Browser and accessibility tests
 
 The website validation workflow runs a browser smoke suite against a local HTTP
