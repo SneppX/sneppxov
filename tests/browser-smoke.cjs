@@ -74,11 +74,14 @@ async function checkAccessibility(page, route) {
 
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto(baseURL + '/index.html', { waitUntil: 'networkidle' });
-    const menu = page.getByRole('button', { name: 'Open navigation menu' });
+    const menu = page.locator('#hamburger');
+    assert.equal(await menu.getAttribute('aria-label'), 'Open navigation menu');
     await menu.click();
     assert.equal(await menu.getAttribute('aria-expanded'), 'true');
+    assert.equal(await menu.getAttribute('aria-label'), 'Close navigation menu');
     await page.keyboard.press('Escape');
-    assert.equal(await page.locator('#hamburger').getAttribute('aria-expanded'), 'false');
+    assert.equal(await menu.getAttribute('aria-expanded'), 'false');
+    assert.equal(await menu.getAttribute('aria-label'), 'Open navigation menu');
 
     await page.setViewportSize({ width: 1280, height: 900 });
     for (const route of [
