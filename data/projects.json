@@ -33,12 +33,16 @@
     "id": "vstodo",
     "name": "VSTodo",
     "category": "Developer tools",
-    "description": "An independently implemented version-control system in Go with Git-compatible object formats, GitHub smart-HTTP transport, and a non-destructive adoption path for supported existing Git repositories.",
+    "description": "An independently implemented version-control system in Go with Git-compatible object formats, GitHub smart-HTTP transport, and explicit fast-forward reconciliation for supported existing Git repositories.",
     "repository": "https://github.com/SneppX/vstodo",
     "references": [
       {
         "label": "Git adoption and migration guide",
         "url": "vstodo.html"
+      },
+      {
+        "label": "Architecture overview",
+        "url": "vstodo-architecture.html"
       },
       {
         "label": "VSTodo README",
@@ -49,7 +53,7 @@
         "url": "https://github.com/SneppX/vstodo/blob/main/docs/COMMANDS.md"
       },
       {
-        "label": "Architecture",
+        "label": "Upstream architecture reference",
         "url": "https://github.com/SneppX/vstodo/blob/main/docs/ARCHITECTURE.md"
       }
     ]
