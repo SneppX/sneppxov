@@ -101,7 +101,7 @@ test('VSTodo adoption guide documents the verified non-destructive workflow', ()
   assert.ok(html.includes('.git/index'));
   assert.ok(html.includes('vstodo export-git'));
   assert.ok(html.includes('VSTODO_GITHUB_TOKEN'));
-  assert.ok(html.includes('not automatic two-way synchronization'));
+  assert.ok(html.replace(/\s+/g, ' ').includes('not automatic two-way synchronization'));
   assert.ok(html.includes('Linked worktrees'));
   assert.ok(vstodo.references.some(ref => ref.url === 'vstodo.html'));
   assert.ok(read('index.html').includes('vstodo.html'));
