@@ -111,6 +111,6 @@ test('VSTodo adoption guide documents the verified non-destructive workflow', ()
 test('VSTodo adoption guide is indexed, cached offline, and included in the sitemap', () => {
   assert.ok(read('js/site.js').includes("['VSTodo Git adoption and migration', 'vstodo.html']"));
   assert.ok(read('sw.js').includes("'vstodo.html'"));
-  assert.ok(read('sw.js').includes("sneppxov-v9"));
+  assert.ok(read('sw.js').includes('sneppxov-v9'));
   assert.ok(read('sitemap.xml').includes('https://sneppx.github.io/sneppxov/vstodo.html'));
 });

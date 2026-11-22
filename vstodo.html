@@ -3,7 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="description" content="Adopt an existing Git repository with VSTodo while preserving Git metadata, history, remotes, and working files." />
+    <meta
+      name="description"
+      content="Adopt an existing Git repository with VSTodo while preserving Git metadata, history, remotes, and working files."
+    />
     <meta name="theme-color" content="#5146c8" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="style.css" />
@@ -12,7 +15,10 @@
     <title>Adopt Git repositories with VSTodo | SneppX</title>
     <meta property="og:site_name" content="SneppX" />
     <meta property="og:title" content="Adopt Git repositories with VSTodo" />
-    <meta property="og:description" content="A non-destructive way to start using VSTodo alongside a supported existing Git repository." />
+    <meta
+      property="og:description"
+      content="A non-destructive way to start using VSTodo alongside a supported existing Git repository."
+    />
     <meta property="og:url" content="https://sneppx.github.io/sneppxov/vstodo.html" />
     <meta name="twitter:card" content="summary" />
     <link rel="manifest" href="manifest.json" />
@@ -22,11 +28,24 @@
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href="index.html"><span class="brand-mark">S</span>SneppX</a
-        ><button class="hamburger" id="hamburger" type="button" aria-label="Open navigation menu" aria-controls="siteNav" aria-expanded="false"><span></span><span></span><span></span></button>
+        ><button
+          class="hamburger"
+          id="hamburger"
+          type="button"
+          aria-label="Open navigation menu"
+          aria-controls="siteNav"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
         <nav class="site-nav" id="siteNav" aria-label="Main navigation">
-          <a href="index.html">Home</a><a href="about.html">About</a><a href="projects.html">Projects</a><a href="developers.html">Developers</a><a href="community.html">Community</a><a href="updates.html">Updates</a>
+          <a href="index.html">Home</a><a href="about.html">About</a
+          ><a href="projects.html">Projects</a><a href="developers.html">Developers</a
+          ><a href="community.html">Community</a><a href="updates.html">Updates</a>
         </nav>
-        <button class="command-trigger" id="commandTrigger" type="button">Search <kbd>Ctrl K</kbd></button>
+        <button class="command-trigger" id="commandTrigger" type="button">
+          Search <kbd>Ctrl K</kbd>
+        </button>
         <button class="theme-toggle" id="themeToggle" type="button">Theme: System</button>
       </div>
     </header>
@@ -35,9 +54,20 @@
         <div class="container narrow">
           <p class="eyebrow">VSTODO · GIT INTEROPERABILITY</p>
           <h1>Try VSTodo without throwing away your Git repository.</h1>
-          <p class="lede">You do not need to delete <code>.git</code>, clone everything again, or abandon your existing GitHub remote to explore VSTodo. Run <code>vstodo adopt</code> to create a separate <code>.vstodo/</code> repository beside Git and import supported repository data.</p>
+          <p class="lede">
+            You do not need to delete <code>.git</code>, clone everything again, or abandon your
+            existing GitHub remote to explore VSTodo. Run <code>vstodo adopt</code> to create a
+            separate <code>.vstodo/</code> repository beside Git and import supported repository
+            data.
+          </p>
           <div class="actions">
-            <a class="button button-primary" href="https://github.com/SneppX/vstodo" target="_blank" rel="noopener noreferrer">Open VSTodo source ↗</a>
+            <a
+              class="button button-primary"
+              href="https://github.com/SneppX/vstodo"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Open VSTodo source ↗</a
+            >
             <a class="button button-secondary" href="#adopt">Read the adoption steps</a>
           </div>
         </div>
@@ -47,8 +77,18 @@
           <div class="migration-panel">
             <p class="eyebrow">THE SAFETY MODEL</p>
             <h2>Git stays in place.</h2>
-            <p>VSTodo stores its own metadata in <code>.vstodo/</code>. During adoption, it reads the existing Git object database and refs, preserves copies of <code>.git/config</code> and <code>.git/index</code> under <code>.vstodo/migration/</code>, and adds a local exclude rule so Git does not report VSTodo's metadata as untracked.</p>
-            <p>The original Git objects, refs, config, index, remotes, and working files are not rewritten by adoption. Existing Git commands remain available while you evaluate VSTodo.</p>
+            <p>
+              VSTodo stores its own metadata in <code>.vstodo/</code>. During adoption, it reads the
+              existing Git object database and refs, preserves copies of
+              <code>.git/config</code> and <code>.git/index</code> under
+              <code>.vstodo/migration/</code>, and adds a local exclude rule so Git does not report
+              VSTodo's metadata as untracked.
+            </p>
+            <p>
+              The original Git objects, refs, config, index, remotes, and working files are not
+              rewritten by adoption. Existing Git commands remain available while you evaluate
+              VSTodo.
+            </p>
           </div>
         </div>
       </section>
@@ -57,16 +97,53 @@
           <p class="eyebrow">GET STARTED</p>
           <h2>Adopt an existing working tree</h2>
           <ol class="migration-steps">
-            <li><h3>Start in the root of your existing Git repository</h3><p>Make sure important work is recoverable. VSTodo currently accepts standard <code>.git</code> directories using SHA-1 object IDs.</p></li>
-            <li><h3>Run the adoption command</h3><pre class="migration-code"><code>vstodo adopt</code></pre><p>VSTodo imports loose and packed Git objects, branches, tags, remote-tracking refs, HEAD, remote URLs and fetch settings, upstream settings, and local user identity.</p></li>
-            <li><h3>Inspect the imported repository</h3><pre class="migration-code"><code>vstodo status
+            <li>
+              <h3>Start in the root of your existing Git repository</h3>
+              <p>
+                Make sure important work is recoverable. VSTodo currently accepts standard
+                <code>.git</code> directories using SHA-1 object IDs.
+              </p>
+            </li>
+            <li>
+              <h3>Run the adoption command</h3>
+              <pre class="migration-code"><code>vstodo adopt</code></pre>
+              <p>
+                VSTodo imports loose and packed Git objects, branches, tags, remote-tracking refs,
+                HEAD, remote URLs and fetch settings, upstream settings, and local user identity.
+              </p>
+            </li>
+            <li>
+              <h3>Inspect the imported repository</h3>
+              <pre class="migration-code"><code>vstodo status
 vstodo log
 vstodo remote -v
-vstodo fsck</code></pre><p>Check the branch, history, remotes, and object integrity before creating VSTodo commits. Existing Git staged changes are preserved in the saved Git index snapshot, but are not automatically staged in VSTodo.</p></li>
-            <li><h3>Use VSTodo for new local work</h3><pre class="migration-code"><code>vstodo add README.md
-vstodo commit -m "Update documentation"</code></pre><p>VSTodo writes its own objects and refs under <code>.vstodo/</code>. Adoption does not remove or rename your Git repository.</p></li>
-            <li><h3>Connect to the existing remote when you choose</h3><pre class="migration-code"><code>vstodo fetch origin
-vstodo push origin main</code></pre><p>Existing HTTP(S) remote settings are imported. GitHub authentication can be supplied through <code>VSTODO_GITHUB_TOKEN</code> or <code>GITHUB_TOKEN</code>. Push is fast-forward-only; force pushes, tag pushes, and multi-ref pushes are not currently supported. Inspect local and remote history before publishing.</p></li>
+vstodo fsck</code></pre>
+              <p>
+                Check the branch, history, remotes, and object integrity before creating VSTodo
+                commits. Existing Git staged changes are preserved in the saved Git index snapshot,
+                but are not automatically staged in VSTodo.
+              </p>
+            </li>
+            <li>
+              <h3>Use VSTodo for new local work</h3>
+              <pre class="migration-code"><code>vstodo add README.md
+vstodo commit -m "Update documentation"</code></pre>
+              <p>
+                VSTodo writes its own objects and refs under <code>.vstodo/</code>. Adoption does
+                not remove or rename your Git repository.
+              </p>
+            </li>
+            <li>
+              <h3>Connect to the existing remote when you choose</h3>
+              <pre class="migration-code"><code>vstodo fetch origin
+vstodo push origin main</code></pre>
+              <p>
+                Existing HTTP(S) remote settings are imported. GitHub authentication can be supplied
+                through <code>VSTODO_GITHUB_TOKEN</code> or <code>GITHUB_TOKEN</code>. Push is
+                fast-forward-only; force pushes, tag pushes, and multi-ref pushes are not currently
+                supported. Inspect local and remote history before publishing.
+              </p>
+            </li>
           </ol>
         </div>
       </section>
@@ -74,10 +151,24 @@ vstodo push origin main</code></pre><p>Existing HTTP(S) remote settings are impo
         <div class="container narrow">
           <p class="eyebrow">MOVE CHANGES BACK TO GIT</p>
           <h2>Keep a clear path back</h2>
-          <p>To place VSTodo-created commits into the currently checked-out Git branch, run this explicit export command from the adopted working tree:</p>
+          <p>
+            To place VSTodo-created commits into the currently checked-out Git branch, run this
+            explicit export command from the adopted working tree:
+          </p>
           <pre class="migration-code"><code>vstodo export-git</code></pre>
-          <p>Export writes missing Git-compatible objects and advances the matching Git branch using a lock-file compare-and-swap update. It refuses detached Git HEAD, branch mismatches, locked refs, corrupt objects, and non-fast-forward history. It does not modify the Git index, config, working files, remotes, or remote history. Use ordinary <code>git push</code> when you decide to publish the exported commits.</p>
-          <div class="migration-panel"><strong>Important:</strong> This is an explicit export, not automatic two-way synchronization. Git-side commits made after adoption are not automatically watched or reconciled into VSTodo. Do not switch back and forth by editing the same branch in both tools without checking their histories.</div>
+          <p>
+            Export writes missing Git-compatible objects and advances the matching Git branch using
+            a lock-file compare-and-swap update. It refuses detached Git HEAD, branch mismatches,
+            locked refs, corrupt objects, and non-fast-forward history. It does not modify the Git
+            index, config, working files, remotes, or remote history. Use ordinary
+            <code>git push</code> when you decide to publish the exported commits.
+          </p>
+          <div class="migration-panel">
+            <strong>Important:</strong> This is an explicit export, not automatic two-way
+            synchronization. Git-side commits made after adoption are not automatically watched or
+            reconciled into VSTodo. Do not switch back and forth by editing the same branch in both
+            tools without checking their histories.
+          </div>
         </div>
       </section>
       <section class="section-block section-muted">
@@ -85,17 +176,50 @@ vstodo push origin main</code></pre><p>Existing HTTP(S) remote settings are impo
           <p class="eyebrow">CURRENT LIMITS</p>
           <h2>Know what adoption supports today</h2>
           <ul class="migration-limits">
-            <li>Standard Git working trees with a <code>.git</code> directory and SHA-1 object IDs.</li>
-            <li>Linked worktrees, submodules, SHA-256 repositories, and object alternates are rejected safely.</li>
-            <li>HTTP and HTTPS remotes are supported by VSTodo transport. SSH settings can be preserved, but VSTodo cannot use SSH transport yet.</li>
-            <li>Existing staged changes are backed up with the Git index snapshot; they are not imported as VSTodo staged changes.</li>
-            <li>Remote push currently supports one fast-forward-only branch update; force, tag, and multi-ref pushes are not supported.</li>
+            <li>
+              Standard Git working trees with a <code>.git</code> directory and SHA-1 object IDs.
+            </li>
+            <li>
+              Linked worktrees, submodules, SHA-256 repositories, and object alternates are rejected
+              safely.
+            </li>
+            <li>
+              HTTP and HTTPS remotes are supported by VSTodo transport. SSH settings can be
+              preserved, but VSTodo cannot use SSH transport yet.
+            </li>
+            <li>
+              Existing staged changes are backed up with the Git index snapshot; they are not
+              imported as VSTodo staged changes.
+            </li>
+            <li>
+              Remote push currently supports one fast-forward-only branch update; force, tag, and
+              multi-ref pushes are not supported.
+            </li>
           </ul>
-          <p>These are implementation limits, not promises of complete Git compatibility. Check the VSTodo README and command reference for the current state before using it on important repositories.</p>
+          <p>
+            These are implementation limits, not promises of complete Git compatibility. Check the
+            VSTodo README and command reference for the current state before using it on important
+            repositories.
+          </p>
           <div class="card-links">
-            <a href="https://github.com/SneppX/vstodo/blob/main/README.md" target="_blank" rel="noopener noreferrer">VSTodo README ↗</a>
-            <a href="https://github.com/SneppX/vstodo/blob/main/docs/COMMANDS.md" target="_blank" rel="noopener noreferrer">Command reference ↗</a>
-            <a href="https://github.com/SneppX/vstodo/issues" target="_blank" rel="noopener noreferrer">Report an issue ↗</a>
+            <a
+              href="https://github.com/SneppX/vstodo/blob/main/README.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              >VSTodo README ↗</a
+            >
+            <a
+              href="https://github.com/SneppX/vstodo/blob/main/docs/COMMANDS.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Command reference ↗</a
+            >
+            <a
+              href="https://github.com/SneppX/vstodo/issues"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Report an issue ↗</a
+            >
           </div>
         </div>
       </section>
@@ -103,7 +227,14 @@ vstodo push origin main</code></pre><p>Existing HTTP(S) remote settings are impo
     <footer class="site-footer">
       <div class="container footer-inner">
         <a class="footer-brand" href="index.html">SneppX</a>
-        <div class="footer-links"><a href="about.html">About</a><a href="projects.html">Projects</a><a href="developers.html">Developers</a><a href="community.html">Community</a><a href="updates.html">Updates</a><a href="https://github.com/SneppX" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
+        <div class="footer-links">
+          <a href="about.html">About</a><a href="projects.html">Projects</a
+          ><a href="developers.html">Developers</a><a href="community.html">Community</a
+          ><a href="updates.html">Updates</a
+          ><a href="https://github.com/SneppX" target="_blank" rel="noopener noreferrer"
+            >GitHub ↗</a
+          >
+        </div>
         <small>© 2026 SneppX</small>
       </div>
     </footer>
